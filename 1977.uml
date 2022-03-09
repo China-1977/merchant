@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.account</OriginalElement>
+  <nodes>
+    <node x="349.5105008077537" y="76.43457189014543">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.store</node>
+    <node x="759.2657512116308" y="375.43457189014543">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.resource_customer</node>
+    <node x="-630.7552504038775" y="720.4345718901454">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.prefer</node>
+    <node x="17.75525040387663" y="76.4345718901454">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.score</node>
+    <node x="-630.7552504038775" y="76.4345718901454">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.account</node>
+    <node x="449.5105008077537" y="697.4345718901454">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.member</node>
+    <node x="1048.0210016155079" y="697.4345718901454">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.mapping</node>
+    <node x="-630.7552504038775" y="398.43457189014543">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.cart</node>
+    <node x="942.0210016155079" y="76.4345718901454">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.customer</node>
+    <node x="-258.00000000000045" y="76.4345718901454">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.product</node>
+    <node x="-258.00000000000045" y="582.4345718901454">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.address</node>
+    <node x="709.2657512116308" y="145.4345718901454">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.store_customer</node>
+    <node x="1048.0210016155079" y="352.43457189014543">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.resource</node>
+    <node x="758.2657512116308" y="743.4345718901454">fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.mapping_member</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="327.0" y="484.0" />
+  <SelectedNodes>
+    <node>fc4b47b9-a3e7-4feb-8323-5acebf8390f2.TABLE:merchant.develop.mapping_member</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+  </Categories>
+</Diagram>
+

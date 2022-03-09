@@ -1,0 +1,64 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/login",
+        "pages/search/search",
+        "pages/user/user",
+        "pages/user/prefer",
+        "pages/score/list",
+        "pages/score/detail",
+        "pages/store/list",
+        "pages/store/detail",
+        "pages/address/list",
+        "pages/address/detail",
+        "pages/cart/product",
+        "pages/cart/store",
+        "pages/cart/confirm",
+        "pages/product/detail",
+        "pages/product/list"
+    ],
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "一九七七",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "selectedColor": "#1296db",
+        "borderStyle": "white",
+        "backgroundColor": "#fff",
+        "list": [
+            {
+                "text": "首页",
+                "pagePath": "pages/index/index",
+                "iconPath": "/images/index0.png",
+                "selectedIconPath": "/images/index1.png"
+            },
+            {
+                "text": "购物车",
+                "pagePath": "pages/cart/store",
+                "iconPath": "/images/cart0.png",
+                "selectedIconPath": "/images/cart1.png"
+            },
+            {
+                "text": "我的",
+                "pagePath": "pages/user/user",
+                "iconPath": "/images/mine0.png",
+                "selectedIconPath": "/images/mine1.png"
+            }
+        ]
+    },
+    "permission": {
+        "scope.userLocation": {
+            "desc": "你的位置信息将用于小程序位置接口的效果展示"
+        }
+    },
+    "plugins": {
+        "player": {
+            "version": "2.0.9",
+            "provider": "wxa75efa648b60994b"
+         }
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json"
+}

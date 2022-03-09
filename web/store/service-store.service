@@ -1,0 +1,9 @@
+[Unit]
+Description=service-store
+
+[Service]
+ExecStart=/usr/bin/java -jar /home/resources/store/service-store-0.0.1-SNAPSHOT.jar --server.port=8020 --spring.profiles.active=formal
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,73 @@
+<form bindsubmit="createScore">
+	<view class="weui-cells__title">门店-{{store.shortname}}</view>
+	<view class="weui-panel weui-cells weui-cells_after-title" url='/pages/address/list'>
+		<view class="weui-cell weui-cell_access">
+			<view class="weui-cell__bd weui-cell_primary">
+				<input type="number" hidden="true" name="storeId" value="{{store.id}}" />
+				<view class='weui-media-box__desc'>{{store.addressName}}</view>
+				<view class='weui-media-box__title'>{{store.username}} {{store.phone}}</view>
+				<view class='weui-media-box__desc'>{{store.addressDetail}}</view>
+			</view>
+		</view>
+	</view>
+
+	<view class="weui-flex weui-cells__title">配送方式</view>
+	<view class="weui-cells weui-cells_after-title">
+		<radio-group class="weui-cell weui-flex" bindchange="changeAddress" name="delivery">
+			<view class="weui-flex__item">
+				<radio value="false">等待配送</radio>
+			</view>
+			<view class="weui-flex__item">
+				<radio value="true">门店自取(<text class="weui-cell_warn">推荐</text>)</radio>
+			</view>
+		</radio-group>
+	</view>
+
+	<view class="weui-cells__title">联系方式(<text class="weui-cell_warn">备用</text>)</view>
+	<view class="weui-panel weui-cells weui-cells_after-title">
+		<view class="weui-cell weui-cell_access">
+			<navigator class="weui-cell__bd weui-cell_primary weui-cell__ft_in-access" style="min-height:2rem" hover-class="weui-cell_active" url='/pages/address/list'>
+				<view class='weui-media-box__desc'>{{address.name}}</view>
+				<view class='weui-media-box__title'>{{address.username}} {{address.phone}}</view>
+				<view class='weui-media-box__desc'>{{address.detail}}</view>
+			</navigator>
+		</view>
+	</view>
+
+	<view class="weui-flex weui-cells__title">合计(<text class="weui-cell_warn">{{store.shortname}}</text>)</view>
+	<view class="weui-cells weui-cells_after-title">
+		<view class="weui-cell">
+			<view class="weui-cell__hd">订单总额</view>
+			<view class="weui-cell__bd"></view>
+			<view class="weui-cell__ft"><text class="weui-cell_warn">{{sum}}</text>元</view>
+		</view>
+	</view>
+
+	<view class="weui-cells__title ">购物清单</view>
+	<view class="weui-cells weui-cells_after-title">
+		<checkbox-group name='cart'>
+			<view wx:for="{{products}}" wx:for-item='item' wx:key="index" wx:if="{{item.cart.checked}}" class="weui-cell">
+				<checkbox value="{{item.cart.productId}}:{{item.cart.num}}" checked="{{item.cart.checked}}" hidden="true" />
+				<view class="weui-cell__hd">
+					<view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+						<view class="weui-media-box__thumb">
+							<view class="weui-badge">{{item.cart.num}}</view>
+							<image mode="aspectFit" class="weui-media-box__thumb" src="{{domain}}/{{item.product.pictures[0]}}" />
+						</view>
+					</view>
+				</view>
+				<view class="weui-cell__bd">
+					<view class="weui-media-box__title">{{item.product.name}} </view>
+					<view class="weui-media-box__desc">单价:{{item.product.average}}{{item.product.averageUnit}} × {{item.product.cart.num}}
+						<label class='status'>小计{{item.cart.total}}元</label>
+					</view>
+				</view>
+			</view>
+		</checkbox-group>
+	</view>
+	<view style="min-height:180rpx"></view>
+
+	<view class="weui-flex weui-footer_fixed-bottom">
+		<button class="weui-flex__item" type="primary" form-type="submit" bindtap="saveScore">微信支付</button>
+	</view>
+</form>

@@ -1,0 +1,27 @@
+<view class="weui-cells__title ">
+	<picker mode="date" fields="year" id="year" bindchange="bindDateChange">
+		<view class="picker">
+			订单列表- {{year}} 年 >
+		</view>
+	</picker>
+</view>
+<view class="weui-panel">
+	<navigator wx:for="{{scores}}" wx:for-item='score' wx:key="index" url='/pages/score/detail?index={{index}}&id={{score.id}}' class="weui-media-box">
+		<view class=" weui-media-box_appmsg">
+			<swiper class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+				<swiper-item wx:for="{{score.products}}" wx:for-item='product' wx:key="index" class="weui-media-box__thumb">
+					<view class="weui-badge">{{product.num}}</view>
+					<image mode="aspectFit" class="weui-media-box__thumb" src="{{domain}}/{{product.picture}}" />
+				</swiper-item>
+			</swiper>
+			<view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+				<view class="weui-media-box__desc">{{score.storeShortname}}
+					<label class='status status-{{score.status}}'>{{scoreStatus[score.status]}}</label>
+				</view>
+				<view class="weui-media-box__title">{{score.username}} {{score.phone}}</view>
+				<view class="weui-media-box__desc">{{score.addressDetail}}</view>
+				<view class="weui-media-box__desc">{{score.updateTime}}</view>
+			</view>
+		</view>
+	</navigator>
+</view>

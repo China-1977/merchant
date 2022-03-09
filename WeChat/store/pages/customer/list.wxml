@@ -1,0 +1,31 @@
+<view class="weui-panel">
+    <form bindsubmit="inviteCustomer">
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell ">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">成员邀请</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" name="phone" placeholder="请输入手机号" maxlength="11" />
+                </view>
+                <icon class="weui-cell__ft">
+                    <button size="mini" style="font-size:28rpx" type="primary" form-type="submit">确定</button>
+                </icon>
+            </view>
+        </view>
+    </form>
+
+    <view class="weui-cells weui-cells_after-title">
+        <block wx:for="{{customers}}" wx:for-item='customer' wx:key='index'>
+            <mp-slideview buttons="{{slideButtons}}" id="{{index}}" show="{{index==currentID}}" bindshow="bindShow" bindbuttontap="bindButtonTap">
+                <view class="weui-cell">
+                    <view class="weui-cell__hd">
+                        <button type="primary" size="mini" style="font-size:17rpx;" data-phone=" {{customer.phone}}" bindtap="makePhoneCall">呼叫</button>
+                    </view>
+                    <view class="weui-cell__bd">{{customer.phone}}</view>
+                    <view class="weui-cell__ft"><button type="primary" size="mini" style="font-size:17rpx;" data-phone=" {{customer.phone}}" bindtap="clipBoard">复制</button></view>
+                </view>
+            </mp-slideview>
+        </block>
+    </view>
+</view>

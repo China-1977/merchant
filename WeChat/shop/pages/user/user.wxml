@@ -1,0 +1,26 @@
+<official-account></official-account>
+<view class="weui-cells">
+	<navigator class="weui-cell" hover-class="weui-cell_active" url="/pages/score/list">
+		<image mode="aspectFit" src="/images/scores.png" style="height:1em;width:1em" />
+		<view class="weui-cell__bd">我的订单</view>
+		<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+	</navigator>
+
+	<navigator class="weui-cell" hover-class="weui-cell_active" url="/pages/address/list">
+		<image mode="aspectFit" src="/images/position.png" style="height:1em;width:1em" />
+		<view class="weui-cell__bd">收货地址</view>
+		<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+	</navigator>
+
+	
+	<navigator class="weui-cell" hover-class="weui-cell_active" url="/pages/user/prefer">
+		<image mode="aspectFit" src="/images/logo2.png" style="height:1em;width:1em" />
+		<view class="weui-cell__bd">我的收藏</view>
+		<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+	</navigator>
+</view>
+
+<view class="weui-footer weui-footer_fixed-bottom">
+	<button class="weui-footer__text" open-type="contact">联系客服</button>
+	<view class="weui-footer__text">微信公众号：茌平壹玖柒柒软件有限公司</view>
+</view>

@@ -1,0 +1,48 @@
+def GetRemoteServer(ip){
+    def remote = [:]
+    remote.name = ip
+    remote.host = ip
+    remote.port = 22
+    remote.allowAnyHosts = true
+    withCredentials([usernamePassword(credentialsId: ip, passwordVariable: 'password', usernameVariable: 'userName')]) {
+        remote.user = "${userName}"
+        remote.password = "${password}"
+    }
+    return remote
+}
+
+pipeline {
+    agent any
+    stages {
+        stage("install") {
+            steps {
+                bat 'mvn clean install -DskipTests'
+            }
+        }
+
+        stage("service restart") {
+            steps {
+                script {
+                     server = GetRemoteServer('49.232.165.242')
+                     sshPut remote: server, from: 'web/shop/service-shop.service', into: '/etc/systemd/system'
+                     sshCommand remote: server, command: 'mkdir -p /home/resources/shop'
+                     sshPut remote: server, from: 'web/shop/target/service-shop-0.0.1-SNAPSHOT.jar', into: '/home/resources/shop'
+                     sshCommand remote: server, command: 'systemctl daemon-reload'
+                     sshCommand remote: server, command: 'systemctl restart service-shop.service'
+                }
+            }
+        }
+
+        stage("nginx reload") {
+            steps {
+                script {
+                     server = GetRemoteServer('49.232.165.242')
+                     sshCommand remote: server, command: 'mkdir -p /home/resources/nginx/443'
+                     sshPut remote: server, from: 'web/shop/service-shop.conf', into: '/home/resources/nginx/443'
+                     sshPut remote: server, from: 'web/shop/upstream-shop.conf', into: '/home/resources/nginx/upstream'
+                     sshCommand remote: server, command: '/usr/local/nginx/sbin/nginx -s reload'
+                }
+            }
+        }
+    }
+}

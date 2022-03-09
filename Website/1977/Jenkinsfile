@@ -1,0 +1,34 @@
+def GetRemoteServer(ip){
+    def remote = [:]
+    remote.name = ip
+    remote.host = ip
+    remote.port = 22
+    remote.allowAnyHosts = true
+    withCredentials([usernamePassword(credentialsId: ip, passwordVariable: 'password', usernameVariable: 'userName')]) {
+        remote.user = "${userName}"
+        remote.password = "${password}"
+    }
+    return remote
+}
+
+
+pipeline {
+    agent any
+    stages {
+        stage("install") {
+            steps {
+                bat 'cd Website/1977 && yarn install && yarn dumi build'
+            }
+        }
+
+        stage("upload dist") {
+            steps {
+                script {
+                     server = GetRemoteServer('49.232.165.242')
+                     sshCommand remote: server, command: 'mkdir -p /home/resources/1977'
+                     sshPut remote: server, from: 'Website/1977/dist', into: '/home/resources/1977'
+                }
+            }
+        }
+    }
+}

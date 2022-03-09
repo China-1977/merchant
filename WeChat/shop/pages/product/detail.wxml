@@ -1,0 +1,49 @@
+<swiper style="height:{{windowWidth}}px;">
+	<swiper-item>
+		<txv wx:if="{{product.vid}}" vid="{{product.vid}}" autoplay="{{false}}"/>
+	</swiper-item>
+	<swiper-item wx:for="{{product.pictures}}" wx:for-item='picture' wx:key="index">
+		<image mode="aspectFit" src="{{domain}}/{{picture}}" class="weui-media-box__thumb" />
+	</swiper-item>
+</swiper>
+<view class="weui-panel weui-media-box">
+
+	<view class="weui-flex">
+		<switch type="checkbox" checked="{{prefer.id}}" bindchange="switch2Change" /><text class="weui-cell_warn">喜欢</text>
+		<view class="weui-flex__item weui-cell__ft">
+			<button type="default" size="mini" bindtap="subtractCount" disabled="{{cart.num<=0}}">减</button>
+			<button type="default" size="mini" disabled="true"><text class="weui-cell_warn">{{cart.num}}</text></button>
+			<button type="default" size="mini" bindtap="addCount">加</button>
+		</view>
+	</view>
+	<view class=" weui-media-box_appmsg">
+		<view class="weui-media-box__bd">
+			<view class="weui-flex">
+				<view class="weui-media-box__title">{{product.name}}</view>
+			</view>
+			<view class="weui-media-box__desc">
+				单价:<label class="weui-cell_warn">¥{{product.average}}{{product.averageUnit}}</label>
+			</view>
+			<view class="weui-media-box__desc">{{product.description}}</view>
+		</view>
+	</view>
+
+</view>
+<view style="height:230rpx">
+
+</view>
+
+<view class="weui-cells weui-flex  weui-footer weui-footer_fixed-bottom">
+	<view class='weui-flex__item weui-cell'>
+		<navigator class="weui-cell__hd" url='/pages/index/index' open-type="reLaunch">
+			<image src="/images/index1.png" style="height:2em;width:2em;"></image>
+		</navigator>
+		<navigator class="weui-cell__bd" url='/pages/cart/product?storeId={{product.storeId}}'>
+			<image src="/images/cart1.png" style="height:2em;width:2em;"></image>
+		</navigator>
+	</view>
+
+	<view class="weui-cell">
+		<button type="primary" size="mini" bindtap="addCount">加入购物车(<text class="weui-cell_warn">{{cart.num}}</text>)</button>
+	</view>
+</view>

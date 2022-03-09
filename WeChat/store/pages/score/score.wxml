@@ -1,0 +1,76 @@
+<view class="weui-cells__title">订单管理</view>
+<view class="weui-panel">
+	<view class="weui-cells weui-cells_after-title">
+		<navigator class="weui-cell" url='/pages/score/list?status=WAIT_PAY'>
+			<view class="weui-cell__hd">
+				<image src="/images/watting-pay.png" style="height:1em;width:1em;margin-right: 16px;" />
+			</view>
+			<view class="weui-cell__bd">待支付</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+		</navigator>
+		<navigator class="weui-cell" url='/pages/score/list?status=WAIT_PACKAGE'>
+			<view class="weui-cell__hd">
+				<image mode="aspectFit" src="/images/watting-package.png" style="height:1em;width:1em;margin-right: 16px;" />
+			</view>
+			<view class="weui-cell__bd">待配货</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+		</navigator>
+		<navigator class="weui-cell" url='/pages/score/list?status=WAIT_DELIVER'>
+			<view class="weui-cell__hd">
+				<image mode="aspectFit" src="/images/watting-deliver.png" style="height:1em;width:1em;margin-right: 16px;" />
+			</view>
+			<view class="weui-cell__bd">待配送</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+		</navigator>
+		<navigator class="weui-cell" url='/pages/score/list?status=WAIT_SIGN'>
+			<view class="weui-cell__hd">
+				<image mode="aspectFit" src="/images/watting-sign.png" style="height:1em;width:1em;margin-right: 16px;" />
+			</view>
+			<view class="weui-cell__bd">待签收</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+		</navigator>
+		<navigator class="weui-cell" url='/pages/score/list?status=WAIT_TAKE'>
+			<view class="weui-cell__hd">
+				<image mode="aspectFit" src="/images/watting-sign.png" style="height:1em;width:1em;margin-right: 16px;" />
+			</view>
+			<view class="weui-cell__bd">待取货</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+		</navigator>
+		<navigator class="weui-cell" url='/pages/score/list?status=FINISH'>
+			<view class="weui-cell__hd">
+				<image mode="aspectFit" src="/images/finish.png" style="height:1em;width:1em;margin-right: 16px;" />
+			</view>
+			<view class="weui-cell__bd">已完成</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+		</navigator>
+		<navigator class="weui-cell" url='/pages/score/list?status=REFUND_SCCESS'>
+			<view class="weui-cell__hd">
+				<image mode="aspectFit" src="/images/finish.png" style="height:1em;width:1em;margin-right: 16px;" />
+			</view>
+			<view class="weui-cell__bd">退款成功</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+		</navigator>
+		<navigator class="weui-cell" url='/pages/score/list?status=REFUND_CLOSED'>
+			<view class="weui-cell__hd">
+				<image mode="aspectFit" src="/images/finish.png" style="height:1em;width:1em;margin-right: 16px;" />
+			</view>
+			<view class="weui-cell__bd">退款关闭</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+		</navigator>
+		<navigator class="weui-cell" url='/pages/score/list?status=REFUND_PROCESSING'>
+			<view class="weui-cell__hd">
+				<image mode="aspectFit" src="/images/finish.png" style="height:1em;width:1em;margin-right: 16px;" />
+			</view>
+			<view class="weui-cell__bd">退款处理中</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+		</navigator>
+
+		<navigator class="weui-cell" url='/pages/score/list?status=WAIT_PAY,WAIT_PACKAGE,WAIT_DELIVER,WAIT_SIGN,WAIT_TAKE,FINISH,REFUND_SCCESS,REFUND_CLOSED,REFUND_PROCESSING,REFUND_ABNORMAL'>
+			<view class="weui-cell__hd">
+				<image mode="aspectFit" src="/images/finish.png" style="height:1em;width:1em;margin-right: 16px;" />
+			</view>
+			<view class="weui-cell__bd">所有订单</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+		</navigator>
+	</view>
+</view>

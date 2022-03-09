@@ -1,0 +1,37 @@
+<view class="weui-cells weui-cells_after-title">
+	<view class="weui-cell">
+		<view class="weui-cell__hd">
+			搜索：
+		</view>
+		<view class="weui-cell__bd">
+			<input class="weui-input" name="keyword" value="{{keyword}}" bindinput="inputChange" placeholder="姓名、手机号、订单编号" />
+		</view>
+		<icon class="weui-cell__ft">
+			<button size="mini" style="font-size:28rpx" bindtap="searchScore" type="primary">确定</button>
+		</icon>
+	</view>
+</view>
+<view class="weui-cells__title ">
+	<picker mode="date" fields="year" id="year" bindchange="bindDateChange">
+		<view class="picker">
+			{{scoreStatus[status]?scoreStatus[status]:'全部订单'}}- {{year}} 年 >
+		</view>
+	</picker>
+</view>
+<view class="weui-panel">
+	<navigator wx:for="{{scores}}" wx:for-item='score' wx:key="index" url='/pages/score/detail?index=${{index}}&id={{score.id}}' class="weui-media-box">
+		<view class=" weui-media-box_appmsg">
+			<swiper class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+				<swiper-item wx:for="{{score.products}}" wx:for-item='product' wx:key="index" class="weui-media-box__thumb">
+					<view class="weui-badge">{{product.num}}</view>
+					<image mode="aspectFit" class="weui-media-box__thumb" src="{{domain}}/{{product.picture}}" />
+				</swiper-item>
+			</swiper>
+			<view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+				<view class="weui-media-box__title">{{score.username}} {{score.phone}}</view>
+				<view class="weui-media-box__desc">{{score.addressDetail}}</view>
+				<view class="weui-media-box__desc">{{score.insertTime}} {{scoreStatus[score.status]}} <label class='fr'>{{score.total}}元</label></view>
+			</view>
+		</view>
+	</navigator>
+</view>

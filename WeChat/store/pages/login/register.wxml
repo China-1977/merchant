@@ -1,0 +1,94 @@
+<form bindsubmit="createStore">
+
+	<view class="weui-cells__title">编辑商户信息</view>
+	<view class="weui-cells weui-cells_after-title">
+		<view class="weui-cell ">
+			<view class="weui-cell__hd">
+				<view class="weui-label">简称</view>
+			</view>
+			<view class="weui-cell__bd">
+				<input class="weui-input" name="shortname" value="{{shortname}}" placeholder="请输入名称" maxlength="12" />
+			</view>
+		</view>
+		<view class="weui-cell ">
+			<view class="weui-cell__bd">
+				统一社会信用代码：<input class="weui-input"  name="licenseNumber" value="{{licenseNumber}}" placeholder="请输入统一社会信用代码" />
+			</view>
+		</view>
+		<view class="weui-cell ">
+			<view class="weui-cell__hd">
+				<view class="weui-label">姓名</view>
+			</view>
+			<view class="weui-cell__bd">
+				<input class="weui-input" name="username" id="username" value="{{username}}" placeholder="请填写姓名" maxlength="12" />
+			</view>
+		</view>
+		<view class="weui-cell ">
+			<view class="weui-cell__hd">
+				<view class="weui-label">电话</view>
+			</view>
+			<view class="weui-cell__bd">
+				<input class="weui-input" type="number" name="phone" id="phone" value="{{phone}}" placeholder="请填写联系方式" maxlength="11" />
+			</view>
+		</view>
+		<view class="weui-cell ">
+			<view class="weui-cell__hd">
+				<view class="weui-label">地区</view>
+			</view>
+			<view class="weui-cell__bd">
+				<picker mode="region" bindchange="bindRegionChange" value="{{addressValue}}">{{addressValue[0]}}，{{addressValue[1]}}，{{addressValue[2]}}</picker>
+			</view>
+		</view>
+		<view class="weui-cell" bindtap='chooseLocation'>
+			<view class="weui-cell__bd">
+				经纬度：[{{location.y}},{{location.x}}]
+			</view>
+			<view class="weui-cell__ft">
+				<image mode="aspectFit" src="/images/position.png" style="height:1em;width:1em" />
+			</view>
+		</view>
+
+		<view class="weui-cell">
+			<view class="weui-cell__bd">
+				地址名称：<input name="addressName" id="addressName" value="{{addressName}}" placeholder="请输入地址名称"></input>
+			</view>
+		</view>
+
+		<view class="weui-cell">
+			<view class="weui-cell__bd">
+				详细地址：<textarea name="addressDetail" id="addressDetail" cols="20" rows="5" value="{{addressDetail}}" placeholder="请输入详细地址"></textarea>
+			</view>
+		</view>
+
+		<view class="weui-cell">
+			<view class="weui-cell__hd">
+				<view class="weui-label">营业时间</view>
+			</view>
+			<view class="weui-cell__bd">
+				<view class="weui-flex">
+					<picker mode="time" class="weui-flex__item" bindchange='timeChange' id="openTime">
+						<input placeholder="开始时间" name='openTime' value="{{openTime}}" disabled="true" />
+					</picker>
+					<picker mode="time" class="weui-flex__item" bindchange='timeChange' id="closeTime">
+						<input placeholder="结束时间" name='closeTime' value="{{closeTime}}" disabled="true" />
+					</picker>
+				</view>
+			</view>
+		</view>
+	</view>
+
+	<view class="weui-cells__title">经营内容</view>
+	<view class="weui-cells weui-cells_after-title">
+		<view class="weui-cell">
+			<view class="weui-cell__bd">
+				<textarea class="weui-textarea" id="description" name="description" bindinput='textareaInput' value="{{description}}" placeholder="请输入经营内容" auto-height="true" maxlength="200"></textarea>
+				<view class="weui-textarea-counter">{{description.length}}/200</view>
+			</view>
+		</view>
+	</view>
+
+	<view class="weui-flex">
+		<button class="weui-flex__item" type="default" bindtap="resetForm">重置</button>
+		<button class="weui-flex__item" type="primary" form-type='submit'>保存</button>
+	</view>
+</form>

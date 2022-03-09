@@ -1,0 +1,17 @@
+<view class="weui-cells__title">资源管理-{{customer.phone}}</view>
+<view class="weui-panel">
+    <view class="weui-cells weui-cells_after-title">
+        <checkbox-group bindchange='checkboxChange' id="ids">
+            <block wx:for="{{resources}}" wx:for-item='item' wx:key='index'>
+                <view class="weui-cell" url="/pages/store/resource?index={{index}}">
+                    <view class="weui-cell__hd">
+                        <label class="checkbox">
+                            <checkbox value='{{item.resource.id}}' checked="{{item.resourceCustomer !== null}}" />
+                        </label>
+                    </view>
+                    <view class="weui-cell__bd">{{item.resource.name}}</view>
+                </view>
+            </block>
+        </checkbox-group>
+    </view>
+</view>

@@ -1,0 +1,55 @@
+server:
+  port: 8020
+  servlet:
+    context-path: /store
+    encoding:
+      force-response: true
+  shutdown: graceful
+spring:
+  application:
+    name: store
+  main:
+    lazy-initialization: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    url: 'jdbc:postgresql://<IP>:5432/<DATABASE>'
+    driver-class-name: org.postgresql.Driver
+    username: '数据库账号'
+    password: '数据库密码'
+    hikari:
+      schema: develop
+    type: com.zaxxer.hikari.HikariDataSource
+  jpa:
+    show-sql: true
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-develop.sql
+
+logging:
+  file:
+    path: log/store
+  level:
+    root: info
+wechat:
+  mp:
+    appId: 公众号开发者ID
+    mchId: 微信支付商户号
+    mchKey: 微信支付API密钥
+    apiv3Key: 微信支付APIv3密钥
+    keyPath: classpath:微信支付商户号.p12
+    certSerialNo: 证书序列号
+    privateKeyPath: classpath:微信支付商户号_key.pem
+    privateCertPath: classpath:微信支付商户号_cert.pem
+    notifyUrl: 支付回调地址
+    refundNotifyUrl: 退款回调地址
+    useSandboxEnv: false
+    appConfigs:
+      - subAppId: 小程序APPID(特约商户端)
+        secret: 小程序密钥
+
+system:
+  logo: 'picture/logo.png'
+  secret: 系统密钥
+  file-path: home/picture
