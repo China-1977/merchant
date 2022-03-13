@@ -14,7 +14,7 @@
         "pages/store/edit",
         "pages/store/merchant",
         "pages/customer/list",
-        "pages/restful/resource"
+        "pages/restful/application"
     ],
     "window": {
         "backgroundTextStyle": "light",

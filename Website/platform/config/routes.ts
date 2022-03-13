@@ -63,10 +63,10 @@ export default [
         component: '@/pages/Member/List',
       },
       {
-        path: '/setting/mappings',
+        path: '/setting/applications',
         name: '资源列表',
         icon: 'dashboard',
-        component: '@/pages/Mapping/List',
+        component: '@/pages/Application/List',
       }
     ],
   },

@@ -19,23 +19,23 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class MappingMember implements Serializable {
+public class ApplicationMember implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long memberId;
-    private Long mappingId;
+    private Long applicationId;
 
-    public MappingMember(Long memberId, Long mappingId) {
+    public ApplicationMember(Long memberId, Long applicationId) {
         this.memberId = memberId;
-        this.mappingId = mappingId;
+        this.applicationId = applicationId;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        MappingMember that = (MappingMember) o;
+        ApplicationMember that = (ApplicationMember) o;
         return id != null && Objects.equals(id, that.id);
     }
 

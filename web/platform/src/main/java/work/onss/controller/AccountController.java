@@ -30,7 +30,7 @@ public class AccountController {
      * @return 资源分页
      */
     @GetMapping(value = {"accounts"}, name = "用户列表")
-    public Page<Account> mappings(@QuerydslPredicate(bindings = AccountRepository.class) Predicate predicate, @PageableDefault(sort = {"id","updateTime"}, direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<Account> accounts(@QuerydslPredicate(bindings = AccountRepository.class) Predicate predicate, @PageableDefault(sort = {"id","updateTime"}, direction = Sort.Direction.DESC) Pageable pageable) {
         return accountRepository.findAll(predicate, pageable);
     }
 

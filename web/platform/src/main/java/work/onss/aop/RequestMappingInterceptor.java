@@ -9,8 +9,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
-import work.onss.domain.QMapping;
-import work.onss.domain.QMappingMember;
+import work.onss.domain.QApplication;
+import work.onss.domain.QApplicationMember;
 import work.onss.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,15 +66,15 @@ public class RequestMappingInterceptor implements AsyncHandlerInterceptor {
                     name = patchMapping.name();
                 }
                 String contextPath = request.getContextPath();
-                QMapping qMapping = QMapping.mapping;
-                QMappingMember qMappingMember = QMappingMember.mappingMember;
-                Long id = jpaueryFactory.select(qMapping.id).from(qMapping)
-                        .innerJoin(qMappingMember).on(qMappingMember.mappingId.eq(qMapping.id))
+                QApplication qApplication = QApplication.application;
+                QApplicationMember qApplicationMember = QApplicationMember.applicationMember;
+                Long id = jpaueryFactory.select(qApplication.id).from(qApplication)
+                        .innerJoin(qApplicationMember).on(qApplicationMember.applicationId.eq(qApplication.id))
                         .where(
-                                qMappingMember.memberId.eq(mid),
-                                qMapping.value.eq(value),
-                                qMapping.type.eq(type),
-                                qMapping.contextPath.eq(contextPath)
+                                qApplicationMember.memberId.eq(mid),
+                                qApplication.value.eq(value),
+                                qApplication.type.eq(type),
+                                qApplication.contextPath.eq(contextPath)
                         ).fetchOne();
                 if (id == null) {
                     throw new ServiceException("FAIL", name.concat("权限不足"));

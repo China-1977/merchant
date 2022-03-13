@@ -128,14 +128,14 @@ public class QuerydslService {
                 .fetch();
     }
 
-    public List<Customer> get(Long storeId, List<String> resources) {
+    public List<Customer> get(Long storeId, List<String> applications) {
         QCustomer qCustomer = QCustomer.customer;
-        QResourceCustomer qResourceCustomer = QResourceCustomer.resourceCustomer;
-        QResource qResource = QResource.resource;
-        return jpaQueryFactory.select(qCustomer).from(qResourceCustomer)
-                .innerJoin(qCustomer).on(qCustomer.id.eq(qResourceCustomer.customerId))
-                .innerJoin(qResource).on(qCustomer.id.eq(qResourceCustomer.resourceId))
-                .where(qResourceCustomer.storeId.eq(storeId),qResource.contextPath.concat(qResource.type).concat(qResource.value).in(resources))
+        QApplicationCustomer qApplicationCustomer = QApplicationCustomer.applicationCustomer;
+        QApplication qApplication = QApplication.application;
+        return jpaQueryFactory.select(qCustomer).from(qApplicationCustomer)
+                .innerJoin(qCustomer).on(qCustomer.id.eq(qApplicationCustomer.customerId))
+                .innerJoin(qApplication).on(qCustomer.id.eq(qApplicationCustomer.applicationId))
+                .where(qApplicationCustomer.storeId.eq(storeId),qApplication.contextPath.concat(qApplication.type).concat(qApplication.value).in(applications))
                 .groupBy(qCustomer.id)
                 .fetch();
     }

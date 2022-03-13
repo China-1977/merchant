@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResourceDoto {
+public class ApplicationDto {
 
-    private Resource resource;
-    private ResourceCustomer resourceCustomer;
+    private Application application;
+    private ApplicationMember applicationMember;
 }

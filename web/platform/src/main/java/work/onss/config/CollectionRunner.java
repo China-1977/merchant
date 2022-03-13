@@ -13,10 +13,10 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import work.onss.domain.Mapping;
-import work.onss.domain.MappingMemberRepository;
-import work.onss.domain.MappingRepository;
-import work.onss.domain.QMapping;
+import work.onss.domain.Application;
+import work.onss.domain.ApplicationMemberRepository;
+import work.onss.domain.ApplicationRepository;
+import work.onss.domain.QApplication;
 
 import javax.servlet.ServletContext;
 import java.sql.Timestamp;
@@ -34,9 +34,7 @@ public class CollectionRunner implements CommandLineRunner {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
     @Autowired
-    private MappingRepository mappingRepository;
-    @Autowired
-    private MappingMemberRepository mappingMemberRepository;
+    private ApplicationRepository applicationRepository;
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -52,65 +50,64 @@ public class CollectionRunner implements CommandLineRunner {
         Timestamp now = Timestamp.from(Instant.now());
         RequestMappingHandlerMapping requestMappingHandlerMapping = webApplicationContext.getBean(RequestMappingHandlerMapping.class);
         Map<RequestMappingInfo, HandlerMethod> handlerMethods = requestMappingHandlerMapping.getHandlerMethods();
-        List<Mapping> mappings = new ArrayList<>();
+        List<Application> applications = new ArrayList<>();
         for (Map.Entry<RequestMappingInfo, HandlerMethod> m : handlerMethods.entrySet()) {
             HandlerMethod value = m.getValue();
             GetMapping getMapping = value.getMethodAnnotation(GetMapping.class);
             if (getMapping != null && !getMapping.name().equals("")) {
-                QMapping qMapping = QMapping.mapping;
+                QApplication qApplication = QApplication.application;
                 String path = Arrays.toString(getMapping.value());
-                BooleanExpression booleanExpression = qMapping.contextPath.eq(contextPath).and(qMapping.value.eq(path)).and(qMapping.type.eq(RequestMethod.GET.name()));
-                Mapping mapping = mappingRepository.findOne(booleanExpression).orElse(new Mapping(path, getMapping.name(), RequestMethod.GET.name(), contextPath, now));
-                mapping.setUpdateTime(now);
-                mappings.add(mapping);
+                BooleanExpression booleanExpression = qApplication.contextPath.eq(contextPath).and(qApplication.value.eq(path)).and(qApplication.type.eq(RequestMethod.GET.name()));
+                Application application = applicationRepository.findOne(booleanExpression).orElse(new Application(path, getMapping.name(), RequestMethod.GET.name(), contextPath, now));
+                application.setUpdateTime(now);
+                applications.add(application);
                 continue;
             }
             PostMapping postMapping = value.getMethodAnnotation(PostMapping.class);
             if (postMapping != null && !postMapping.name().equals("")) {
-                QMapping qMapping = QMapping.mapping;
+                QApplication qApplication = QApplication.application;
                 String path = Arrays.toString(postMapping.value());
-                BooleanExpression booleanExpression = qMapping.contextPath.eq(contextPath).and(qMapping.value.eq(path)).and(qMapping.type.eq(RequestMethod.POST.name()));
-                Mapping mapping = mappingRepository.findOne(booleanExpression).orElse(new Mapping(path, postMapping.name(), RequestMethod.POST.name(), contextPath, now));
-                mapping.setUpdateTime(now);
-                mappings.add(mapping);
+                BooleanExpression booleanExpression = qApplication.contextPath.eq(contextPath).and(qApplication.value.eq(path)).and(qApplication.type.eq(RequestMethod.POST.name()));
+                Application application = applicationRepository.findOne(booleanExpression).orElse(new Application(path, postMapping.name(), RequestMethod.POST.name(), contextPath, now));
+                application.setUpdateTime(now);
+                applications.add(application);
                 continue;
             }
             PutMapping putMapping = value.getMethodAnnotation(PutMapping.class);
             if (putMapping != null && !putMapping.name().equals("")) {
-                QMapping qMapping = QMapping.mapping;
+                QApplication qApplication = QApplication.application;
                 String path = Arrays.toString(putMapping.value());
-                BooleanExpression booleanExpression = qMapping.contextPath.eq(contextPath).and(qMapping.value.eq(path)).and(qMapping.type.eq(RequestMethod.PUT.name()));
-                Mapping mapping = mappingRepository.findOne(booleanExpression).orElse(new Mapping(path, putMapping.name(), RequestMethod.PUT.name(), contextPath, now));
-                mapping.setUpdateTime(now);
-                mappings.add(mapping);
+                BooleanExpression booleanExpression = qApplication.contextPath.eq(contextPath).and(qApplication.value.eq(path)).and(qApplication.type.eq(RequestMethod.PUT.name()));
+                Application application = applicationRepository.findOne(booleanExpression).orElse(new Application(path, putMapping.name(), RequestMethod.PUT.name(), contextPath, now));
+                application.setUpdateTime(now);
+                applications.add(application);
                 continue;
             }
             DeleteMapping deleteMapping = value.getMethodAnnotation(DeleteMapping.class);
             if (deleteMapping != null && !deleteMapping.name().equals("")) {
-                QMapping qMapping = QMapping.mapping;
+                QApplication qApplication = QApplication.application;
                 String path = Arrays.toString(deleteMapping.value());
-                BooleanExpression booleanExpression = qMapping.contextPath.eq(contextPath).and(qMapping.value.eq(path)).and(qMapping.type.eq(RequestMethod.DELETE.name()));
-                Mapping mapping = mappingRepository.findOne(booleanExpression).orElse(new Mapping(path, deleteMapping.name(), RequestMethod.DELETE.name(), contextPath, now));
-                mapping.setUpdateTime(now);
-                mappings.add(mapping);
+                BooleanExpression booleanExpression = qApplication.contextPath.eq(contextPath).and(qApplication.value.eq(path)).and(qApplication.type.eq(RequestMethod.DELETE.name()));
+                Application application = applicationRepository.findOne(booleanExpression).orElse(new Application(path, deleteMapping.name(), RequestMethod.DELETE.name(), contextPath, now));
+                application.setUpdateTime(now);
+                applications.add(application);
                 continue;
             }
             PatchMapping patchMapping = value.getMethodAnnotation(PatchMapping.class);
             if (patchMapping != null && !patchMapping.name().equals("")) {
-                QMapping qMapping = QMapping.mapping;
+                QApplication qApplication = QApplication.application;
                 String path = Arrays.toString(patchMapping.value());
-                BooleanExpression booleanExpression = qMapping.contextPath.eq(contextPath).and(qMapping.value.eq(path)).and(qMapping.type.eq(RequestMethod.PATCH.name()));
-                Mapping mapping = mappingRepository.findOne(booleanExpression).orElse(new Mapping(path, patchMapping.name(), RequestMethod.PATCH.name(), contextPath, now));
-                mapping.setUpdateTime(now);
-                mappings.add(mapping);
+                BooleanExpression booleanExpression = qApplication.contextPath.eq(contextPath).and(qApplication.value.eq(path)).and(qApplication.type.eq(RequestMethod.PATCH.name()));
+                Application application = applicationRepository.findOne(booleanExpression).orElse(new Application(path, patchMapping.name(), RequestMethod.PATCH.name(), contextPath, now));
+                application.setUpdateTime(now);
+                applications.add(application);
             }
         }
-        mappingRepository.saveAll(mappings);
-        QMapping qMapping = QMapping.mapping;
-        List<Long> mappingsId = jpaQueryFactory.select(qMapping.id).from(qMapping).where(qMapping.updateTime.before(now), qMapping.contextPath.eq(contextPath)).fetch();
-        if (!mappingsId.isEmpty()) {
-            mappingRepository.deleteAllById(mappingsId);
-            mappingMemberRepository.deleteByMappingIdIn(mappingsId);
+        applicationRepository.saveAll(applications);
+        QApplication qApplication = QApplication.application;
+        List<Long> applicationsId = jpaQueryFactory.select(qApplication.id).from(qApplication).where(qApplication.updateTime.before(now), qApplication.contextPath.eq(contextPath)).fetch();
+        if (!applicationsId.isEmpty()) {
+            applicationRepository.deleteAllById(applicationsId);
         }
     }
 }

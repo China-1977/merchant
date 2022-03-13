@@ -30,7 +30,7 @@ public class ProductController {
      * @return 资源分页
      */
     @GetMapping(value = {"products"}, name = "商品列表")
-    public Page<Product> mappings(@QuerydslPredicate(bindings = ProductRepository.class) Predicate predicate, @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<Product> products(@QuerydslPredicate(bindings = ProductRepository.class) Predicate predicate, @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         return productRepository.findAll(predicate, pageable);
     }
 

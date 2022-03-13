@@ -5,7 +5,7 @@ import React from 'react';
 import ProTable from '@ant-design/pro-table';
 import {request} from "@@/plugin-request/request";
 
-const MappingList = () => {
+const ApplicationList = () => {
   const columns: any = [
     {
       title: '序号',
@@ -43,11 +43,11 @@ const MappingList = () => {
       headerTitle="查询表格"
       columns={columns}
       search={{defaultCollapsed: false,}}
-      request={(params => request("/platform/mappings", {params}).then((res: any) => {
+      request={(params => request("/platform/applications", {params}).then((res: any) => {
         return {data: res.content, total: res.totalElements}
       }))}
     />
   );
 }
 
-export default MappingList;
+export default ApplicationList;

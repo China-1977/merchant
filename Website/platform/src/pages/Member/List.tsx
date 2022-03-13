@@ -12,7 +12,7 @@ const UserList = () => {
   const [form2] = Form.useForm();
   const {state: isModalVisible2, toggle: toggle2} = useToggle();
 
-  const [mappings, setMappings] = useState<any>([]);
+  const [applications, setApplications] = useState<any>([]);
 
   const {run: remove} = useRequest((id: any) => {
     return {
@@ -23,20 +23,20 @@ const UserList = () => {
     manual: true
   });
 
-  const {run: mappingMembers} = useRequest((id: any) => {
+  const {run: applicationMembers} = useRequest((id: any) => {
     return {
-      url: `/platform/members/${id}/mappings`,
+      url: `/platform/members/${id}/applications`,
     }
   }, {
     manual: true
   });
 
-  const {run: updateMappings, loading: updateMappingsLoading} = useRequest((id: any, mappingsId: []) => {
-    console.log(id,mappingsId)
+  const {run: updateApplications, loading: updateApplicationsLoading} = useRequest((id: any, applicationsId: []) => {
+    console.log(id,applicationsId)
     return {
       url: `/platform/members/${id}/authorize`,
       method: 'POST',
-      data: mappingsId
+      data: applicationsId
     }
   }, {
     manual: true
@@ -95,17 +95,17 @@ const UserList = () => {
               })
             }}>删除</Menu.Item>
             <Menu.Item key="edit" onClick={() => {
-              mappingMembers(record.id).then((res: any) => {
-                let mappingsId = [];
-                let newMappings: { title: any, value: any }[] = [];
+              applicationMembers(record.id).then((res: any) => {
+                let applicationsId = [];
+                let newApplications: { title: any, value: any }[] = [];
                 for (const item of res) {
-                  if (item.mappingMember) {
-                    mappingsId.push(item.mapping.id)
+                  if (item.applicationMember) {
+                    applicationsId.push(item.application.id)
                   }
-                  newMappings.push({title: item.mapping.name, value: item.mapping.id})
+                  newApplications.push({title: item.application.name, value: item.application.id})
                 }
-                setMappings(newMappings);
-                form2.setFieldsValue({...record, mappingsId});
+                setApplications(newApplications);
+                form2.setFieldsValue({...record, applicationsId});
                 toggle2();
               })
             }}>授权</Menu.Item>
@@ -132,7 +132,7 @@ const UserList = () => {
       <Form labelCol={{span: 5}}
             form={form2}
             onFinish={(values) => {
-              updateMappings(values.id, values.mappingsId).then(() => {
+              updateApplications(values.id, values.applicationsId).then(() => {
                 form2.resetFields();
                 toggle2();
                 ref.current?.reload();
@@ -147,7 +147,7 @@ const UserList = () => {
                  form2.resetFields();
                  toggle2();
                }}
-               confirmLoading={updateMappingsLoading}>
+               confirmLoading={updateApplicationsLoading}>
           <Form.Item hidden={true} name="id">
             <Input/>
           </Form.Item>
@@ -164,11 +164,11 @@ const UserList = () => {
             <Input placeholder="请输入职位" disabled={true}/>
           </Form.Item>
 
-          <Form.Item label="接口权限" name="mappingsId" rules={[{required: true, message: '请选择接口选项'}]}>
+          <Form.Item label="接口权限" name="applicationsId" rules={[{required: true, message: '请选择接口选项'}]}>
             <TreeSelect
               style={{width: '100%'}}
               dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
-              treeData={mappings}
+              treeData={applications}
               placeholder="Please select"
               treeDefaultExpandAll
               multiple

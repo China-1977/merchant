@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import work.onss.domain.Resource;
-import work.onss.domain.ResourceRepository;
+import work.onss.domain.Application;
+import work.onss.domain.ApplicationRepository;
 
 /**
  * 订单管理
@@ -16,17 +16,17 @@ import work.onss.domain.ResourceRepository;
  */
 @Log4j2
 @RestController
-public class ResourceController {
+public class ApplicationController {
 
     @Autowired
-    private ResourceRepository resourceRepository;
+    private ApplicationRepository applicationRepository;
 
     /**
      * @param id 资源ID
      * @return 资源详情
      */
-    @GetMapping(value = {"resources/{id}"}, name = "资源详情")
-    public Resource score(@PathVariable Long id) {
-        return resourceRepository.findById(id).orElse(null);
+    @GetMapping(value = {"applications/{id}"}, name = "资源详情")
+    public Application score(@PathVariable Long id) {
+        return applicationRepository.findById(id).orElse(null);
     }
 }

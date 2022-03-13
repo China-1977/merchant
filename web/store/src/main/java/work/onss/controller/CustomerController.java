@@ -33,7 +33,7 @@ public class CustomerController {
     @Autowired
     private StoreCustomerRepository storeCustomerRepository;
     @Autowired
-    private ResourceCustomerRepository resourceCustomerRepository;
+    private ApplicationCustomerRepository applicationCustomerRepository;
 
 
     /**
@@ -101,20 +101,20 @@ public class CustomerController {
     /**
      * @param id          营业员ID
      * @param sid         商户ID
-     * @param resourceIds 待授权资源ID
+     * @param applicationIds 待授权资源ID
      */
     @PostMapping(value = {"customers/{id}/authorize"}, name = "营业成员权限设置")
-    public void updateResources(@PathVariable Long id, @RequestHeader(name = "sid") Long sid, @Validated @RequestBody List<Long> resourceIds) {
-        resourceCustomerRepository.deleteByResourceIdNotInAndCustomerIdAndStoreId(resourceIds, id, sid);
-        List<ResourceCustomer> resourceCustomers = new ArrayList<>();
-        for (Long resourceId : resourceIds) {
-            ResourceCustomer resourceCustomer = resourceCustomerRepository.findByResourceIdAndCustomerIdAndStoreId(resourceId, id, sid).orElse(new ResourceCustomer(sid, resourceId, id));
-            if (null == resourceCustomer.getId()) {
-                resourceCustomers.add(resourceCustomer);
+    public void updateApplications(@PathVariable Long id, @RequestHeader(name = "sid") Long sid, @Validated @RequestBody List<Long> applicationIds) {
+        applicationCustomerRepository.deleteByApplicationIdNotInAndCustomerIdAndStoreId(applicationIds, id, sid);
+        List<ApplicationCustomer> applicationCustomers = new ArrayList<>();
+        for (Long applicationId : applicationIds) {
+            ApplicationCustomer applicationCustomer = applicationCustomerRepository.findByApplicationIdAndCustomerIdAndStoreId(applicationId, id, sid).orElse(new ApplicationCustomer(sid, applicationId, id));
+            if (null == applicationCustomer.getId()) {
+                applicationCustomers.add(applicationCustomer);
             }
         }
-        if (!resourceCustomers.isEmpty()) {
-            resourceCustomerRepository.saveAll(resourceCustomers);
+        if (!applicationCustomers.isEmpty()) {
+            applicationCustomerRepository.saveAll(applicationCustomers);
         }
     }
 
@@ -123,17 +123,17 @@ public class CustomerController {
      * @param sid 商户ID
      * @return 资源与营业员关系列表
      */
-    @GetMapping(value = {"customers/{id}/resources"}, name = "营业成员资源列表")
-    public List<ResourceDoto> resources(@PathVariable Long id, @RequestHeader(name = "sid") Long sid) {
-        QResource qResource = QResource.resource;
-        QResourceCustomer qResourceCustomer = QResourceCustomer.resourceCustomer;
+    @GetMapping(value = {"customers/{id}/applications"}, name = "营业成员资源列表")
+    public List<ApplicationDoto> applications(@PathVariable Long id, @RequestHeader(name = "sid") Long sid) {
+        QApplication qApplication = QApplication.application;
+        QApplicationCustomer qApplicationCustomer = QApplicationCustomer.applicationCustomer;
         return jpaQueryFactory.select(
-                        Projections.bean(ResourceDoto.class, qResource, qResourceCustomer))
-                .from(qResource)
-                .leftJoin(qResourceCustomer).on(
-                        qResourceCustomer.resourceId.eq(qResource.id),
-                        qResourceCustomer.storeId.eq(sid),
-                        qResourceCustomer.customerId.eq(id)
+                        Projections.bean(ApplicationDoto.class, qApplication, qApplicationCustomer))
+                .from(qApplication)
+                .leftJoin(qApplicationCustomer).on(
+                        qApplicationCustomer.applicationId.eq(qApplication.id),
+                        qApplicationCustomer.storeId.eq(sid),
+                        qApplicationCustomer.customerId.eq(id)
                 ).fetch();
     }
 

@@ -73,12 +73,12 @@ public class ScoreService {
     String spappId;
 
     public void send(Score score, String first) {
-        List<String> resources = Arrays.asList(
+        List<String> applications = Arrays.asList(
                 "/storePOST[scores/{id}/waitDeliver]",
                 "/storePOST[scores/{id}/waitPackage]",
                 "/storePOST[scores/{id}-{outTradeNo}/refund]"
         );
-        List<Customer> customers = querydslService.get(score.getStoreId(), resources);
+        List<Customer> customers = querydslService.get(score.getStoreId(), applications);
         String keyword3 = String.join("\n", score.getProducts().stream().map(Score.Product::getName).toList());
         String remark = String.join("\n", score.getUsername(), score.getPhone(), score.getAddressDetail());
         Map<String, String> data = Utils.OPENTM207940503(first, score.getOutTradeNo(), score.getStatus().getMessage(), keyword3, remark);

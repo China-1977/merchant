@@ -46,14 +46,6 @@ public class BindingController {
     private WechatMpProperties wechatMpProperties;
     @Autowired
     private QuerydslService querydslService;
-    @Autowired
-    private CartRepository cartRepository;
-    @Autowired
-    private PreferRepository preferRepository;
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private ResourceCustomerRepository resourceCustomerRepository;
 
     /**
      * @param cid 营业员ID
@@ -129,11 +121,6 @@ public class BindingController {
             throw new RuntimeException("权限不足");
         }
         storeRepository.deleteById(id);
-        cartRepository.deleteByStoreId(id);
-        preferRepository.deleteByStoreId(id);
-        productRepository.deleteByStoreId(id);
-        resourceCustomerRepository.deleteByStoreId(id);
-        storeCustomerRepository.deleteByStoreId(id);
     }
 }
 

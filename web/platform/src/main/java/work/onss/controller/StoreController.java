@@ -31,7 +31,7 @@ public class StoreController {
      * @return 资源分页
      */
     @GetMapping(value = {"stores"}, name = "商户列表")
-    public Page<Store> mappings(@QuerydslPredicate(bindings = StoreRepository.class) Predicate predicate, @PageableDefault(sort = {"id"},direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<Store> stores(@QuerydslPredicate(bindings = StoreRepository.class) Predicate predicate, @PageableDefault(sort = {"id"},direction = Sort.Direction.DESC) Pageable pageable) {
         return storeRepository.findAll(predicate, pageable);
     }
 

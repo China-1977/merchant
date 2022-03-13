@@ -10,8 +10,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
-import work.onss.domain.QResourceCustomer;
-import work.onss.domain.QResource;
+import work.onss.domain.QApplicationCustomer;
+import work.onss.domain.QApplication;
 import work.onss.domain.QStore;
 import work.onss.domain.StoreRepository;
 import work.onss.exception.ServiceException;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-import static work.onss.domain.QResource.resource;
+import static work.onss.domain.QApplication.application;
 
 @Log4j2
 @Component
@@ -74,16 +74,16 @@ public class RequestMappingInterceptor implements AsyncHandlerInterceptor {
                 if (exists) {
                     return true;
                 } else {
-                    QResource qResource = resource;
-                    QResourceCustomer qResourceCustomer = QResourceCustomer.resourceCustomer;
-                    Long id = jpaueryFactory.select(qResource.id).from(qResource)
-                            .innerJoin(qResourceCustomer).on(qResourceCustomer.resourceId.eq(qResource.id))
+                    QApplication qApplication = application;
+                    QApplicationCustomer qApplicationCustomer = QApplicationCustomer.applicationCustomer;
+                    Long id = jpaueryFactory.select(qApplication.id).from(qApplication)
+                            .innerJoin(qApplicationCustomer).on(qApplicationCustomer.applicationId.eq(qApplication.id))
                             .where(
-                                    qResourceCustomer.storeId.eq(sid),
-                                    qResourceCustomer.customerId.eq(cid),
-                                    qResource.value.eq(value),
-                                    qResource.type.eq(type),
-                                    qResource.contextPath.eq(contextPath)
+                                    qApplicationCustomer.storeId.eq(sid),
+                                    qApplicationCustomer.customerId.eq(cid),
+                                    qApplication.value.eq(value),
+                                    qApplication.type.eq(type),
+                                    qApplication.contextPath.eq(contextPath)
                             ).fetchOne();
                     if (id == null) {
                         throw new ServiceException("FAIL", "权限不足");

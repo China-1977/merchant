@@ -20,13 +20,13 @@ Page({
         eventChannel.on('acceptDataFromOpenerPage', ({ customer }) => {
             checkStore().then(({ authorization, info }) => {
                 wxRequest({
-                    url: `${domain}/store/customers/${customer.id}/resources`,
+                    url: `${domain}/store/customers/${customer.id}/applications`,
                     header: { authorization, ...info },
-                }).then((resources) => {
+                }).then((applications) => {
                     this.setData({
                         ...options,
                         customer,
-                        resources
+                        applications
                     })
                 })
             })

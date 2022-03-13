@@ -36,7 +36,7 @@ Page({
         const customer = this.data.customers[index];
         if (e.detail.index === 0) {
             wx.navigateTo({
-                url: '/pages/restful/resource',
+                url: '/pages/restful/application',
                 success: function (res) {
                     res.eventChannel.emit('acceptDataFromOpenerPage', { customer })
                 }

@@ -30,7 +30,7 @@ public class AddressController {
      * @return 资源分页
      */
     @GetMapping(value = {"addresses"}, name = "收货地址列表")
-    public Page<Address> mappings(@QuerydslPredicate(bindings = AddressRepository.class) Predicate predicate, @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<Address> addresses(@QuerydslPredicate(bindings = AddressRepository.class) Predicate predicate, @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         return addressRepository.findAll(predicate, pageable);
     }
 

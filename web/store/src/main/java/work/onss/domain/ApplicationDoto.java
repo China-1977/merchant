@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MappingDto {
+public class ApplicationDoto {
 
-    private Mapping mapping;
-    private MappingMember mappingMember;
+    private Application application;
+    private ApplicationCustomer applicationCustomer;
 }

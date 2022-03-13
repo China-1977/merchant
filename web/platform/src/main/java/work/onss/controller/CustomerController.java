@@ -30,7 +30,7 @@ public class CustomerController {
      * @return 资源分页
      */
     @GetMapping(value = {"customers"}, name = "营业员列表")
-    public Page<Customer> mappings(@QuerydslPredicate(bindings = CustomerRepository.class) Predicate predicate, @PageableDefault(sort = {"id", "updateTime"}, direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<Customer> customers(@QuerydslPredicate(bindings = CustomerRepository.class) Predicate predicate, @PageableDefault(sort = {"id", "updateTime"}, direction = Sort.Direction.DESC) Pageable pageable) {
         return customerRepository.findAll(predicate, pageable);
     }
 }

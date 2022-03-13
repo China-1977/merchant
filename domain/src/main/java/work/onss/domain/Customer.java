@@ -41,7 +41,7 @@ public class Customer implements Serializable {
     @LastModifiedDate
     private Timestamp updateTime;
     @Transient
-    private List<Resource> resources;
+    private List<Application> applications;
 
     public Customer(String phone, String subOpenid, String subAppid, String sessionKey, Timestamp insertTime) {
         this.phone = phone;

@@ -303,7 +303,7 @@ alter table master.score owner to postgres;
 create index if not exists i_score_insert_date_store_id on master.score (insert_time,store_id);
 create index if not exists i_score_insert_date_account_id on master.score (insert_time,account_id);
 
-create table if not exists master.resource
+create table if not exists master.application
 (
     id          bigserial primary key,
     context_path varchar(20) not null,
@@ -311,25 +311,25 @@ create table if not exists master.resource
     type         varchar(10) not null,
     value        varchar(255) not null
 );
-comment on table master.resource is '服务资源';
-comment on column master.resource.context_path is '服务名称';
-comment on column master.resource.name is '名称';
-comment on column master.resource.type is '类型';
-comment on column master.resource.value is '路径';
-alter table master.resource owner to postgres;
+comment on table master.application is '服务资源';
+comment on column master.application.context_path is '服务名称';
+comment on column master.application.name is '名称';
+comment on column master.application.type is '类型';
+comment on column master.application.value is '路径';
+alter table master.application owner to postgres;
 
-create table if not exists master.resource_customer
+create table if not exists master.application_customer
 (
     id          bigserial primary key,
     customer_id bigint not null,
-    resource_id bigint not null,
+    application_id bigint not null,
     store_id bigint not null
 );
-comment on table master.resource_customer is '营业员与服务资源关联';
-comment on column master.resource_customer.customer_id is '营业员ID';
-comment on column master.resource_customer.resource_id is '服务资源ID';
-comment on column master.resource_customer.store_id is '商户ID';
-alter table master.resource_customer owner to postgres;
+comment on table master.application_customer is '营业员与服务资源关联';
+comment on column master.application_customer.customer_id is '营业员ID';
+comment on column master.application_customer.application_id is '服务资源ID';
+comment on column master.application_customer.store_id is '商户ID';
+alter table master.application_customer owner to postgres;
 
 create table if not exists master.store_customer
 (
@@ -361,7 +361,7 @@ comment on column master.member.insert_time is '创建时间';
 comment on column master.member.update_time is '更新时间';
 alter table master.member owner to postgres;
 
-create table if not exists master.mapping
+create table if not exists master.application
 (
     id          bigserial primary key,
     context_path varchar(20) not null,
@@ -371,14 +371,14 @@ create table if not exists master.mapping
     insert_time    timestamp   not null default current_timestamp,
     update_time    timestamp   not null default current_timestamp
 );
-comment on table master.mapping is '平台资源';
-comment on column master.mapping.context_path is '服务名称';
-comment on column master.mapping.name is '名称';
-comment on column master.mapping.type is '类型';
-comment on column master.mapping.value is '路径';
-comment on column master.mapping.insert_time is '创建时间';
-comment on column master.mapping.update_time is '更新时间';
-alter table master.mapping owner to postgres;
+comment on table master.application is '平台资源';
+comment on column master.application.context_path is '服务名称';
+comment on column master.application.name is '名称';
+comment on column master.application.type is '类型';
+comment on column master.application.value is '路径';
+comment on column master.application.insert_time is '创建时间';
+comment on column master.application.update_time is '更新时间';
+alter table master.application owner to postgres;
 
 create table if not exists master.mapping_member
 (

@@ -2,14 +2,14 @@
 <view class="weui-panel">
     <view class="weui-cells weui-cells_after-title">
         <checkbox-group bindchange='checkboxChange' id="ids">
-            <block wx:for="{{resources}}" wx:for-item='item' wx:key='index'>
-                <view class="weui-cell" url="/pages/store/resource?index={{index}}">
+            <block wx:for="{{applications}}" wx:for-item='item' wx:key='index'>
+                <view class="weui-cell" url="/pages/store/application?index={{index}}">
                     <view class="weui-cell__hd">
                         <label class="checkbox">
-                            <checkbox value='{{item.resource.id}}' checked="{{item.resourceCustomer !== null}}" />
+                            <checkbox value='{{item.application.id}}' checked="{{item.applicationCustomer !== null}}" />
                         </label>
                     </view>
-                    <view class="weui-cell__bd">{{item.resource.name}}</view>
+                    <view class="weui-cell__bd">{{item.application.name}}</view>
                 </view>
             </block>
         </checkbox-group>

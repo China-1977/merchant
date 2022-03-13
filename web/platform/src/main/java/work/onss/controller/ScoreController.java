@@ -30,7 +30,7 @@ public class ScoreController {
      * @return 资源分页
      */
     @GetMapping(value = {"scores"}, name = "订单列表")
-    public Page<Score> mappings(@QuerydslPredicate(bindings = ScoreRepository.class) Predicate predicate, @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<Score> scores(@QuerydslPredicate(bindings = ScoreRepository.class) Predicate predicate, @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         return scoreRepository.findAll(predicate, pageable);
     }
 

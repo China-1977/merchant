@@ -9,8 +9,8 @@ import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import work.onss.domain.Mapping;
-import work.onss.domain.MappingRepository;
+import work.onss.domain.Application;
+import work.onss.domain.ApplicationRepository;
 
 
 /**
@@ -20,9 +20,9 @@ import work.onss.domain.MappingRepository;
  */
 @Log4j2
 @RestController
-public class MappingController {
+public class ApplicationController {
     @Autowired
-    private MappingRepository mappingRepository;
+    private ApplicationRepository applicationRepository;
 
 
     /**
@@ -30,9 +30,9 @@ public class MappingController {
      * @param pageable  分页参数
      * @return 资源分页
      */
-    @GetMapping(value = {"mappings"}, name = "资源列表")
-    public Page<Mapping> mappings(@QuerydslPredicate(bindings = MappingRepository.class) Predicate predicate, @PageableDefault Pageable pageable) {
-        return mappingRepository.findAll(predicate, pageable);
+    @GetMapping(value = {"applications"}, name = "资源列表")
+    public Page<Application> applications(@QuerydslPredicate(bindings = ApplicationRepository.class) Predicate predicate, @PageableDefault Pageable pageable) {
+        return applicationRepository.findAll(predicate, pageable);
     }
 
 }

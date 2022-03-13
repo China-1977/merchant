@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-public interface MappingMemberRepository extends JpaRepository<MappingMember, Long>, QuerydslPredicateExecutor<MappingMember>, QuerydslBinderCustomizer<QMappingMember> {
+public interface ApplicationMemberRepository extends JpaRepository<ApplicationMember, Long>, QuerydslPredicateExecutor<ApplicationMember>, QuerydslBinderCustomizer<QApplicationMember> {
 
-    default void customize(QuerydslBindings bindings, QMappingMember qMappingMember) {
-        bindings.bind(qMappingMember.id).withDefaultBinding();
+    default void customize(QuerydslBindings bindings, QApplicationMember qApplicationMember) {
+        bindings.bind(qApplicationMember.id).withDefaultBinding();
     }
 
     @Modifying
@@ -22,11 +22,11 @@ public interface MappingMemberRepository extends JpaRepository<MappingMember, Lo
 
     @Modifying
     @Transactional
-    void deleteByMappingIdIn(List<Long> mappingsId);
+    void deleteByApplicationIdIn(List<Long> applicationsId);
 
     @Modifying
     @Transactional
-    void deleteByMappingIdNotInAndMemberId(List<Long> mappingsId, Long memberId);
+    void deleteByApplicationIdNotInAndMemberId(List<Long> applicationsId, Long memberId);
 
-    Optional<MappingMember> findByMappingIdAndMemberId(Long mappingId, Long memberId);
+    Optional<ApplicationMember> findByApplicationIdAndMemberId(Long applicationId, Long memberId);
 }

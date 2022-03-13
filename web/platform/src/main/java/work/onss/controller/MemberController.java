@@ -30,7 +30,7 @@ public class MemberController {
     @Autowired
     private MemberRepository memberRepository;
     @Autowired
-    private MappingMemberRepository mappingMemberRepository;
+    private ApplicationMemberRepository applicationMemberRepository;
 
     /**
      * @param predicate 查询条件
@@ -52,25 +52,24 @@ public class MemberController {
             throw new RuntimeException("无法删除自己");
         }
         memberRepository.deleteById(id);
-        mappingMemberRepository.deleteByMemberId(id);
     }
 
     /**
      * @param id         管理员ID
-     * @param mappingsId 待授权平台资源ID
+     * @param applicationsId 待授权平台资源ID
      */
     @PostMapping(value = {"members/{id}/authorize"}, name = "管理员权限设置")
-    public void authorize(@PathVariable Long id, @RequestBody List<Long> mappingsId) {
-        mappingMemberRepository.deleteByMappingIdNotInAndMemberId(mappingsId, id);
-        List<MappingMember> mappingMembers = new ArrayList<>();
-        for (Long mappingId : mappingsId) {
-            MappingMember mappingMember = mappingMemberRepository.findByMappingIdAndMemberId(mappingId, id).orElse(new MappingMember(id, mappingId));
-            if (null == mappingMember.getId()) {
-                mappingMembers.add(mappingMember);
+    public void authorize(@PathVariable Long id, @RequestBody List<Long> applicationsId) {
+        applicationMemberRepository.deleteByApplicationIdNotInAndMemberId(applicationsId, id);
+        List<ApplicationMember> applicationMembers = new ArrayList<>();
+        for (Long applicationId : applicationsId) {
+            ApplicationMember applicationMember = applicationMemberRepository.findByApplicationIdAndMemberId(applicationId, id).orElse(new ApplicationMember(id, applicationId));
+            if (null == applicationMember.getId()) {
+                applicationMembers.add(applicationMember);
             }
         }
-        if (!mappingMembers.isEmpty()) {
-            mappingMemberRepository.saveAll(mappingMembers);
+        if (!applicationMembers.isEmpty()) {
+            applicationMemberRepository.saveAll(applicationMembers);
         }
     }
 
@@ -78,16 +77,16 @@ public class MemberController {
      * @param id 管理员ID
      * @return 平台资源与管理员关系列表
      */
-    @GetMapping(value = {"members/{id}/mappings"}, name = "管理员平台资源列表")
-    public List<MappingDto> mappings(@PathVariable Long id) {
-        QMapping qMapping = QMapping.mapping;
-        QMappingMember qMappingMember = QMappingMember.mappingMember;
+    @GetMapping(value = {"members/{id}/applications"}, name = "管理员平台资源列表")
+    public List<ApplicationDto> applications(@PathVariable Long id) {
+        QApplication qApplication = QApplication.application;
+        QApplicationMember qApplicationMember = QApplicationMember.applicationMember;
         return jpaQueryFactory.select(
-                        Projections.bean(MappingDto.class, qMapping, qMappingMember))
-                .from(qMapping)
-                .leftJoin(qMappingMember).on(
-                        qMappingMember.mappingId.eq(qMapping.id),
-                        qMappingMember.memberId.eq(id)
+                        Projections.bean(ApplicationDto.class, qApplication, qApplicationMember))
+                .from(qApplication)
+                .leftJoin(qApplicationMember).on(
+                        qApplicationMember.applicationId.eq(qApplication.id),
+                        qApplicationMember.memberId.eq(id)
                 ).fetch();
     }
 
