@@ -23,6 +23,10 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
   jpa:
     show-sql: true
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-develop.sql
 logging:
   file:
     path: log/platform

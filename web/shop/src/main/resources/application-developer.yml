@@ -1,5 +1,5 @@
 server:
-  port: 8040
+  port: 8010
   servlet:
     context-path: /shop
     encoding:
@@ -26,7 +26,7 @@ spring:
   sql:
     init:
       mode: always
-      schema-locations: classpath:schema-master.sql
+      schema-locations: classpath:schema-develop.sql
 logging:
   file:
     path: log/shop

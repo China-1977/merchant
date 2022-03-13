@@ -27,7 +27,6 @@ spring:
     init:
       mode: always
       schema-locations: classpath:schema-master.sql
-
 logging:
   file:
     path: log/platform
