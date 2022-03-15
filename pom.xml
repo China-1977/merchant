@@ -26,9 +26,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>work.onss</groupId>
-    <artifactId>onss</artifactId>
+    <artifactId>merchant</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>onss</name>
+    <name>merchant</name>
     <description>POM</description>
 
     <properties>
