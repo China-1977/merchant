@@ -60,7 +60,7 @@ public class WXNotify implements Serializable {
         public enum Status implements Serializable {
             SUCCESS,
             CLOSE,
-            ABNORMAL;
+            ABNORMAL
         }
 
         @Data

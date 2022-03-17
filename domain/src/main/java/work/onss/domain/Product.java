@@ -37,7 +37,7 @@ import java.util.Objects;
 @EntityListeners(AuditingEntityListener.class)
 public class Product implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long storeId;
     private String vid;

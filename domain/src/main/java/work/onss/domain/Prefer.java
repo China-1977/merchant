@@ -23,7 +23,7 @@ import java.util.Objects;
 public class Prefer implements Serializable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long storeId;
     private Long productId;

@@ -5,13 +5,14 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
-import work.onss.domain.QApplicationCustomer;
 import work.onss.domain.QApplication;
+import work.onss.domain.QApplicationCustomer;
 import work.onss.domain.QStore;
 import work.onss.domain.StoreRepository;
 import work.onss.exception.ServiceException;
@@ -34,7 +35,7 @@ public class RequestMappingInterceptor implements AsyncHandlerInterceptor {
     private StoreRepository storeRepository;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServiceException {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws ServiceException {
         String contextPath = request.getContextPath();
         if (handler instanceof HandlerMethod) {
             Method method = ((HandlerMethod) handler).getMethod();

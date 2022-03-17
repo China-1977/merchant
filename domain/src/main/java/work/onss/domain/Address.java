@@ -41,7 +41,7 @@ import java.util.Objects;
 @EntityListeners(AuditingEntityListener.class)
 public class Address implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "请填写姓名")
     private String username;

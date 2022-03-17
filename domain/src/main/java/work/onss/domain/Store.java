@@ -40,7 +40,7 @@ import java.util.Objects;
 @EntityListeners(AuditingEntityListener.class)
 public class Store implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "商户简称不能为空")
     private String shortname;

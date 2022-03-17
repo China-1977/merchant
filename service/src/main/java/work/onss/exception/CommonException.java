@@ -29,6 +29,17 @@ import java.util.concurrent.atomic.AtomicReference;
 @ResponseBody
 public class CommonException {
 
+    private static final Map<String, String> constraintCodeMap = new HashMap<>() {
+        {
+            put("uk_account_phone", "手机号已被注册");
+            put("uk_member_phone", "手机号已被注册");
+            put("uk_member_id_card", "身份证已被注册");
+            put("uk_customer_phone", "手机号已被注册");
+            put("uk_store_license_number", "统一社会信用代码已被注册");
+            put("uk_score_out_trade_no", "订单编号重复");
+        }
+    };
+
     @ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler(RuntimeException.class)
     public Work<Object> exception(RuntimeException e) {
@@ -93,17 +104,6 @@ public class CommonException {
         }
         return workBuilder.build();
     }
-
-    private static final Map<String, String> constraintCodeMap = new HashMap<>() {
-        {
-            put("uk_account_phone", "手机号已被注册");
-            put("uk_member_phone", "手机号已被注册");
-            put("uk_member_id_card", "身份证已被注册");
-            put("uk_customer_phone", "手机号已被注册");
-            put("uk_store_license_number", "统一社会信用代码已被注册");
-            put("uk_score_out_trade_no", "订单编号重复");
-        }
-    };
 
     @ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler({DuplicateKeyException.class, DataIntegrityViolationException.class})

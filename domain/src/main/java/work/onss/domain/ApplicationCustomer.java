@@ -21,7 +21,7 @@ import java.util.Objects;
 @Entity
 public class ApplicationCustomer implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long storeId;
     private Long applicationId;

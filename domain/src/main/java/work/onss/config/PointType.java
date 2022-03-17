@@ -27,7 +27,7 @@ public class PointType implements UserType {
 
 
     @Override
-    public boolean equals( Object o, Object o1 ) throws HibernateException {
+    public boolean equals(Object o, Object o1) throws HibernateException {
         if (o == null && o1 == null)
             return true;
         else if (o == null || o1 == null)

@@ -34,7 +34,7 @@ public class WXRefundResult implements Serializable {
         SUCCESS,
         CLOSED,
         PROCESSING,
-        ABNORMAL;
+        ABNORMAL
     }
 
 

@@ -4,6 +4,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class RequestMappingInterceptor implements AsyncHandlerInterceptor {
     private JPAQueryFactory jpaueryFactory;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServiceException {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws ServiceException {
         if (handler instanceof HandlerMethod) {
             Method method = ((HandlerMethod) handler).getMethod();
             Long mid = Long.valueOf(request.getHeader("mid"));

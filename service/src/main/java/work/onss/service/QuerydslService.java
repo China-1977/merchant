@@ -135,7 +135,7 @@ public class QuerydslService {
         return jpaQueryFactory.select(qCustomer).from(qApplicationCustomer)
                 .innerJoin(qCustomer).on(qCustomer.id.eq(qApplicationCustomer.customerId))
                 .innerJoin(qApplication).on(qCustomer.id.eq(qApplicationCustomer.applicationId))
-                .where(qApplicationCustomer.storeId.eq(storeId),qApplication.contextPath.concat(qApplication.type).concat(qApplication.value).in(applications))
+                .where(qApplicationCustomer.storeId.eq(storeId), qApplication.contextPath.concat(qApplication.type).concat(qApplication.value).in(applications))
                 .groupBy(qCustomer.id)
                 .fetch();
     }

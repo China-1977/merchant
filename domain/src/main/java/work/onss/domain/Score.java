@@ -42,7 +42,7 @@ import java.util.Objects;
 @EntityListeners(AuditingEntityListener.class)
 public class Score implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Boolean delivery;
     @Enumerated(value = EnumType.STRING)
@@ -131,6 +131,19 @@ public class Score implements Serializable {
         this.outTradeNo = outTradeNo;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Score score = (Score) o;
+        return id != null && Objects.equals(id, score.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
     @Getter
     @AllArgsConstructor
     public enum Status implements Serializable {
@@ -168,18 +181,5 @@ public class Score implements Serializable {
             this.priceUnit = priceUnit;
             this.total = total;
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Score score = (Score) o;
-        return id != null && Objects.equals(id, score.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 }

@@ -86,7 +86,7 @@ public class WxPay {
         String timeStamp = String.valueOf(score.getInsertTime());
         String nonceStr = SignUtils.genRandomStr();
         String packageValue = "prepay_id=".concat(score.getPrepayId());
-        String data = String.join("\n", score.getSubAppid(), timeStamp, nonceStr, packageValue,"");
+        String data = String.join("\n", score.getSubAppid(), timeStamp, nonceStr, packageValue, "");
         String sign = SignUtils.sign(data, wxPayConfig.getPrivateKey());
 
         return WxPayMpOrderResult.builder()

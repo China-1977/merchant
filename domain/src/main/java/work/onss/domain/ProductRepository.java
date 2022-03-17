@@ -22,12 +22,17 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Queryds
             return Optional.ofNullable(path.between(iterator.next(), iterator.next()));
         }));
     }
+
     List<Product> findByIdInAndStoreId(Collection<Long> ids, Long sid);
+
     List<Product> findByStoreId(Long sid);
+
     Optional<Product> findByIdAndStoreId(Long id, Long sid);
+
     @Modifying
     @Transactional
     void deleteByIdAndStoreId(Long id, Long sid);
+
     @Modifying
     @Transactional
     void deleteByIdInAndStoreId(Collection<Long> ids, Long sid);
