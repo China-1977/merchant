@@ -1,4 +1,4 @@
-package work.onss.domain;
+package work.onss.vo;
 
 import com.github.binarywang.wxpay.bean.applyment.WxPayApplyment4SubCreateRequest;
 import com.github.binarywang.wxpay.bean.applyment.enums.BankAccountTypeEnum;
@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
-import work.onss.vo.WXAddress;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -142,7 +141,7 @@ public class Merchant implements Serializable {
         /* 经营者/法人身份证件 */
         WxPayApplyment4SubCreateRequest.SubjectInfo.IdentityInfo identityInfo = WxPayApplyment4SubCreateRequest.SubjectInfo.IdentityInfo.builder()
                 .idCardInfo(idCardInfo)
-                .idDocType(IdTypeEnum.IDENTIFICATION_TYPE_IDCARD)
+                .idDocType(IDENTIFICATION_TYPE_IDCARD)
                 .owner(true)
                 .build();
         /* 1.主体资料 */

@@ -15,12 +15,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import work.onss.config.SystemConfig;
-import work.onss.domain.Merchant;
 import work.onss.domain.Store;
 import work.onss.domain.StoreRepository;
 import work.onss.exception.ServiceException;
 import work.onss.service.QuerydslService;
 import work.onss.utils.Utils;
+import work.onss.vo.Merchant;
 
 import java.text.MessageFormat;
 import java.util.Objects;
