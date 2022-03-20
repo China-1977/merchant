@@ -22,7 +22,10 @@
 				<view class="weui-media-box__title">{{product.name}}</view>
 			</view>
 			<view class="weui-media-box__desc">
-				单价:<label class="weui-cell_warn">¥{{product.average}}{{product.averageUnit}}</label>
+				单价:<label>¥{{product.price}}{{product.priceUnit}}</label>
+			</view>
+			<view class="weui-media-box__desc">
+				均价:<label class="weui-cell_warn">¥{{product.average}}{{product.averageUnit}}</label>
 			</view>
 			<view class="weui-media-box__desc">{{product.description}}</view>
 		</view>
