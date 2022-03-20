@@ -45,7 +45,7 @@ const LoginIndex = () => {
         <Row justify="space-around" align="middle">
           <Col span={6}>
             <Card title="登录" bordered={false} style={{textAlign: "center",}}>
-              <Form form={form} initialValues={{phone: '15063517240', password: 123456}} onFinish={onFinish}>
+              <Form form={form} onFinish={onFinish}>
                 <Form.Item
                   label="账号"
                   name="phone"

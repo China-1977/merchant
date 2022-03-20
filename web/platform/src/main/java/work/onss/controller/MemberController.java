@@ -9,12 +9,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import work.onss.domain.*;
+import work.onss.vo.PasswordVo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -88,6 +91,32 @@ public class MemberController {
                         qApplicationMember.applicationId.eq(qApplication.id),
                         qApplicationMember.memberId.eq(id)
                 ).fetch();
+    }
+
+    /**
+     * @param id         管理员ID
+     * @param passwordVo 密码
+     */
+    @PostMapping(value = {"members/{id}/setPassword"})
+    public void setPassword(@PathVariable Long id, @RequestBody PasswordVo passwordVo) {
+        Set<String> password = passwordVo.getPassword();
+        if (password.size() == 1) {
+            Member oldMember = memberRepository.findById(id).orElseThrow(() -> new RuntimeException("账号不存在"));
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            boolean matches = bCryptPasswordEncoder.matches(passwordVo.getOldPassword(), oldMember.getPassword());
+            if (matches) {
+                QMember qMember = QMember.member;
+                jpaQueryFactory.update(qMember)
+                        .set(qMember.password, password.iterator().next())
+                        .where(qMember.id.eq(id))
+                        .execute();
+            } else {
+                throw new RuntimeException("原密码错误");
+            }
+
+        } else {
+            throw new RuntimeException("输入的密码不一致");
+        }
     }
 
 }
