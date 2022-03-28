@@ -23,15 +23,15 @@ Page({
 
   updateCart: function (index, count) {
     wxLogin().then(({ authorization, info }) => {
-      let { product, cart } = this.data.products[index];
-      if (cart) {
+      let product = this.data.products[index];
+      if (product.cartId) {
         wxRequest({
           url: `${domain}/shop/carts`,
           method: 'POST',
           header: { authorization, aid: info.aid },
-          data: { id: cart.id, storeId: cart.storeId, productId: cart.productId, num: cart.num + count },
+          data: { id: product.cartId, storeId: product.storeId, productId: product.id, num: product.num + count },
         }).then((data) => {
-          getProducts(cart.storeId).then((data) => {
+          getProducts(product.storeId).then((data) => {
             this.setData({ ...data });
           });
         });
@@ -52,14 +52,14 @@ Page({
 
   checkedChange: function (e) {
     const index = e.currentTarget.dataset.index;
-    const  cart = this.data.products[index].cart;
+    const  product = this.data.products[index];
     wxLogin().then(({ authorization, info }) => {
       wxRequest({
-        url: `${domain}/shop/carts/${cart.id}/setChecked?checked=${cart.checked}&storeId=${cart.storeId}`,
+        url: `${domain}/shop/carts/${product.cartId}/setChecked?checked=${product.checked}&storeId=${product.storeId}`,
         method: 'POST',
         header: { authorization, aid: info.aid },
       }).then((data) => {
-        getProducts(cart.storeId).then((data) => {
+        getProducts(product.storeId).then((data) => {
           this.setData({ ...data });
         });
       })

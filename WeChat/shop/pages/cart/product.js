@@ -44,14 +44,14 @@ Page({
 
   updateCart: function (index, count) {
     wxLogin().then(({ authorization, info }) => {
-      let cart = this.data.products[index].cart;
+      let product = this.data.products[index];
       wxRequest({
         url: `${domain}/shop/carts`,
         method: 'POST',
         header: { authorization, aid: info.aid },
-        data: { id: cart.id, storeId: cart.storeId, productId: cart.productId, num: cart.num + count },
+        data: { id: product.cartId, storeId: product.storeId, productId: product.id, num: product.num + count },
       }).then((data) => {
-        getCarts(info.aid, cart.storeId, authorization).then((data) => {
+        getCarts(info.aid, product.storeId, authorization).then((data) => {
           this.setData({
             ...data
           })
@@ -62,14 +62,14 @@ Page({
 
   checkedChange: function (e) {
     const index = e.currentTarget.dataset.index;
-    const cart = this.data.products[index].cart;
+    const product = this.data.products[index];
     wxLogin().then(({ authorization, info }) => {
       wxRequest({
-        url: `${domain}/shop/carts/${cart.id}/setChecked?checked=${cart.checked}&storeId=${cart.storeId}`,
+        url: `${domain}/shop/carts/${product.cartId}/setChecked?checked=${product.checked}&storeId=${product.storeId}`,
         method: 'POST',
         header: { authorization, aid: info.aid },
       }).then((data) => {
-        getCarts(info.aid, cart.storeId, authorization).then((data) => {
+        getCarts(info.aid, product.storeId, authorization).then((data) => {
           this.setData({
             ...data
           })
@@ -99,13 +99,12 @@ Page({
       let { products } = this.data;
       const index = e.currentTarget.id;
       const product = products[index];
-      const cart = product.cart;
       wxRequest({
-        url: `${domain}/shop/carts/${cart.id}`,
+        url: `${domain}/shop/carts/${product.cartId}`,
         method: 'DELETE',
         header: { authorization, aid: info.aid },
       }).then((data) => {
-        getCarts(info.aid, cart.storeId, authorization).then((data) => {
+        getCarts(info.aid, product.storeId, authorization).then((data) => {
           this.setData({
             ...data
           })

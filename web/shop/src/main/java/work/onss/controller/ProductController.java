@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import work.onss.domain.*;
 import work.onss.dto.ProductDetailDto;
+import work.onss.dto.StoreDto;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -62,11 +63,32 @@ public class ProductController {
      */
     @GetMapping(value = {"products"})
     public Map<String, Object> products(@RequestParam Long storeId, @RequestHeader(required = false) Long aid) {
-        Store store = storeRepository.findById(storeId).orElseThrow(() -> new RuntimeException("该商户已注销"));
+        QStore qStore = QStore.store;
+        StoreDto store = jpaQueryFactory.select(Projections.fields(
+                        StoreDto.class,
+                        qStore.id,
+                        qStore.shortname,
+                        qStore.username,
+                        qStore.phone,
+                        qStore.addressName,
+                        qStore.addressDetail
+                ))
+                .from(qStore).where(qStore.id.eq(storeId)).fetchFirst();
         QProduct qProduct = QProduct.product;
         if (null == aid) {
             List<ProductDetailDto> products = jpaQueryFactory
-                    .select(Projections.bean(ProductDetailDto.class,qProduct))
+                    .select(Projections.constructor(
+                            ProductDetailDto.class,
+                            qProduct.id,
+                            qProduct.name,
+                            qProduct.description,
+                            qProduct.price,
+                            qProduct.priceUnit,
+                            qProduct.average,
+                            qProduct.averageUnit,
+                            qProduct.storeId,
+                            qProduct.pictures
+                    ))
                     .from(qProduct)
                     .where(qProduct.storeId.eq(storeId))
                     .fetch();
@@ -74,10 +96,20 @@ public class ProductController {
         } else {
             QCart qCart = QCart.cart;
             List<ProductDetailDto> productDetailDtos = jpaQueryFactory
-                    .select(Projections.bean(
+                    .select(Projections.constructor(
                             ProductDetailDto.class,
-                            qProduct,
-                            qCart,
+                            qProduct.id,
+                            qCart.id,
+                            qProduct.name,
+                            qProduct.description,
+                            qProduct.price,
+                            qProduct.priceUnit,
+                            qProduct.average,
+                            qProduct.averageUnit,
+                            qProduct.storeId,
+                            qProduct.pictures,
+                            qCart.num,
+                            qCart.checked,
                             (qProduct.average.multiply(qCart.num)).as(qCart.total)
                     ))
                     .from(qProduct)
@@ -87,7 +119,7 @@ public class ProductController {
             BigDecimal sum = BigDecimal.ZERO;
             boolean checkAll = true;
             for (ProductDetailDto productDetailDto : productDetailDtos) {
-                if (null != productDetailDto.getCart() && productDetailDto.getCart().getChecked()) {
+                if (null != productDetailDto.getCartId() && productDetailDto.getChecked()) {
                     sum = sum.add(productDetailDto.getTotal());
                 } else {
                     checkAll = false;

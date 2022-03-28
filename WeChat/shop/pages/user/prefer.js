@@ -48,16 +48,16 @@ Page({
 
   updateCart: function (index, count) {
     wxLogin().then(({ authorization, info }) => {
-      let { product, cart } = this.data.prefers[index];
-      if (cart) {
+      let product = this.data.prefers[index];
+      if (product.cartId) {
         wxRequest({
           url: `${domain}/shop/carts`,
           method: 'POST',
           header: { authorization, aid: info.aid },
-          data: { id: cart.id, storeId: cart.storeId, productId: cart.productId, num: cart.num + count },
+          data: { id: product.cartId, storeId: product.storeId, productId: product.id, num: product.num + count },
         }).then((data) => {
           this.setData({
-            [`prefers[${index}].cart`]: data,
+            [`prefers[${index}].num`]: data.num,
           });
         });
       } else {
@@ -68,7 +68,8 @@ Page({
           data: { storeId: product.storeId, productId: product.id, num: 1 },
         }).then((data) => {
           this.setData({
-            [`prefers[${index}].cart`]: data,
+            [`prefers[${index}].num`]: data.num,
+            [`prefers[${index}].cartId`]: data.id,
           });
         });
       }

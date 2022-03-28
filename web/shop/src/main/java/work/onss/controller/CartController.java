@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import work.onss.domain.*;
 import work.onss.dto.ProductDetailDto;
+import work.onss.dto.StoreDto;
 import work.onss.exception.ServiceException;
 
 import java.math.BigDecimal;
@@ -44,7 +45,7 @@ public class CartController {
      */
     @PostMapping(value = {"carts"})
     public Cart updateNum(@RequestHeader(name = "aid") Long aid, @Validated @RequestBody Cart cart) {
-        if (cart.getNum() == 0) {
+        if (cart.getNum().intValue() == 0) {
             throw new RuntimeException("请到购物车移除");
         }
         Product product = productRepository.findById(cart.getProductId()).orElseThrow(() -> new RuntimeException("该商品已下架"));
@@ -56,7 +57,7 @@ public class CartController {
             throw new RuntimeException("该商品已下架");
         }
 
-        BigDecimal total = product.getAverage().multiply(BigDecimal.valueOf(cart.getNum()));
+        BigDecimal total = product.getAverage().multiply(new BigDecimal(cart.getNum()));
         Cart oldCart = cartRepository.findByAccountIdAndProductId(aid, cart.getProductId()).orElse(null);
         if (oldCart == null) {
             cart.setStoreId(product.getStoreId());
@@ -77,10 +78,10 @@ public class CartController {
      * @return 购物车商户
      */
     @GetMapping(value = {"carts/getStores"})
-    public List<Store> getStores(@RequestHeader(name = "aid") Long aid) {
+    public List<StoreDto> getStores(@RequestHeader(name = "aid") Long aid) {
         QCart qCart = QCart.cart;
         QStore qStore = QStore.store;
-        return jpaQueryFactory.select(qStore).from(qStore)
+        return jpaQueryFactory.select(Projections.fields(StoreDto.class, qStore.id, qStore.shortname, qStore.description, qStore.trademark)).from(qStore)
                 .innerJoin(qCart).on(qCart.accountId.eq(aid), qStore.id.eq(qCart.storeId))
                 .groupBy(qStore.id)
                 .fetch();
@@ -92,14 +93,34 @@ public class CartController {
      */
     @GetMapping(value = {"carts"})
     public Map<String, Object> getCarts(@RequestParam(name = "storeId") Long storeId, @RequestHeader(name = "aid") Long aid) {
-        Store store = storeRepository.findById(storeId).orElseThrow(() -> new RuntimeException("该商户已注销"));
+        QStore qStore = QStore.store;
+        StoreDto store = jpaQueryFactory.select(Projections.fields(
+                        StoreDto.class,
+                        qStore.id,
+                        qStore.shortname,
+                        qStore.username,
+                        qStore.phone,
+                        qStore.addressName,
+                        qStore.addressDetail
+                ))
+                .from(qStore).where(qStore.id.eq(storeId)).fetchFirst();
         QCart qCart = QCart.cart;
         QProduct qProduct = QProduct.product;
         List<ProductDetailDto> productDetailDtos = jpaQueryFactory
-                .select(Projections.bean(
+                .select(Projections.constructor(
                         ProductDetailDto.class,
-                        qProduct,
-                        qCart,
+                        qProduct.id,
+                        qCart.id,
+                        qProduct.name,
+                        qProduct.description,
+                        qProduct.price,
+                        qProduct.priceUnit,
+                        qProduct.average,
+                        qProduct.averageUnit,
+                        qProduct.storeId,
+                        qProduct.pictures,
+                        qCart.num,
+                        qCart.checked,
                         (qProduct.average.multiply(qCart.num)).as(qCart.total)
                 ))
                 .from(qCart)
@@ -108,7 +129,7 @@ public class CartController {
         BigDecimal sum = BigDecimal.ZERO;
         boolean checkAll = true;
         for (ProductDetailDto productDetailDto : productDetailDtos) {
-            if (null != productDetailDto.getCart() && productDetailDto.getCart().getChecked()) {
+            if (null != productDetailDto.getCartId() && productDetailDto.getChecked()) {
                 sum = sum.add(productDetailDto.getTotal());
             } else {
                 checkAll = false;

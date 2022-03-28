@@ -61,7 +61,24 @@ public class PreferController {
         long count = preferRepository.count(qPrefer.accountId.eq(aid));
         List<ProductDetailDto> productDetailDtos = new ArrayList<>((int) count);
         if (0 < count) {
-            productDetailDtos = jpaQueryFactory.select(Projections.bean(ProductDetailDto.class, qProduct, qPrefer, qCart)).from(qPrefer)
+            productDetailDtos = jpaQueryFactory
+                    .select(Projections.constructor(
+                            ProductDetailDto.class,
+                            qProduct.id,
+                            qCart.id,
+                            qProduct.name,
+                            qProduct.description,
+                            qProduct.price,
+                            qProduct.priceUnit,
+                            qProduct.average,
+                            qProduct.averageUnit,
+                            qProduct.storeId,
+                            qProduct.pictures,
+                            qCart.num,
+                            qCart.checked,
+                            (qProduct.average.multiply(qCart.num)).as(qCart.total)
+                    ))
+                    .from(qPrefer)
                     .innerJoin(qProduct).on(qPrefer.accountId.eq(aid), qProduct.id.eq(qPrefer.productId))
                     .leftJoin(qCart).on(qCart.accountId.eq(aid), qCart.productId.eq(qPrefer.productId))
                     .limit(pageable.getPageSize())

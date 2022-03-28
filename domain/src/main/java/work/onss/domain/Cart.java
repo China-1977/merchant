@@ -9,9 +9,10 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.DecimalMin;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -36,8 +37,8 @@ public class Cart implements Serializable {
     private Long accountId;
     private Long storeId;
     private Long productId;
-    @Min(value = 0, message = "购买数量不能小于{value}")
-    private Integer num;
+    @DecimalMin(value = "0", message = "购买数量不能小于{value}")
+    private BigInteger num;
     @JsonFormat(pattern = "#.00", shape = JsonFormat.Shape.STRING)
     private BigDecimal total = BigDecimal.ZERO;
     private Boolean checked = false;

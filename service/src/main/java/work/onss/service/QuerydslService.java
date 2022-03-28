@@ -1,5 +1,7 @@
 package work.onss.service;
 
+import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.log4j.Log4j2;
 import org.postgresql.geometric.PGcircle;
@@ -76,10 +78,10 @@ public class QuerydslService {
         value.put("offset", pageable.getOffset());
         String sql;
         if (StringUtils.hasLength(keyword)) {
-            sql = "select s.* as store, s.location <-> :location\\:\\:point as distance from store as s where s.status = 'true' and s.location <@ :circle\\:\\:circle and to_tsvector(s.description) @@ to_tsquery(:keyword) order by distance limit :limit offset :offset ";
+            sql = "select s.id,s.shortname,s.description,s.trademark,s.location <-> :location\\:\\:point as distance from store s where s.status = 'true' and s.location <@ :circle\\:\\:circle and to_tsvector(s.description) @@ to_tsquery(:keyword) order by distance limit :limit offset :offset ";
             value.put("keyword", keyword);
         } else {
-            sql = "select s.* as store, s.location <-> :location\\:\\:point as distance from store as s where s.status = 'true' and s.location <@ :circle\\:\\:circle order by distance limit :limit offset :offset ";
+            sql = "select s.id,s.shortname,s.description,s.trademark,s.location <-> :location\\:\\:point as distance from store s where s.status = 'true' and s.location <@ :circle\\:\\:circle order by distance limit :limit offset :offset ";
         }
         return namedParameterJdbcTemplate.query(sql, value, new StoreDto());
     }
@@ -226,5 +228,26 @@ public class QuerydslService {
                 .set(qStore.subMchId, subMchId)
                 .where(qStore.id.eq(id))
                 .execute();
+    }
+
+    public Store getStore(Long id, Expression<?>... exprs) {
+        QStore qStore = QStore.store;
+        return jpaQueryFactory.select(Projections.fields(Store.class, qStore.id,
+                qStore.shortname,
+                qStore.description,
+                qStore.trademark,
+                qStore.status,
+                qStore.pictures,
+                qStore.videos,
+                qStore.openTime,
+                qStore.closeTime,
+                qStore.username,
+                qStore.phone,
+                qStore.location,
+                qStore.postcode,
+                qStore.addressName,
+                qStore.addressDetail,
+                qStore.addressCode,
+                qStore.addressValue)).from(qStore).where(qStore.id.eq(id)).fetchOne();
     }
 }

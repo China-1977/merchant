@@ -16,6 +16,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -60,14 +61,14 @@ public class Product implements Serializable {
     @NotBlank(message = "单位不能为空")
     private String averageUnit;
     @NotNull(message = "请填写库存数量")
-    @Min(value = 0, message = "库存不能小于{value}")
-    private Integer stock;
+    @DecimalMin(value = "0", message = "库存不能小于{value}")
+    private BigInteger stock;
     @NotNull(message = "请填写最小购买数量")
-    @Min(value = 1, message = "最小购买数量不能小于{value}")
-    private Integer min = 1;
+    @DecimalMin(value = "1", message = "最小购买数量不能小于{value}")
+    private BigInteger min;
     @NotNull(message = "请填写最大购买数量")
-    @Min(value = 1, message = "最大购买数量不能小于{value}")
-    private Integer max = 1;
+    @DecimalMin(value = "1", message = "最大购买数量不能小于{value}")
+    private BigInteger max;
     @NotBlank(message = "商品标签不能为空")
     private String label;
     private Boolean status = false;

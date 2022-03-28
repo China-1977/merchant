@@ -1,14 +1,20 @@
-import { windowWidth } from '../../utils/util.js';
+import { windowWidth,domain,wxLogin,wxRequest } from '../../utils/util.js';
 Page({
   data: {
-    windowWidth
+    windowWidth,domain
   },
 
-  onReady: function () {
-    let pages = getCurrentPages();//当前页面栈
-    let prevPage = pages[pages.length - 2];//上一页面
-    this.setData({
-      ...prevPage.data
+  onLoad: function (options) {
+    wxLogin().then(({ authorization, info }) => {
+      wxRequest({
+        url: `${domain}/shop/stores/${options.id}`,
+        header: { authorization, aid: info.aid },
+      }).then((data) => {
+        this.setData({
+          ...options,
+          store: data
+        });
+      });
     })
   },
  
