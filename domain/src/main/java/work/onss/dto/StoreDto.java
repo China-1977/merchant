@@ -4,6 +4,7 @@ import com.google.gson.FieldNamingPolicy;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.postgresql.geometric.PGpoint;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.io.Serializable;
@@ -24,6 +25,9 @@ public class StoreDto implements Serializable, RowMapper<StoreDto> {
     private String phone;
     private String addressName;
     private String addressDetail;
+    private String[] pictures;
+    private String[] videos;
+    private PGpoint location;
 
 
     @Override

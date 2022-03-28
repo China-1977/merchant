@@ -55,7 +55,7 @@
     },
     "plugins": {
         "player": {
-            "version": "2.0.9",
+            "version": "2.0.10",
             "provider": "wxa75efa648b60994b"
          }
     },

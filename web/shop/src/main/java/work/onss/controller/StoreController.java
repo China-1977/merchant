@@ -1,5 +1,7 @@
 package work.onss.controller;
 
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.log4j.Log4j2;
 import org.postgresql.geometric.PGcircle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import work.onss.domain.Store;
-import work.onss.domain.StoreRepository;
+import work.onss.domain.QStore;
 import work.onss.dto.StoreDto;
 import work.onss.service.QuerydslService;
 
@@ -19,20 +20,33 @@ import java.util.List;
 @Log4j2
 @RestController
 public class StoreController {
-
-
     @Autowired
-    private StoreRepository storeRepository;
+    protected JPAQueryFactory jpaQueryFactory;
 
     @Autowired
     private QuerydslService querydslService;
+
     /**
      * @param id 主键
      * @return 店铺信息
      */
     @GetMapping(value = {"stores/{id}"})
-    public Store store(@PathVariable Long id) {
-        return storeRepository.findById(id).orElse(null);
+    public StoreDto store(@PathVariable Long id) {
+        QStore qStore = QStore.store;
+        return jpaQueryFactory.select(Projections.fields(StoreDto.class,
+                        qStore.id,
+                        qStore.shortname,
+                        qStore.description,
+                        qStore.trademark,
+                        qStore.username,
+                        qStore.phone,
+                        qStore.videos,
+                        qStore.pictures,
+                        qStore.location,
+                        qStore.addressName
+                )).from(qStore)
+                .where(qStore.id.eq(id))
+                .fetchOne();
     }
 
     /**
