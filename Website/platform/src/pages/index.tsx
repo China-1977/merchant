@@ -17,12 +17,12 @@ export default function IndexPage() {
     mapboxgl.accessToken = 'pk.eyJ1IjoiYW56aGlodW4iLCJhIjoiY2lsdnhjdjN5MDFvMHVia3NpYTlnbmUzaSJ9.twlExCjpR7uwH2IiFC7aDA';
     var map = new mapboxgl.Map({
       container: 'map',
-      style:{
-        'version': 8,
-        'sources': {
+      style: {
+        version: 8,
+        sources: {
           'raster-tiles': {
-            'type': 'raster',
-            'tiles': [
+            type: 'raster',
+            tiles: [
               'http://127.0.0.1:8010/{z}/{x}/{y}.png'
             ],
           }
@@ -32,11 +32,11 @@ export default function IndexPage() {
           'type': 'raster',
           'source': 'raster-tiles',
           'minzoom': 0,
-          'maxzoom': 22
+          'maxzoom': 18
         }]
       },
-      center: [116.85059 ,36.78289],
-      zoom: 3
+      center: [116.85059, 36.78289],
+      zoom: 5
     });
   });
   return (
