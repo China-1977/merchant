@@ -14,11 +14,12 @@ import mapboxgl from 'mapbox-gl';
  */
 export default function IndexPage() {
   React.useEffect(() => {
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYW56aGlodW4iLCJhIjoiY2lsdnhjdjN5MDFvMHVia3NpYTlnbmUzaSJ9.twlExCjpR7uwH2IiFC7aDA';
     var map = new mapboxgl.Map({
       container: 'map',
       style: {
         version: 8,
+        name: '1977',
+        sprite: 'localhost:8010/sprite',
         sources: {
           'raster-tiles': {
             type: 'raster',
