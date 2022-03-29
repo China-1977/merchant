@@ -118,6 +118,22 @@ public class QuerydslService {
     }
 
     /**
+     * @param cid    营业员ID
+     * @param limit  数量
+     * @param offset 偏移
+     * @return 商户详情
+     */
+    public List<Store> get(Long cid, Integer limit, Long offset,QStore qStore,Expression<?>... exprs) {
+        QStoreCustomer qStoreCustomer = QStoreCustomer.storeCustomer;
+        return jpaQueryFactory.select(Projections.fields(Store.class,exprs)).from(qStore)
+                .innerJoin(qStoreCustomer).on(qStore.id.eq(qStoreCustomer.storeId))
+                .where(qStoreCustomer.customerId.eq(cid))
+                .limit(limit)
+                .offset(offset)
+                .fetch();
+    }
+
+    /**
      * @param sid 商户ID
      * @return 营业员列表
      */

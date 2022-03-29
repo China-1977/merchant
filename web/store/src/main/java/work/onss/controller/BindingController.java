@@ -53,7 +53,8 @@ public class BindingController {
      */
     @GetMapping(value = {"bindings/getStores"})
     public List<Store> stores(@RequestHeader(name = "cid") Long cid, @PageableDefault Pageable pageable) {
-        return querydslService.get(cid, pageable.getPageSize(), pageable.getOffset());
+        QStore qStore = QStore.store;
+        return querydslService.get(cid, pageable.getPageSize(), pageable.getOffset(), qStore, qStore.id, qStore.shortname, qStore.trademark, qStore.status);
     }
 
     /**

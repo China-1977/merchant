@@ -3,6 +3,7 @@ package work.onss.controller;
 
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.log4j.Log4j2;
@@ -82,7 +83,16 @@ public class ScoreController {
             booleanExpression2 = qScore.username.eq(keyword).or(qScore.phone.eq(keyword)).or(qScore.outTradeNo.eq(keyword));
         }
 
-        return jpaQueryFactory.select(qScore).from(qScore)
+        return jpaQueryFactory.select(Projections.fields(Score.class,
+                        qScore.id,
+                        qScore.username,
+                        qScore.phone,
+                        qScore.addressDetail,
+                        qScore.insertTime,
+                        qScore.status,
+                        qScore.total,
+                        qScore.products
+                )).from(qScore)
                 .where(ExpressionUtils.and(booleanExpression1, booleanExpression2))
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
