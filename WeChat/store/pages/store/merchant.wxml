@@ -66,7 +66,7 @@
     </view>
     <image wx:if="{{licenseCopy == null}}" src="/images/license.png" mode="aspectFit" style="width:100%" bindtap="chooseImage" id="licenseCopy"></image>
     <icon wx:if="{{licenseCopy!=null}}" type="cancel" bindtap="deletePicture" id="licenseCopy"></icon>
-    <image wx:if="{{licenseCopy!=null}}" src="{{domain}}/picture/{{store.id}}/licenseCopy.png" mode="aspectFit" style="width:100%"></image>
+    <image wx:if="{{licenseCopy!=null}}" src="{{domain}}/file/store/{{store.id}}/qualifications/licenseCopy.png" mode="aspectFit" style="width:100%"></image>
     <input type="text" hidden="true" name="licenseCopy" value="{{licenseCopy}}" />
 
     <view class="weui-cell ">
@@ -115,7 +115,7 @@
   <view class="weui-cells weui-cells_after-title" style="font-size:27rpx">
     <image wx:if="{{idCardCopy == null}}" src="/images/idCardA.png" mode="aspectFit" style="width:100%" bindtap="chooseImage" id="idCardCopy"></image>
     <icon wx:if="{{idCardCopy!=null}}" type="cancel" bindtap="deletePicture" id="idCardCopy"></icon>
-    <image wx:if="{{idCardCopy!=null}}" src="{{domain}}/picture/{{store.id}}/idCardCopy.png" mode="aspectFit" style="width:100%"></image>
+    <image wx:if="{{idCardCopy!=null}}" src="{{domain}}/file/store/{{store.id}}/qualifications/idCardCopy.png" mode="aspectFit" style="width:100%"></image>
     <input type="text" hidden="true" name="idCardCopy" value="{{idCardCopy}}" />
     <view class="weui-cell ">
       <view class="weui-cell__hd">
@@ -135,7 +135,7 @@
     </view>
     <image wx:if="{{idCardNational == null}}" src="/images/idCardB.png" mode="aspectFit" style="width:100%" bindtap="chooseImage" id="idCardNational"></image>
     <icon wx:if="{{idCardNational!=null}}" type="cancel" bindtap="deletePicture" id="idCardNational"></icon>
-    <image wx:if="{{idCardNational!=null}}" src="{{domain}}/picture/{{store.id}}/idCardNational.png" mode="aspectFit" style="width:100%"></image>
+    <image wx:if="{{idCardNational!=null}}" src="{{domain}}/file/store/{{store.id}}/qualifications/idCardNational.png" mode="aspectFit" style="width:100%"></image>
     <input type="text" hidden="true" name="idCardNational" value="{{idCardNational}}" />
 
     <view class="weui-cell ">
@@ -171,7 +171,7 @@
   <view wx:if="{{!owner}}" class="weui-cells weui-cells_after-title" style="font-size:27rpx">
     <image wx:if="{{idCardA == null}}" src="/images/idCardA.png" mode="aspectFit" style="width:100%" bindtap="chooseImage" id="idCardA"></image>
     <icon wx:if="{{idCardA!=null}}" type="cancel" bindtap="deletePicture" id="idCardA"></icon>
-    <image wx:if="{{idCardA!=null}}" src="{{domain}}/picture/{{store.id}}/idCardA.png" mode="aspectFit" style="width:100%"></image>
+    <image wx:if="{{idCardA!=null}}" src="{{domain}}/file/store/{{store.id}}/qualifications/idCardA.png" mode="aspectFit" style="width:100%"></image>
     <input type="text" hidden="true" name="idCardA" value="{{idCardA}}" />
     <view class="weui-cell ">
       <view class="weui-cell__hd">
@@ -191,7 +191,7 @@
     </view>
     <image wx:if="{{idCardB == null}}" src="/images/idCardB.png" mode="aspectFit" style="width:100%" bindtap="chooseImage" id="idCardB"></image>
     <icon wx:if="{{idCardB!=null}}" type="cancel" bindtap="deletePicture" id="idCardB"></icon>
-    <image wx:if="{{idCardB!=null}}" src="{{domain}}/picture/{{store.id}}/idCardB.png" mode="aspectFit" style="width:100%"></image>
+    <image wx:if="{{idCardB!=null}}" src="{{domain}}/file/store/{{store.id}}/qualifications/idCardB.png" mode="aspectFit" style="width:100%"></image>
     <input type="text" hidden="true" name="idCardB" value="{{idCardB}}" />
 
     <view class="weui-cell ">
@@ -245,7 +245,7 @@
               <block wx:for="{{qualifications}}" wx:key="index">
                 <view class="weui-uploader__file" id="{{item}}">
                   <icon type="cancel" bindtap="deletePictures" id="qualifications"></icon>
-                  <image class="weui-uploader__img" src="{{domain}}/picture/{{store.id}}/qualifications{{index}}.png" mode="aspectFill" />
+                  <image class="weui-uploader__img" src="{{domain}}/file/store/{{store.id}}/qualifications/qualifications{{index}}.png" mode="aspectFill" />
                 </view>
               </block>
             </view>
