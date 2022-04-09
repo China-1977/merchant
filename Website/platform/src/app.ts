@@ -12,23 +12,8 @@ const authHeaderInterceptor = (url: string, options: any) => {
   return {url, options};
 };
 
-const prefixes = (env: any) => {
-  let prefix = undefined;
-  switch (env) {
-    case 'production':
-      prefix = 'https://1977.work';
-      break;
-    case 'development':
-      prefix = 'http://127.0.0.1:80';
-      break;
-    default:
-      break;
-  }
-  return prefix;
-};
-
 export const request: RequestConfig = {
-  prefix: prefixes(process.env.NODE_ENV),
+  prefix: process.env.platform,
   requestInterceptors: [authHeaderInterceptor],
   errorConfig: {
     adaptor: (resData: any) => {
