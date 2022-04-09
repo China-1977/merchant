@@ -42,7 +42,6 @@ public class StoreDto implements Serializable, RowMapper<StoreDto> {
                 field.set(storeDto, object);
             } catch (SQLException | IllegalAccessException ignored) {
             }
-
         }
         return storeDto;
     }
