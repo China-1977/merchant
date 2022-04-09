@@ -2,7 +2,12 @@ import {defineConfig} from 'umi';
 import routes from './routes';
 
 export default defineConfig({
+  define:{
+    'process.env.platform': 'https://1977.work',
+  },
   mfsu: {},
+  webpack5:{},
+  dynamicImport:{},
   hash: true,
   history: {type: 'hash'},
   nodeModulesTransform: {
