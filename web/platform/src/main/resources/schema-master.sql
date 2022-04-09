@@ -55,8 +55,6 @@ comment on column master.store.insert_time is '创建时间';
 comment on column master.store.update_time is '更新时间';
 comment on column master.store.username is '联系人';
 comment on column master.store.videos is '视频ID';
-alter table master.store
-    owner to postgres;
 
 create table if not exists master.score
 (
@@ -129,8 +127,6 @@ comment on column master.score.status is '订单状态';
 comment on column master.score.out_trade_no is '订单编号';
 comment on column master.score.insert_time is '创建时间';
 comment on column master.score.update_time is '更新时间';
-alter table master.score
-    owner to postgres;
 create index if not exists i_score_insert_date_store_id on master.score (insert_time, store_id);
 create index if not exists i_score_insert_date_account_id on master.score (insert_time, account_id);
 
@@ -151,8 +147,6 @@ comment on column master.application.type is '类型';
 comment on column master.application.value is '路径';
 comment on column master.application.insert_time is '创建时间';
 comment on column master.application.update_time is '更新时间';
-alter table master.application
-    owner to postgres;
 
 create table if not exists master.customer
 (
@@ -176,8 +170,6 @@ comment on column master.customer.sub_appid is '子商户申请的应用ID';
 comment on column master.customer.sub_openid is '用户在子商户appid下的唯一标识';
 comment on column master.customer.insert_time is '创建时间';
 comment on column master.customer.update_time is '更新时间';
-alter table master.customer
-    owner to postgres;
 
 create table if not exists master.member
 (
@@ -198,8 +190,6 @@ comment on column master.member.id_card is '身份证号';
 comment on column master.member.password is '密码';
 comment on column master.member.insert_time is '创建时间';
 comment on column master.member.update_time is '更新时间';
-alter table master.member
-    owner to postgres;
 
 create table if not exists master.account
 (
@@ -223,8 +213,6 @@ comment on column master.account.sub_appid is '子商户申请的应用ID';
 comment on column master.account.sub_openid is '用户在子商户appid下的唯一标识';
 comment on column master.account.insert_time is '创建时间';
 comment on column master.account.update_time is '更新时间';
-alter table master.account
-    owner to postgres;
 
 create table if not exists master.product
 (
@@ -267,8 +255,6 @@ comment on column master.product.label is '商品标签';
 comment on column master.product.pictures is '商品图集';
 comment on column master.product.insert_time is '创建时间';
 comment on column master.product.update_time is '更新时间';
-alter table master.product
-    owner to postgres;
 create index if not exists i_product_store_id on master.product (store_id);
 
 create table if not exists master.application_member
@@ -282,8 +268,6 @@ create table if not exists master.application_member
 comment on table master.application_member is '管理员与平台资源关联';
 comment on column master.application_member.member_id is '管理员ID';
 comment on column master.application_member.application_id is '平台资源ID';
-alter table master.application_member
-    owner to postgres;
 
 create table if not exists master.application_customer
 (
@@ -299,8 +283,6 @@ comment on table master.application_customer is '营业员与服务资源关联'
 comment on column master.application_customer.customer_id is '营业员ID';
 comment on column master.application_customer.application_id is '服务资源ID';
 comment on column master.application_customer.store_id is '商户ID';
-alter table master.application_customer
-    owner to postgres;
 
 create table if not exists master.store_customer
 (
@@ -313,8 +295,6 @@ create table if not exists master.store_customer
 comment on table master.store_customer is '营业员与商户关联';
 comment on column master.store_customer.customer_id is '营业员ID';
 comment on column master.store_customer.store_id is '商户ID';
-alter table master.store_customer
-    owner to postgres;
 
 create table if not exists master.prefer
 (
@@ -334,8 +314,6 @@ comment on column master.prefer.product_id is '商品ID';
 comment on column master.prefer.store_id is '商户ID';
 comment on column master.prefer.insert_time is '创建时间';
 comment on column master.prefer.update_time is '更新时间';
-alter table master.prefer
-    owner to postgres;
 create unique index if not exists ui_prefer_store_id_account_id_product_id on master.prefer (store_id, account_id, product_id);
 
 create table if not exists master.cart
@@ -363,8 +341,6 @@ comment on column master.cart.checked is '是否选中';
 comment on column master.cart.num is '购买数量';
 comment on column master.cart.insert_time is '创建时间';
 comment on column master.cart.update_time is '更新时间';
-alter table master.cart
-    owner to postgres;
 create unique index if not exists ui_cart_store_id_account_id_product_id on master.cart (store_id, account_id, product_id);
 
 create table if not exists master.address
@@ -395,5 +371,21 @@ comment on column master.address.code is '省市区编号';
 comment on column master.address.value is '省市区';
 comment on column master.address.insert_time is '创建时间';
 comment on column master.address.update_time is '更新时间';
-alter table master.address
-    owner to postgres;
+
+create table if not exists master.vip
+(
+    id          bigserial primary key,
+    account_id  bigint    not null,
+    store_id    bigint    not null,
+    balance     numeric   not null default 0.00,
+    insert_time timestamp not null default current_timestamp,
+    update_time timestamp not null default current_timestamp
+);
+comment on table master.vip is '会员卡';
+comment on column master.vip.account_id is '用户ID';
+comment on column master.vip.store_id is '商户ID';
+comment on column master.vip.balance is '余额';
+comment on column master.vip.insert_time is '创建时间';
+comment on column master.vip.update_time is '更新时间';
+create index if not exists i_vip_insert_date_organization_id on master.vip (insert_time, store_id);
+create index if not exists i_vip_insert_date_account_id on master.vip (insert_time, account_id);

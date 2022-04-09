@@ -55,8 +55,6 @@ comment on column develop.store.insert_time is '创建时间';
 comment on column develop.store.update_time is '更新时间';
 comment on column develop.store.username is '联系人';
 comment on column develop.store.videos is '视频ID';
-alter table develop.store
-    owner to postgres;
 
 create table if not exists develop.score
 (
@@ -129,8 +127,6 @@ comment on column develop.score.status is '订单状态';
 comment on column develop.score.out_trade_no is '订单编号';
 comment on column develop.score.insert_time is '创建时间';
 comment on column develop.score.update_time is '更新时间';
-alter table develop.score
-    owner to postgres;
 create index if not exists i_score_insert_date_store_id on develop.score (insert_time, store_id);
 create index if not exists i_score_insert_date_account_id on develop.score (insert_time, account_id);
 
@@ -151,8 +147,6 @@ comment on column develop.application.type is '类型';
 comment on column develop.application.value is '路径';
 comment on column develop.application.insert_time is '创建时间';
 comment on column develop.application.update_time is '更新时间';
-alter table develop.application
-    owner to postgres;
 
 create table if not exists develop.customer
 (
@@ -176,8 +170,6 @@ comment on column develop.customer.sub_appid is '子商户申请的应用ID';
 comment on column develop.customer.sub_openid is '用户在子商户appid下的唯一标识';
 comment on column develop.customer.insert_time is '创建时间';
 comment on column develop.customer.update_time is '更新时间';
-alter table develop.customer
-    owner to postgres;
 
 create table if not exists develop.member
 (
@@ -198,8 +190,6 @@ comment on column develop.member.id_card is '身份证号';
 comment on column develop.member.password is '密码';
 comment on column develop.member.insert_time is '创建时间';
 comment on column develop.member.update_time is '更新时间';
-alter table develop.member
-    owner to postgres;
 
 create table if not exists develop.account
 (
@@ -223,8 +213,6 @@ comment on column develop.account.sub_appid is '子商户申请的应用ID';
 comment on column develop.account.sub_openid is '用户在子商户appid下的唯一标识';
 comment on column develop.account.insert_time is '创建时间';
 comment on column develop.account.update_time is '更新时间';
-alter table develop.account
-    owner to postgres;
 
 create table if not exists develop.product
 (
@@ -267,8 +255,6 @@ comment on column develop.product.label is '商品标签';
 comment on column develop.product.pictures is '商品图集';
 comment on column develop.product.insert_time is '创建时间';
 comment on column develop.product.update_time is '更新时间';
-alter table develop.product
-    owner to postgres;
 create index if not exists i_product_store_id on develop.product (store_id);
 
 create table if not exists develop.application_member
@@ -282,8 +268,6 @@ create table if not exists develop.application_member
 comment on table develop.application_member is '管理员与平台资源关联';
 comment on column develop.application_member.member_id is '管理员ID';
 comment on column develop.application_member.application_id is '平台资源ID';
-alter table develop.application_member
-    owner to postgres;
 
 create table if not exists develop.application_customer
 (
@@ -299,8 +283,6 @@ comment on table develop.application_customer is '营业员与服务资源关联
 comment on column develop.application_customer.customer_id is '营业员ID';
 comment on column develop.application_customer.application_id is '服务资源ID';
 comment on column develop.application_customer.store_id is '商户ID';
-alter table develop.application_customer
-    owner to postgres;
 
 create table if not exists develop.store_customer
 (
@@ -313,8 +295,6 @@ create table if not exists develop.store_customer
 comment on table develop.store_customer is '营业员与商户关联';
 comment on column develop.store_customer.customer_id is '营业员ID';
 comment on column develop.store_customer.store_id is '商户ID';
-alter table develop.store_customer
-    owner to postgres;
 
 create table if not exists develop.prefer
 (
@@ -334,8 +314,6 @@ comment on column develop.prefer.product_id is '商品ID';
 comment on column develop.prefer.store_id is '商户ID';
 comment on column develop.prefer.insert_time is '创建时间';
 comment on column develop.prefer.update_time is '更新时间';
-alter table develop.prefer
-    owner to postgres;
 create unique index if not exists ui_prefer_store_id_account_id_product_id on develop.prefer (store_id, account_id, product_id);
 
 create table if not exists develop.cart
@@ -354,17 +332,16 @@ create table if not exists develop.cart
     insert_time timestamp not null default current_timestamp,
     update_time timestamp not null default current_timestamp
 );
-comment on table develop.cart           is '购物车';
-comment on column develop.cart.account_id      is '消费者ID';
-comment on column develop.cart.product_id      is '商品ID';
-comment on column develop.cart.store_id      is '商户ID';
-comment on column develop.cart.total    is '小计';
-comment on column develop.cart.checked  is '是否选中';
-comment on column develop.cart.num      is '购买数量';
+comment on table develop.cart is '购物车';
+comment on column develop.cart.account_id is '消费者ID';
+comment on column develop.cart.product_id is '商品ID';
+comment on column develop.cart.store_id is '商户ID';
+comment on column develop.cart.total is '小计';
+comment on column develop.cart.checked is '是否选中';
+comment on column develop.cart.num is '购买数量';
 comment on column develop.cart.insert_time is '创建时间';
 comment on column develop.cart.update_time is '更新时间';
-alter table develop.cart owner to postgres;
-create unique index if not exists ui_cart_store_id_account_id_product_id on develop.cart(store_id,account_id,product_id);
+create unique index if not exists ui_cart_store_id_account_id_product_id on develop.cart (store_id, account_id, product_id);
 
 create table if not exists develop.address
 (
@@ -394,5 +371,21 @@ comment on column develop.address.code is '省市区编号';
 comment on column develop.address.value is '省市区';
 comment on column develop.address.insert_time is '创建时间';
 comment on column develop.address.update_time is '更新时间';
-alter table develop.address
-    owner to postgres;
+
+create table if not exists develop.vip
+(
+    id          bigserial primary key,
+    account_id  bigint    not null,
+    store_id    bigint    not null,
+    balance     numeric   not null default 0.00,
+    insert_time timestamp not null default current_timestamp,
+    update_time timestamp not null default current_timestamp
+);
+comment on table develop.vip is '会员卡';
+comment on column develop.vip.account_id is '用户ID';
+comment on column develop.vip.store_id is '商户ID';
+comment on column develop.vip.balance is '余额';
+comment on column develop.vip.insert_time is '创建时间';
+comment on column develop.vip.update_time is '更新时间';
+create index if not exists i_vip_insert_date_organization_id on develop.vip (insert_time, store_id);
+create index if not exists i_vip_insert_date_account_id on develop.vip (insert_time, account_id);
