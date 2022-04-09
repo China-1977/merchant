@@ -4,6 +4,7 @@ import routes from './routes';
 export default defineConfig({
   define:{
     'process.env.platform': 'https://1977.work',
+    'process.env.file': 'https://1977.work',
   },
   mfsu: {},
   webpack5:{},
