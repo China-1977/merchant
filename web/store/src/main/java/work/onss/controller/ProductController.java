@@ -2,17 +2,25 @@ package work.onss.controller;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import work.onss.config.SystemConfig;
 import work.onss.domain.Product;
 import work.onss.domain.ProductRepository;
 import work.onss.domain.QProduct;
 import work.onss.service.QuerydslService;
+import work.onss.utils.Utils;
 
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 商品管理
@@ -28,6 +36,8 @@ public class ProductController {
     private ProductRepository productRepository;
     @Autowired
     private QuerydslService querydslService;
+    @Autowired
+    private SystemConfig systemConfig;
 
     /**
      * @param id  商品ID
@@ -68,7 +78,7 @@ public class ProductController {
      * @return 商品详情
      */
     @PutMapping(value = {"products/{id}"}, name = "商品编辑")
-    public Product update(@PathVariable Long id, @RequestHeader(name = "sid") Long sid,  @Validated @RequestBody Product product) {
+    public Product update(@PathVariable Long id, @RequestHeader(name = "sid") Long sid, @Validated @RequestBody Product product) {
         Long count = querydslService.setProduct(id, sid, product);
         if (count == 0) {
             throw new RuntimeException("商品不存在");
@@ -122,5 +132,19 @@ public class ProductController {
     @DeleteMapping(value = {"products"}, name = "商品删除批量")
     public void delete(@RequestHeader(name = "sid") Long sid, @RequestBody Collection<Long> ids) {
         productRepository.deleteByIdInAndStoreId(ids, sid);
+    }
+
+    /**
+     * @param file 文件
+     * @param sid  商户ID
+     * @return 文件存储路径
+     * @throws Exception 文件上传失败异常
+     */
+    @PostMapping(value = "products/uploadPicture", name = "商品图片")
+    public String uploadPicture(@RequestHeader(name = "sid") Long sid, @RequestParam(value = "file") MultipartFile file) throws Exception {
+        String subtype = MediaType.valueOf(Objects.requireNonNull(file.getContentType())).getSubtype();
+        String fileName = DigestUtils.sha256Hex(file.getBytes()).concat(".").concat(subtype);
+        Path path = Utils.uploadFile(file, systemConfig.getFilePath(), "store", String.valueOf(sid), "products", fileName);
+        return StringUtils.cleanPath(path.subpath(1, path.getNameCount()).toString());
     }
 }

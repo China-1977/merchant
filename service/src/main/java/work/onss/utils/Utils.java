@@ -30,6 +30,17 @@ public class Utils {
             file.transferTo(path);
         }
     }
+    public static Path uploadFile(MultipartFile file, String dir, String... more) throws ServiceException, IOException {
+        Path path = Paths.get(dir, more);
+        Path parent = path.getParent();
+        if (!Files.exists(parent) && !parent.toFile().mkdirs()) {
+            throw new ServiceException("FAIL", "上传失败!");
+        }
+        if (!Files.exists(path)) {
+            file.transferTo(path);
+        }
+        return path;
+    }
 
     public static String getFilePath(String dir, String filename, String... more) throws ServiceException {
         Path path = Paths.get(dir, more);

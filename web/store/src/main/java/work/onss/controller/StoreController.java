@@ -11,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ import work.onss.service.QuerydslService;
 import work.onss.utils.Utils;
 import work.onss.vo.Merchant;
 
+import java.nio.file.Path;
 import java.text.MessageFormat;
 import java.util.Objects;
 
@@ -129,13 +131,10 @@ public class StoreController {
      */
     @PostMapping(value = "stores/uploadPicture", name = "商户图片")
     public String uploadPicture(@RequestHeader(name = "sid") Long sid, @RequestParam(value = "file") MultipartFile file) throws Exception {
-
         String subtype = MediaType.valueOf(Objects.requireNonNull(file.getContentType())).getSubtype();
         String fileName = DigestUtils.sha256Hex(file.getBytes()).concat(".").concat(subtype);
-        String filePath = Utils.getFilePath(systemConfig.getFilePath(), fileName, String.valueOf(sid));
-        Utils.uploadFile(file, filePath);
-
-        return filePath;
+        Path path = Utils.uploadFile(file, systemConfig.getFilePath(), "store", String.valueOf(sid), "other", fileName);
+        return StringUtils.cleanPath(path.subpath(1, path.getNameCount()).toString());
     }
 
     /**
@@ -144,15 +143,12 @@ public class StoreController {
      * @return 文件存储路径
      * @throws Exception 文件上传失败异常
      */
-    @PostMapping(value = "stores/imageUploadV3", name = "商户图片V3")
+    @PostMapping(value = "stores/imageUploadV3", name = "商户资质")
     public String imageUploadV3(@RequestHeader(name = "sid") Long sid, @RequestParam(value = "fileName") String fileName, @RequestParam(value = "file") MultipartFile file) throws Exception {
         MerchantMediaService merchantMediaService = wxPayService.getMerchantMediaService();
         ImageUploadResult imageUploadResult = merchantMediaService.imageUploadV3(file.getInputStream(), file.getOriginalFilename());
-
-//        String subtype = MediaType.valueOf(Objects.requireNonNull(file.getContentType())).getSubtype();
-        String filePath = Utils.getFilePath(systemConfig.getFilePath(), fileName.concat(".").concat("png"), String.valueOf(sid));
-        Utils.uploadFile(file, filePath);
-
+        Path path = Utils.uploadFile(file, systemConfig.getFilePath(), "store", String.valueOf(sid), "qualifications", fileName.concat(".").concat("png"));
+        StringUtils.cleanPath(path.subpath(1, path.getNameCount()).toString());
         return imageUploadResult.getMediaId();
     }
 }

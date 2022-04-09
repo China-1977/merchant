@@ -47,4 +47,4 @@ wechat:
 system:
   logo: 'picture/logo.png'
   secret: 系统密钥
-  file-path: home/picture
+  file-path: work/file

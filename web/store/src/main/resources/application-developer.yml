@@ -52,4 +52,4 @@ wechat:
 system:
   logo: 'picture/logo.png'
   secret: '123456a?'
-  file-path: home/picture
+  file-path: D:/work/file
