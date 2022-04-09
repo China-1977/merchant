@@ -50,6 +50,6 @@ wechat:
         secret: c0874a7afed78170601218d82d9dc1b3
 
 system:
-  logo: 'picture/logo.png'
+  logo: 'file/store/logo.png'
   secret: '123456a?'
   file-path: D:/work/file
