@@ -14,8 +14,6 @@ import work.onss.dto.VipDto;
 import work.onss.exception.ServiceException;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 
 @Log4j2
@@ -30,18 +28,11 @@ public class VipController {
     /**
      * @param aid 用户ID
      * @param vip 编辑内容
-     * @return 最新会员卡内容
      */
     @PostMapping(value = {"vips"})
-    public Vip saveOrInsert(@RequestHeader(name = "aid") Long aid, @RequestBody @Validated Vip vip) {
-        vip.setAccountId(aid);
+    public void saveOrInsert(@RequestHeader(name = "aid") Long aid, @RequestBody @Validated Vip vip) {
         QVip qVip = QVip.vip;
-        vip.setBalance(BigDecimal.ZERO);
-        Timestamp now = Timestamp.from(Instant.now());
-        vip.setInsertTime(now);
-        vip.setUpdateTime(now);
-        jpaQueryFactory.insert(qVip).set(qVip, vip).execute();
-        return vip;
+        jpaQueryFactory.insert(qVip).columns(qVip.accountId, qVip.storeId).values(aid, vip.getStoreId()).execute();
     }
 
     /**
