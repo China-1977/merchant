@@ -2,7 +2,7 @@ const app = getApp();
 const { windowWidth } = app.globalData;
 const size = 15;
 const domain = 'https://1977.work';
-// const domain = 'http://192.168.0.4';
+// const domain = 'http://192.168.0.4:5010';
 
 const appid = "wxe78290c2a5313de3";
 
