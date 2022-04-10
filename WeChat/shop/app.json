@@ -16,7 +16,8 @@
         "pages/cart/confirm",
         "pages/product/detail",
         "pages/product/list",
-        "pages/vip/detail"
+        "pages/vip/detail",
+        "pages/vip/list"
     ],
     "window": {
         "backgroundTextStyle": "dark",

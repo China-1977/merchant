@@ -79,16 +79,13 @@ public class VipController {
         QVip qVip = QVip.vip;
         QStore qStore = QStore.store;
         return jpaQueryFactory.select(Projections.fields(VipDto.class,
-                qVip.id,
-                qVip.accountId,
-                qVip.storeId,
-                qVip.balance,
-                qStore.shortname,
-                qStore.trademark,
-                qStore.openTime,
-                qStore.closeTime,
-                qVip.insertTime,
-                qVip.updateTime
-        )).where(qVip.accountId.eq(aid)).fetch();
+                        qVip.id,
+                        qVip.balance,
+                        qStore.shortname,
+                        qStore.trademark,
+                        qStore.openTime,
+                        qStore.closeTime
+                )).from(qVip)
+                .innerJoin(qStore).on(qStore.id.eq(qVip.storeId)).where(qVip.accountId.eq(aid)).fetch();
     }
 }
