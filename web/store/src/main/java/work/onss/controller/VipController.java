@@ -17,6 +17,7 @@ import work.onss.domain.VipRepository;
 import work.onss.dto.VipAccountDto;
 import work.onss.exception.ServiceException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Log4j2
@@ -67,6 +68,9 @@ public class VipController {
     public Vip insertVip(@RequestHeader(name = "sid") Long sid, @PathVariable Long id, @RequestBody Vip vip) {
         Vip oldVip = vipRepository.findByIdAndStoreId(id, sid).orElseThrow(() -> new ServiceException("FAIL", "该数据不存在,请联系客服", id));
         QVip qVip = QVip.vip;
+        if (null == vip.getBalance()) {
+            vip.setBalance(BigDecimal.ZERO);
+        }
         jpaQueryFactory.update(qVip)
                 .set(qVip.balance, qVip.balance.add(vip.getBalance()))
                 .set(qVip.discount, vip.getDiscount())

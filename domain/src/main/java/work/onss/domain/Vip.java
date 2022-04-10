@@ -30,16 +30,15 @@ public class Vip implements Serializable {
     private Long accountId;
     private Long storeId;
     @JsonFormat(pattern = "#.00", shape = JsonFormat.Shape.STRING)
-    private BigDecimal balance;
-    private Integer discount;
+    private BigDecimal balance = BigDecimal.ZERO;
+    private Integer discount = 10;
     @CreatedDate
     private Timestamp insertTime;
     @LastModifiedDate
     private Timestamp updateTime;
 
-    public Vip(Long accountId, Long storeId, BigDecimal balance) {
+    public Vip(Long accountId, Long storeId) {
         this.accountId = accountId;
         this.storeId = storeId;
-        this.balance = balance;
     }
 }

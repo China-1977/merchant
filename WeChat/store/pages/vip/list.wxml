@@ -13,7 +13,7 @@
                 <view class="weui-media-box__title">手机号：{{vip.phone}}</view>
                 <view class="weui-flex ">
                     会员余额：{{vip.balance}}
-                    <view class="weui-flex__item weui-cell__ft">
+                    <view wx:if="{{vip.discount}}" class="weui-flex__item weui-cell__ft">
                         消费优惠{{vip.discount}}折
                     </view>
                 </view>

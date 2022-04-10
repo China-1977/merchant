@@ -3,7 +3,7 @@ Page({
     data: {
 
         vip: {},
-        discounts: [9, 8, 7, 6, 5, 4, 3, 2, 1],
+        discounts: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
     },
 
     onLoad(options) {

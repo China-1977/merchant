@@ -21,7 +21,7 @@
     <view class="weui-cell">
         <view class="weui-cell__hd">会员余额：</view>
         <view class="weui-cell__bd">{{vip.balance}}</view>
-        <view class="weui-cell__ft">消费优惠{{vip.discount}}折</view>
+        <view wx:if="{{vip.discount}}" class="weui-cell__ft">消费优惠{{vip.discount}}折</view>
     </view>
     <view class="weui-cell" bindtap="openLocation">
         <view class="weui-cell__hd">店铺地址：</view>
