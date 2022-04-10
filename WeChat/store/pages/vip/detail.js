@@ -36,7 +36,7 @@ Page({
                 let prevPage = pages[pages.length - 2];//上一页面
                 const key = `vips[${this.data.index}]`;
                 prevPage.setData({
-                    [key]: { ...vip }
+                    [key]: { ...this.data.vip, balance: vip.balance, discount: vip.discount }
                 });
                 wx.navigateBack({
                     delta: 1
