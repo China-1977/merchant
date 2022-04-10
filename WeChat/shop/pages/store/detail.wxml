@@ -24,7 +24,7 @@
     </view>
 </view>
 <navigator wx:if="{{store.vip.id}}" url="/pages/vip/detail?id={{store.vip.id}}">
-    <button size="default" type="primary" style="width: 95%;margin-top:10px;margin-bottom: 10px;">查看会员卡</button>
+    <button size="default" style="width: 95%;margin-top:10px;margin-bottom: 10px;">查看会员卡</button>
 </navigator>
 <button wx:else bindtap="insertVip" size="default" type="primary" style="width: 95%;margin-top:10px;margin-bottom: 10px;">申请会员卡</button>
 

@@ -39,10 +39,10 @@ Page({
                 url: `${domain}/shop/stores/${this.data.id}/insertVip`,
                 header: { authorization, aid: info.aid },
                 method:'POST'
-            }).then((vipId) => {
-                console.log(vipId);
+            }).then((vip) => {
+                console.log(vip);
                 this.setData({
-                    vipId: vipId
+                    ['store.vip']: vip
                 });
             });
         })
