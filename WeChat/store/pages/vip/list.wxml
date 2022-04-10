@@ -1,7 +1,7 @@
 <view class=" weui-search-bar">
     <form class="weui-search-bar__form" bindsubmit="search">
         <view class="weui-search-bar__box weui-media-box__title">
-            <input class=weui-search-bar__input" name="phone" value="{{phone}}" bindinput="inputChange" confirm-type="search" style="width: 40vh;" placeholder="请输入手机号" />
+            <input class=weui-search-bar__input" type="number" name="phone" value="{{phone}}" bindinput="inputChange" confirm-type="search" style="width: 40vh;" placeholder="请输入手机号" />
             <button class="weui-icon-clear" type="primary" form-type="submit" size="mini" style="font-size: 0.rem;">搜索</button>
         </view>
     </form>
