@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.postgresql.geometric.PGpoint;
 import org.springframework.jdbc.core.RowMapper;
+import work.onss.domain.Vip;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -28,6 +29,7 @@ public class StoreDto implements Serializable, RowMapper<StoreDto> {
     private String[] pictures;
     private String[] videos;
     private PGpoint location;
+    private Vip vip;
 
 
     @Override

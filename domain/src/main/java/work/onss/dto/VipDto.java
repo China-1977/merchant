@@ -34,6 +34,8 @@ public class VipDto implements Serializable, RowMapper<VipDto> {
     private PGpoint location;
     private String addressName;
     private String addressDetail;
+    private String[] pictures;
+    private String[] videos;
     @JsonFormat(pattern = "HH:mm")
     private LocalTime openTime;
     @JsonFormat(pattern = "HH:mm")

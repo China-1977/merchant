@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "会员卡详情",
+    "usingComponents": {
+      "txv": "plugin://player/video"
+   }
+  }

@@ -1,0 +1,32 @@
+<swiper style="height:{{windowWidth}}px;">
+    <swiper-item wx:if="{{vip.videos.length>0}}" wx:for="{{vip.videos}}" wx:for-item='video' wx:key="index">
+        <txv wx:if="{{video}}" vid="{{video}}" playerid="{{video}}" autoplay="{{false}}" height="100%" />
+    </swiper-item>
+    <swiper-item wx:for="{{vip.pictures}}" wx:for-item='picture' wx:key="index">
+        <image mode="aspectFit" src="{{domain}}/{{picture}}" class="weui-media-box__thumb" />
+    </swiper-item>
+</swiper>
+<view class="weui-panel weui-media-box">
+    <view class=" weui-media-box_appmsg">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+            <image class="weui-media-box__thumb" src="{{domain}}/{{vip.trademark}}" />
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__title">{{vip.shortname}}</view>
+            <view class="weui-media-box__desc">{{vip.username}} {{vip.phone}} <button bindtap="makePhoneCall" data-phone="{{vip.phone}}" type="primary" size="mini" style="font-size: 14rpx;">呼叫</button></view>
+        </view>
+    </view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+        <view class="weui-cell__hd">会员余额：</view>
+        <view class="weui-cell__bd">{{vip.balance}}</view>
+    </view>
+    <view class="weui-cell" bindtap="openLocation">
+        <view class="weui-cell__hd">店铺地址：</view>
+        <view class="weui-cell__bd">{{vip.addressName}}</view>
+        <view class="weui-cell__ft">
+            <image src="/images/position.png" style="height:1em;width:1em;" />
+        </view>
+    </view>
+</view>

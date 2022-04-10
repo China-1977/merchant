@@ -4,7 +4,6 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import work.onss.domain.QStore;
 import work.onss.domain.QVip;
@@ -49,22 +48,26 @@ public class VipController {
         QVip qVip = QVip.vip;
         QStore qStore = QStore.store;
         return jpaQueryFactory.select(Projections.fields(VipDto.class,
-                qVip.id,
-                qVip.accountId,
-                qVip.storeId,
-                qVip.balance,
-                qStore.shortname,
-                qStore.trademark,
-                qStore.username,
-                qStore.phone,
-                qStore.location,
-                qStore.addressName,
-                qStore.addressDetail,
-                qStore.openTime,
-                qStore.closeTime,
-                qVip.insertTime,
-                qVip.updateTime
-        )).where(qVip.accountId.eq(aid).and(qVip.id.eq(id))).fetchFirst();
+                        qVip.id,
+                        qVip.accountId,
+                        qVip.storeId,
+                        qVip.balance,
+                        qStore.shortname,
+                        qStore.trademark,
+                        qStore.username,
+                        qStore.phone,
+                        qStore.location,
+                        qStore.addressName,
+                        qStore.addressDetail,
+                        qStore.videos,
+                        qStore.pictures,
+                        qStore.openTime,
+                        qStore.closeTime,
+                        qVip.insertTime,
+                        qVip.updateTime
+                )).from(qVip)
+                .innerJoin(qStore).on(qStore.id.eq(qVip.storeId))
+                .where(qVip.accountId.eq(aid).and(qVip.id.eq(id))).fetchFirst();
     }
 
     /**

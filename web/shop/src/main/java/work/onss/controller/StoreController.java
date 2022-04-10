@@ -10,6 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import work.onss.domain.QStore;
+import work.onss.domain.QVip;
 import work.onss.domain.Vip;
 import work.onss.domain.VipRepository;
 import work.onss.dto.StoreDto;
@@ -36,8 +37,9 @@ public class StoreController {
      * @return 店铺信息
      */
     @GetMapping(value = {"stores/{id}"})
-    public StoreDto store(@PathVariable Long id) {
+    public StoreDto store(@PathVariable Long id, @RequestHeader(name = "aid") Long aid) {
         QStore qStore = QStore.store;
+        QVip qVip = QVip.vip;
         return jpaQueryFactory.select(Projections.fields(StoreDto.class,
                         qStore.id,
                         qStore.shortname,
@@ -48,8 +50,10 @@ public class StoreController {
                         qStore.videos,
                         qStore.pictures,
                         qStore.location,
-                        qStore.addressName
+                        qStore.addressName,
+                        qVip
                 )).from(qStore)
+                .leftJoin(qVip).on(qVip.storeId.eq(qStore.id), qVip.accountId.eq(aid))
                 .where(qStore.id.eq(id))
                 .fetchOne();
     }

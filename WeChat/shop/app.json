@@ -15,7 +15,8 @@
         "pages/cart/store",
         "pages/cart/confirm",
         "pages/product/detail",
-        "pages/product/list"
+        "pages/product/list",
+        "pages/vip/detail"
     ],
     "window": {
         "backgroundTextStyle": "dark",
@@ -57,7 +58,7 @@
         "player": {
             "version": "2.0.10",
             "provider": "wxa75efa648b60994b"
-         }
+        }
     },
     "style": "v2",
     "sitemapLocation": "sitemap.json"
