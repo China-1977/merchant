@@ -20,7 +20,7 @@
             <view class="weui-cell__hd">充值：</view>
             <view class="weui-cell__bd">
                 <input name='id' value="{{vip.id}}" hidden />
-                <input class="weui-input" name="balance" placeholder="请输入充值数量" />
+                <input class="weui-input" name="balance" type="digit" placeholder="请输入充值数量" />
                 <input name='discount' value="{{discount?discount:vip.discount}}" hidden />
             </view>
             <picker class="weui-cell__ft" range="{{discounts}}" bindchange="bindDiscountChange">

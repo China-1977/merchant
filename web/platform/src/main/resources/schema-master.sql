@@ -378,6 +378,7 @@ create table if not exists master.vip
     account_id  bigint    not null,
     store_id    bigint    not null,
     balance     numeric   not null default 0.00,
+    discount    integer,
     insert_time timestamp not null default current_timestamp,
     update_time timestamp not null default current_timestamp
 );
@@ -385,6 +386,7 @@ comment on table master.vip is '会员卡';
 comment on column master.vip.account_id is '用户ID';
 comment on column master.vip.store_id is '商户ID';
 comment on column master.vip.balance is '余额';
+comment on column master.vip.discount is '折扣';
 comment on column master.vip.insert_time is '创建时间';
 comment on column master.vip.update_time is '更新时间';
 create unique index if not exists vip_store_id_account_id_uindex on master.vip (store_id, account_id);
