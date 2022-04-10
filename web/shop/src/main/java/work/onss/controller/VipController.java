@@ -52,6 +52,7 @@ public class VipController {
                         qVip.accountId,
                         qVip.storeId,
                         qVip.balance,
+                        qVip.discount,
                         qStore.shortname,
                         qStore.trademark,
                         qStore.username,

@@ -27,6 +27,7 @@ public class VipDto implements Serializable, RowMapper<VipDto> {
     private Long accountId;
     private Long storeId;
     private BigDecimal balance;
+    private Integer discount;
     private String shortname;
     private String trademark;
     private String username;

@@ -31,6 +31,7 @@ public class Vip implements Serializable {
     private Long storeId;
     @JsonFormat(pattern = "#.00", shape = JsonFormat.Shape.STRING)
     private BigDecimal balance;
+    private Integer discount;
     @CreatedDate
     private Timestamp insertTime;
     @LastModifiedDate
