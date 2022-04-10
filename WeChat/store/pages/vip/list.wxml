@@ -1,0 +1,24 @@
+<view class=" weui-search-bar">
+    <form class="weui-search-bar__form" bindsubmit="search">
+        <view class="weui-search-bar__box weui-media-box__title">
+            <input class=weui-search-bar__input" name="phone" value="{{phone}}" bindinput="inputChange" confirm-type="search" style="width: 40vh;" placeholder="请输入手机号" />
+            <button class="weui-icon-clear" type="primary" form-type="submit" size="mini" style="font-size: 0.rem;">搜索</button>
+        </view>
+    </form>
+</view>
+<view class="weui-panel ">
+    <view class="weui-panel__bd">
+        <navigator wx:for="{{vips}}" wx:for-item='vip' wx:key="index" url="/pages/vip/detail?id={{vip.id}}" class="weui-media-box" hover-class="weui-cell_active">
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__title">手机号：{{vip.phone}}</view>
+                <view class="weui-flex ">
+                    会员余额：{{vip.balance}}
+                    <view class="weui-flex__item weui-cell__ft">
+                        消费优惠{{vip.discount}}折
+                    </view>
+                </view>
+                <view class="weui-media-box__desc">申请日期：{{vip.insertTime}}</view>
+            </view>
+        </navigator>
+    </view>
+</view>
