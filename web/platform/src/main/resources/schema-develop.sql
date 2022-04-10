@@ -378,7 +378,7 @@ create table if not exists develop.vip
     account_id  bigint    not null,
     store_id    bigint    not null,
     balance     numeric   not null default 0.00,
-    discount    integer,
+    discount    integer   not null default 10,
     insert_time timestamp not null default current_timestamp,
     update_time timestamp not null default current_timestamp
 );
