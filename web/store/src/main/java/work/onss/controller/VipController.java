@@ -7,15 +7,15 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import work.onss.domain.QAccount;
 import work.onss.domain.QVip;
+import work.onss.domain.Vip;
 import work.onss.domain.VipRepository;
 import work.onss.dto.VipAccountDto;
+import work.onss.exception.ServiceException;
 
 import java.util.List;
 
@@ -56,5 +56,24 @@ public class VipController {
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
                 .fetch();
+    }
+
+    /**
+     * @param sid 商户ID
+     * @param id  VIPID
+     */
+    @Transactional
+    @PostMapping(value = {"vips/{id}"})
+    public Vip insertVip(@RequestHeader(name = "sid") Long sid, @PathVariable Long id, @RequestBody Vip vip) {
+        Vip oldVip = vipRepository.findByIdAndStoreId(id, sid).orElseThrow(() -> new ServiceException("FAIL", "该数据不存在,请联系客服", id));
+        QVip qVip = QVip.vip;
+        jpaQueryFactory.update(qVip)
+                .set(qVip.balance, qVip.balance.add(vip.getBalance()))
+                .set(qVip.discount, vip.getDiscount())
+                .where(qVip.id.eq(id))
+                .execute();
+        oldVip.setBalance(oldVip.getBalance().add(vip.getBalance()));
+        oldVip.setDiscount(vip.getDiscount());
+        return oldVip;
     }
 }

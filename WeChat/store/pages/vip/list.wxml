@@ -8,7 +8,7 @@
 </view>
 <view class="weui-panel ">
     <view class="weui-panel__bd">
-        <navigator wx:for="{{vips}}" wx:for-item='vip' wx:key="index" url="/pages/vip/detail?id={{vip.id}}" class="weui-media-box" hover-class="weui-cell_active">
+        <navigator wx:for="{{vips}}" wx:for-item='vip' wx:key="index" url="/pages/vip/detail?index={{index}}" class="weui-media-box" hover-class="weui-cell_active">
             <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
                 <view class="weui-media-box__title">手机号：{{vip.phone}}</view>
                 <view class="weui-flex ">

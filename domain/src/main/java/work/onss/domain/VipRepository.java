@@ -34,6 +34,7 @@ public interface VipRepository extends JpaRepository<Vip, Long>, JpaSpecificatio
     }
 
     Optional<Vip> findByIdAndAccountId(Long id, Long accountId);
+    Optional<Vip> findByIdAndStoreId(Long id, Long storeId);
 
     @Modifying
     @Transactional

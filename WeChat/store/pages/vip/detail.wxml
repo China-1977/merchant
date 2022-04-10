@@ -1,2 +1,34 @@
-<!--pages/vip/detail.wxml-->
-<text>pages/vip/detail.wxml</text>
+<view class="weui-panel ">
+    <view class="weui-panel__bd">
+        <view class="weui-media-box">
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__title">手机号：{{vip.phone}}</view>
+                <view class="weui-flex ">
+                    会员余额：{{vip.balance}}
+                    <view class="weui-flex__item weui-cell__ft">
+                        消费优惠{{vip.discount}}折
+                    </view>
+                </view>
+                <view class="weui-media-box__desc">申请日期：{{vip.insertTime}}</view>
+            </view>
+        </view>
+    </view>
+</view>
+<form bindsubmit="saveVip">
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__hd">充值：</view>
+            <view class="weui-cell__bd">
+                <input name='id' value="{{vip.id}}" hidden />
+                <input class="weui-input" name="balance" placeholder="请输入充值数量" />
+                <input name='discount' value="{{discount?discount:vip.discount}}" hidden />
+            </view>
+            <picker class="weui-cell__ft" range="{{discounts}}" bindchange="bindDiscountChange">
+                <view class="picker">
+                    消费优惠{{discount?discount:vip.discount}}折
+                </view>
+            </picker>
+        </view>
+        <button type="primary" style="width: 100%;" formType="submit">立即充值</button>
+    </view>
+</form>

@@ -1,66 +1,47 @@
-// pages/vip/detail.js
+import { domain, checkStore, wxRequest } from '../../utils/util.js';
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
 
+        vip: {},
+        discounts: [9, 8, 7, 6, 5, 4, 3, 2, 1],
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad(options) {
-
+        if (options.index) {
+            let pages = getCurrentPages();//当前页面栈
+            let prevPage = pages[pages.length - 2];//上一页面
+            const vip = prevPage.data.vips[options.index];
+            console.log(vip);
+            this.setData({
+                vip, index: options.index
+            })
+        }
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-
+    bindDiscountChange: function ({ detail }) {
+        this.setData({
+            discount: this.data.discounts[detail.value]
+        })
     },
 
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
-
+    saveVip: function ({ detail }) {
+        checkStore().then(({ authorization, info }) => {
+            wxRequest({
+                url: `${domain}/store/vips/${detail.value.id}`,
+                header: { authorization, ...info },
+                data: detail.value,
+                method: 'POST'
+            }).then((vip) => {
+                let pages = getCurrentPages();//当前页面栈
+                let prevPage = pages[pages.length - 2];//上一页面
+                const key = `vips[${this.data.index}]`;
+                prevPage.setData({
+                    [key]: { ...vip }
+                });
+                wx.navigateBack({
+                    delta: 1
+                });
+            });
+        })
     }
 })
