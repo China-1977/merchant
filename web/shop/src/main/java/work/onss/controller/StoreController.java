@@ -82,7 +82,6 @@ public class StoreController {
     @Transactional
     @PostMapping(value = {"stores/{id}/insertVip"})
     public Vip insertVip(@RequestHeader(name = "aid") Long aid, @PathVariable Long id) {
-        Timestamp now = Timestamp.from(Instant.now());
         return vipRepository.save(new Vip(aid, id, BigDecimal.ZERO));
     }
 }
