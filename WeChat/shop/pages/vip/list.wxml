@@ -1,0 +1,14 @@
+<view class="weui-panel ">
+    <view class="weui-panel__bd">
+        <navigator wx:for="{{vips}}" wx:for-item='vip' wx:key="index" url="/pages/vip/detail?id={{vip.id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                <image class="weui-media-box__thumb" src="{{domain}}/{{vip.trademark}}" />
+            </view>
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__title">{{vip.shortname}}</view>
+                <view class="weui-media-box__desc">营业时间：{{vip.openTime}}-{{vip.closeTime}}</view>
+                <view class="weui-media-box__desc">会员余额：{{vip.balance}}</view>
+            </view>
+        </navigator>
+    </view>
+</view>
