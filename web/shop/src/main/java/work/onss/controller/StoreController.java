@@ -7,14 +7,17 @@ import org.postgresql.geometric.PGcircle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 import work.onss.domain.QStore;
+import work.onss.domain.Vip;
+import work.onss.domain.VipRepository;
 import work.onss.dto.StoreDto;
 import work.onss.service.QuerydslService;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 @Log4j2
@@ -25,6 +28,8 @@ public class StoreController {
 
     @Autowired
     private QuerydslService querydslService;
+    @Autowired
+    private VipRepository vipRepository;
 
     /**
      * @param id 主键
@@ -64,5 +69,16 @@ public class StoreController {
                                 @PageableDefault Pageable pageable) {
         PGcircle pGcircle = new PGcircle(x, y, r);
         return querydslService.stores(pGcircle, keyword, pageable);
+    }
+
+    /**
+     * @param aid 用户ID
+     * @param id  商户ID
+     */
+    @Transactional
+    @PostMapping(value = {"stores/{id}/insertVip"})
+    public Vip insertVip(@RequestHeader(name = "aid") Long aid, @PathVariable Long id) {
+        Timestamp now = Timestamp.from(Instant.now());
+        return vipRepository.save(new Vip(aid, id, BigDecimal.ZERO));
     }
 }

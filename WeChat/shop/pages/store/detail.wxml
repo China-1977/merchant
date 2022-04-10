@@ -23,6 +23,7 @@
 		<view class="weui-media-box__desc" style="-webkit-line-clamp:10">{{store.description}}</view>
 	</view>
 </view>
+<button bindtap="insertVip" size="default" type="primary" style="width: 95%;margin-top:10px;margin-bottom: 10px;">申请会员卡</button>
 <swiper style="height:{{windowWidth}}px;">
 	<swiper-item wx:if="{{store.videos.length>0}}" wx:for="{{store.videos}}" wx:for-item='video' wx:key="index">
 		<txv wx:if="{{video}}" vid="{{video}}" playerid="{{video}}" autoplay="{{false}}" height="100%" />

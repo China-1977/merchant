@@ -6,7 +6,7 @@
         <checkbox-group>
             <navigator url="/pages/product/detail?id={{product.id}}&index={{index}}" class=" weui-media-box_appmsg" hover-class="weui-cell_active">
                 <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                    <view class="weui-badge">{{product.num}}</view>
+                    <view class="weui-badge">{{product.num?product.num:0}}</view>
                     <image class="weui-media-box__thumb" src="{{domain}}/{{product.pictures[0]}}" />
                 </view>
                 <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">

@@ -27,16 +27,6 @@ public class VipController {
 
     /**
      * @param aid 用户ID
-     * @param vip 编辑内容
-     */
-    @PostMapping(value = {"vips"})
-    public void saveOrInsert(@RequestHeader(name = "aid") Long aid, @RequestBody @Validated Vip vip) {
-        QVip qVip = QVip.vip;
-        jpaQueryFactory.insert(qVip).columns(qVip.accountId, qVip.storeId).values(aid, vip.getStoreId()).execute();
-    }
-
-    /**
-     * @param aid 用户ID
      * @param id  主键
      */
     @DeleteMapping(value = {"vips/{id}"})

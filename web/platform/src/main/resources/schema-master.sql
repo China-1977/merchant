@@ -387,5 +387,4 @@ comment on column master.vip.store_id is '商户ID';
 comment on column master.vip.balance is '余额';
 comment on column master.vip.insert_time is '创建时间';
 comment on column master.vip.update_time is '更新时间';
-create index if not exists i_vip_insert_date_organization_id on master.vip (insert_time, store_id);
-create index if not exists i_vip_insert_date_account_id on master.vip (insert_time, account_id);
+create unique index if not exists vip_store_id_account_id_uindex on master.vip (store_id, account_id);

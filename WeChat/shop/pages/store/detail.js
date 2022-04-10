@@ -1,35 +1,50 @@
-import { windowWidth,domain,wxLogin,wxRequest } from '../../utils/util.js';
+import { windowWidth, domain, wxLogin, wxRequest } from '../../utils/util.js';
 Page({
-  data: {
-    windowWidth,domain
-  },
+    data: {
+        windowWidth, domain
+    },
 
-  onLoad: function (options) {
-    wxLogin().then(({ authorization, info }) => {
-      wxRequest({
-        url: `${domain}/shop/stores/${options.id}`,
-        header: { authorization, aid: info.aid },
-      }).then((data) => {
-        this.setData({
-          ...options,
-          store: data
-        });
-      });
-    })
-  },
- 
-  makePhoneCall: function (e) {
-    wx.makePhoneCall({
-      phoneNumber: e.currentTarget.dataset.phone
-    })
-  },
+    onLoad: function (options) {
+        wxLogin().then(({ authorization, info }) => {
+            wxRequest({
+                url: `${domain}/shop/stores/${options.id}`,
+                header: { authorization, aid: info.aid },
+            }).then((data) => {
+                this.setData({
+                    ...options,
+                    store: data
+                });
+            });
+        })
+    },
 
-  openLocation: function (e) {
-    const { location, addressName } = this.data.store;
-    wx.openLocation({
-      latitude: parseFloat(location.y),
-      longitude: parseFloat(location.x),
-      name: addressName
-    })
-  }
+    makePhoneCall: function (e) {
+        wx.makePhoneCall({
+            phoneNumber: e.currentTarget.dataset.phone
+        })
+    },
+
+    openLocation: function (e) {
+        const { location, addressName } = this.data.store;
+        wx.openLocation({
+            latitude: parseFloat(location.y),
+            longitude: parseFloat(location.x),
+            name: addressName
+        })
+    },
+
+    insertVip: function (insertVip) {
+        wxLogin().then(({ authorization, info }) => {
+            wxRequest({
+                url: `${domain}/shop/stores/${this.data.id}/insertVip`,
+                header: { authorization, aid: info.aid },
+                method:'POST'
+            }).then((vipId) => {
+                console.log(vipId);
+                this.setData({
+                    vipId: vipId
+                });
+            });
+        })
+    }
 })

@@ -32,6 +32,7 @@ public class CommonException {
     private static final Map<String, String> constraintCodeMap = new HashMap<>() {
         {
             put("uk_account_phone", "手机号已被注册");
+            put("vip_store_id_account_id_uindex", "会员卡已注册");
             put("uk_member_phone", "手机号已被注册");
             put("uk_member_id_card", "身份证已被注册");
             put("uk_customer_phone", "手机号已被注册");
