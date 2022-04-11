@@ -21,12 +21,12 @@ Page({
 
   createScore: function (e) {
     wxLogin().then(({ authorization, info }) => {
-      const address = this.data.address;
+      const { address, site } = this.data.address;
       wxRequest({
         url: `${domain}/shop/scores`,
         header: { authorization, aid: info.aid },
         method: "POST",
-        data: { ...e.detail.value, address, subAppId: appid },
+        data: { ...e.detail.value, address, site, subAppId: appid },
       }).then((data) => {
         wx.requestPayment(
           {
