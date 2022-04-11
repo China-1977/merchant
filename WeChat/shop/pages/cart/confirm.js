@@ -17,6 +17,26 @@ Page({
     this.setData({
       way: e.detail.value
     })
+
+    if (e.detail.value === 'MD') {
+      const store = this.data.store;
+      this.setData({
+        address: {
+          code: store.addressCode,
+          detail: store.addressDetail,
+          name: store.addressName,
+          value: store.addressValue,
+          location: store.location,
+          postcode: store.postcode,
+        },
+        way: e.detail.value
+      })
+    } else {
+      this.setData({
+        address: {},
+        way: e.detail.value
+      })
+    }
   },
 
   changeAddress: function (e) {

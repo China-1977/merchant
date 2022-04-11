@@ -94,14 +94,18 @@ public class CartController {
     @GetMapping(value = {"carts"})
     public Map<String, Object> getCarts(@RequestParam(name = "storeId") Long storeId, @RequestHeader(name = "aid") Long aid) {
         QStore qStore = QStore.store;
-        StoreDto store = jpaQueryFactory.select(Projections.fields(
-                        StoreDto.class,
+        Store store = jpaQueryFactory.select(Projections.fields(
+                        Store.class,
                         qStore.id,
                         qStore.shortname,
                         qStore.username,
                         qStore.phone,
                         qStore.addressName,
-                        qStore.addressDetail
+                        qStore.addressDetail,
+                        qStore.location,
+                        qStore.postcode,
+                        qStore.addressCode,
+                        qStore.addressValue
                 ))
                 .from(qStore).where(qStore.id.eq(storeId)).fetchFirst();
         QCart qCart = QCart.cart;

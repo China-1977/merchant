@@ -47,11 +47,10 @@
 	<view class="weui-cells__title">门店地址</view>
 	<view class="weui-panel weui-cells weui-cells_after-title">
 		<view class="weui-cell weui-cell_access">
-			<navigator class="weui-cell__bd weui-cell_primary weui-cell__ft_in-access" style="min-height:2rem" hover-class="weui-cell_active" url='/pages/address/list'>
-				<view class='weui-media-box__desc'>{{address.name}}</view>
-				<view class='weui-media-box__title'>{{address.username}} {{address.phone}}</view>
+			<view class="weui-cell__bd weui-cell_primary" style="min-height:2rem">
+				<view class='weui-media-box__title'>{{address.name}}</view>
 				<view class='weui-media-box__desc'>{{address.detail}}</view>
-			</navigator>
+			</view>
 		</view>
 	</view>
 </view>
