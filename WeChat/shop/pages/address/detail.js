@@ -100,6 +100,28 @@ Page({
     })
   },
 
+  deleteAddress: function (e) {
+    wx.showModal({
+      title: '警示',
+      content: '确定删除吗？',
+      success: (res) => {
+        if (res.confirm) {
+          wxLogin().then(({ authorization, info }) => {
+            const { id } = this.data;
+            wxRequest({
+              url: `${domain}/shop/addresses/${id}`,
+              method: "DELETE",
+              header: { authorization, aid: info.aid },
+            }).then((data) => {
+              wx.navigateBack({
+                delta: 2
+              });
+            });
+          })
+        }
+      }
+    })
+  },
   bindRegionChange: function (e) {
     this.setData({ ['code']: e.detail.code, ['postcode']: e.detail.postcode, ['value']: e.detail.value });
   },

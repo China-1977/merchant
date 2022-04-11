@@ -41,9 +41,7 @@
 		</view>
 
 		<view class="weui-cell weui-flex">
-			<navigator style="width:50%" open-type="navigateBack">
-				<button class="weui-flex__item" style="width:100%" type="default">取消</button>
-			</navigator>
+			<button wx:if="{{id}}" class="weui-flex__item" type="warn" bindtap="deleteAddress">删除</button>
 			<button class="weui-flex__item" form-type="submit" type='primary'>保存</button>
 		</view>
 	</form>
