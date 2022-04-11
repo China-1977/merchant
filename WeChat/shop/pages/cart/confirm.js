@@ -13,6 +13,12 @@ Page({
     })
   },
 
+  changeWay: function (e) {
+    this.setData({
+      way: e.detail.value
+    })
+  },
+
   changeAddress: function (e) {
     this.setData({
       delivery: e.detail.value

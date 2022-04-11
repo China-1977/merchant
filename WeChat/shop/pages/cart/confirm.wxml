@@ -17,12 +17,12 @@
 
 	<view class="weui-cells__title">配送方式</view>
 	<view class="weui-cells weui-cells_after-title">
-		<radio-group class="weui-cell weui-flex" bindchange="changeAddress" name="delivery">
+		<radio-group class="weui-cell weui-flex" bindchange="changeWay" name="way">
 			<view class="weui-flex__item">
 				<radio value="MD">门店</radio>
 			</view>
 			<view class="weui-flex__item">
-				<radio value="ZQ">驿站</radio>
+				<radio value="YZ">驿站</radio>
 			</view>
 			<view class="weui-flex__item">
 				<radio value="PS">配送</radio>
@@ -30,6 +30,7 @@
 		</radio-group>
 	</view>
 
+<view wx:if="{{way === 'PS'}}">
 	<view class="weui-cells__title">收货地址</view>
 	<view class="weui-panel weui-cells weui-cells_after-title">
 		<view class="weui-cell weui-cell_access">
@@ -40,6 +41,34 @@
 			</navigator>
 		</view>
 	</view>
+</view>
+
+<view wx:if="{{way === 'MD'}}">
+	<view class="weui-cells__title">门店地址</view>
+	<view class="weui-panel weui-cells weui-cells_after-title">
+		<view class="weui-cell weui-cell_access">
+			<navigator class="weui-cell__bd weui-cell_primary weui-cell__ft_in-access" style="min-height:2rem" hover-class="weui-cell_active" url='/pages/address/list'>
+				<view class='weui-media-box__desc'>{{address.name}}</view>
+				<view class='weui-media-box__title'>{{address.username}} {{address.phone}}</view>
+				<view class='weui-media-box__desc'>{{address.detail}}</view>
+			</navigator>
+		</view>
+	</view>
+</view>
+
+<view wx:if="{{way === 'YZ'}}">
+	<view class="weui-cells__title">驿站地址</view>
+	<view class="weui-panel weui-cells weui-cells_after-title">
+		<view class="weui-cell weui-cell_access">
+			<navigator class="weui-cell__bd weui-cell_primary weui-cell__ft_in-access" style="min-height:2rem" hover-class="weui-cell_active" url='/pages/address/list'>
+				<view class='weui-media-box__desc'>{{address.name}}</view>
+				<view class='weui-media-box__title'>{{address.username}} {{address.phone}}</view>
+				<view class='weui-media-box__desc'>{{address.detail}}</view>
+			</navigator>
+		</view>
+	</view>
+</view>
+
 
 
 
