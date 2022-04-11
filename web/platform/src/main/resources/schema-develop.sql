@@ -390,3 +390,32 @@ comment on column develop.vip.discount is '折扣';
 comment on column develop.vip.insert_time is '创建时间';
 comment on column develop.vip.update_time is '更新时间';
 create unique index if not exists vip_store_id_account_id_uindex on develop.vip (store_id, account_id);
+
+create table if not exists develop.site
+(
+    id          bigserial primary key,
+    store_id    bigint      not null
+        constraint site_store_id_fk references store on delete cascade,
+    username    varchar(20) not null,
+    phone       char(11)    not null,
+    location    point       not null,
+    name        varchar(50) not null,
+    detail      varchar(50) not null,
+    postcode    char(6)     not null,
+    code        text[]      not null,
+    value       text[]      not null,
+    insert_time timestamp   not null default current_timestamp,
+    update_time timestamp   not null default current_timestamp
+);
+comment on table develop.site is '站点';
+comment on column develop.site.store_id is '商户ID';
+comment on column develop.site.username is '联系人';
+comment on column develop.site.phone is '联系方式';
+comment on column develop.site.location is '坐标';
+comment on column develop.site.name is '地址名称';
+comment on column develop.site.detail is '地址详情';
+comment on column develop.site.postcode is '邮编';
+comment on column develop.site.code is '省市区编号';
+comment on column develop.site.value is '省市区';
+comment on column develop.site.insert_time is '创建时间';
+comment on column develop.site.update_time is '更新时间';
