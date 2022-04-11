@@ -164,9 +164,6 @@ public class ScoreController {
     @PutMapping(value = {"scores/{id}/refund"})
     public Score refund(@PathVariable Long id, @RequestHeader(name = "aid") Long aid) throws WxPayException {
         Score score = scoreRepository.findByIdAndAccountId(id, aid).orElseThrow(() -> new ServiceException("FAIL", "订单丢失,请联系客服", MessageFormat.format("订单ID:{0},用户ID:{1}", id, aid)));
-        if (score.getStatus().equals(Score.Status.WAIT_TAKE)) {
-            throw new RuntimeException("该订单准备中,请联系商家");
-        }
         if (score.getStatus().equals(Score.Status.FINISH)) {
             throw new RuntimeException("该订单已完成,请联系商家");
         }
@@ -214,7 +211,7 @@ public class ScoreController {
     public Score finishScore(@PathVariable Long id, @RequestHeader(name = "aid") Long aid) {
         Score score = scoreRepository.findByIdAndAccountId(id, aid).orElseThrow(() -> new ServiceException("FAIL", "该订单不存,请联系平台服务商", MessageFormat.format("订单ID:{0},用户ID:{1}", id, aid)));
         Score.Status status = score.getStatus();
-        if (status.equals(Score.Status.WAIT_SIGN) || status.equals(Score.Status.WAIT_TAKE)) {
+        if (status.equals(Score.Status.WAIT_SIGN)) {
             querydslService.setScore(score.getId(), score.getStatus(), Score.Status.FINISH);
             score.setStatus(Score.Status.FINISH);
         } else if (status.equals(Score.Status.FINISH)) {

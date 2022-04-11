@@ -74,6 +74,6 @@
 	<button class="weui-flex__item" type="primary" bindtap="pay">微信支付</button>
 </view>
 
-<view wx:if="{{score.status === 'WAIT_TAKE' || score.status === 'WAIT_SIGN'}}" class="weui-flex weui-footer_fixed-bottom">
+<view wx:if="{{score.status === 'WAIT_SIGN'}}" class="weui-flex weui-footer_fixed-bottom">
 	<button class="weui-flex__item" type="primary" bindtap="finishScore">确认收货</button>
 </view>

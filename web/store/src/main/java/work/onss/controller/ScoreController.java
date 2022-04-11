@@ -110,7 +110,7 @@ public class ScoreController {
         if (!oldScore.getOutTradeNo().equals(outTradeNo)) {
             throw new RuntimeException("请确认订单编号是否正确");
         }
-        if (oldScore.getStatus().equals(Score.Status.WAIT_PACKAGE) || oldScore.getStatus().equals(Score.Status.WAIT_DELIVER) || oldScore.getStatus().equals(Score.Status.WAIT_TAKE) || oldScore.getStatus().equals(Score.Status.WAIT_SIGN) || oldScore.getStatus().equals(Score.Status.FINISH)) {
+        if (oldScore.getStatus().equals(Score.Status.WAIT_PACKAGE) || oldScore.getStatus().equals(Score.Status.WAIT_DELIVER) || oldScore.getStatus().equals(Score.Status.WAIT_SIGN) || oldScore.getStatus().equals(Score.Status.FINISH)) {
             WXRefundResult wxRefundResult = wxPay.refund(oldScore);
             WXRefundResult.Status status = wxRefundResult.getStatus();
             if (status.equals(WXRefundResult.Status.SUCCESS)) {

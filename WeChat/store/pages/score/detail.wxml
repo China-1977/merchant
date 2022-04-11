@@ -1,4 +1,4 @@
-<form bindsubmit="refund" wx:if="{{score.status === 'WAIT_PACKAGE' ||score.status === 'WAIT_DELIVER'||score.status === 'WAIT_SIGN'||score.status === 'WAIT_TAKE'||score.status === 'FINISH'}}">
+<form bindsubmit="refund" wx:if="{{score.status === 'WAIT_PACKAGE' ||score.status === 'WAIT_DELIVER'||score.status === 'WAIT_SIGN'||score.status === 'FINISH'}}">
 	<view class="weui-cells weui-cells_after-title">
 		<view class="weui-cell ">
 			<view class="weui-cell__hd">
