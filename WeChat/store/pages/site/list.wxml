@@ -1,0 +1,15 @@
+<view class="weui-cells__title">
+  <view class="weui-flex">
+    <view class="weui-flex__item">常用地址</view>
+    <navigator url="/pages/site/detail"><button size='mini' style="font-size:0.7rem" bindtap="add">+</button></navigator>
+  </view>
+</view>
+<view class="weui-panel">
+  <view wx:for="{{sites}}" wx:for-item='site' wx:key="index" class="weui-media-box weui-media-box_appmsg">
+    <navigator url="/pages/site/detail?index={{index}}" class="weui-media-box__bd weui-media-box__bd_in-appmsg weui-cell__ft_in-access">
+      <view class="weui-media-box__desc">{{site.name}}</view>
+      <view class="weui-media-box__title">{{site.username}} {{site.phone}}</view>
+      <view class="weui-media-box__desc">{{site.detail}}</view>
+    </navigator>
+  </view>
+</view>

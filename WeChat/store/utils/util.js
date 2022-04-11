@@ -316,10 +316,18 @@ function wxRequest({ url, data = {}, dataType = 'json', header, method = 'GET', 
                 url: '/pages/login/login'
               });
               break;
+            case 'FAIL':
+                wx.showModal({
+                  title: '警告',
+                  content: message,
+                  confirmColor: '#e64340',
+                  showCancel: false,
+                })
+                break;
             default:
               wx.showModal({
                 title: '警告',
-                content: message,
+                content: "请求失败",
                 confirmColor: '#e64340',
                 showCancel: false,
               })
@@ -351,10 +359,18 @@ function wxRequest({ url, data = {}, dataType = 'json', header, method = 'GET', 
               url: '/pages/login/login'
             });
             break;
+            case 'FAIL':
+              wx.showModal({
+                title: '警告',
+                content: message,
+                confirmColor: '#e64340',
+                showCancel: false,
+              })
+              break;
           default:
             wx.showModal({
               title: '警告',
-              content: message,
+              content: "请求失败",
               confirmColor: '#e64340',
               showCancel: false,
             })

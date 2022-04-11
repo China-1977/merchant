@@ -22,7 +22,7 @@ public class SiteController {
      * @param site 编辑内容
      * @return 最新站点内容
      */
-    @PostMapping(value = {"sitees"})
+    @PostMapping(value = {"sites"}, name = "站点编辑")
     public Site saveOrInsert(@RequestHeader(name = "sid") Long sid, @RequestBody @Validated Site site) {
         site.setStoreId(sid);
         if (site.getId() == null) {
@@ -39,7 +39,7 @@ public class SiteController {
      * @param sid 商户ID
      * @param id  主键
      */
-    @DeleteMapping(value = {"sitees/{id}"})
+    @DeleteMapping(value = {"sites/{id}"}, name = "站点删除")
     public void delete(@RequestHeader(name = "sid") Long sid, @PathVariable Long id) {
         siteRepository.deleteByIdAndStoreId(id, sid);
     }
@@ -49,7 +49,7 @@ public class SiteController {
      * @param id  主键
      * @return 站点
      */
-    @GetMapping(value = {"sitees/{id}"})
+    @GetMapping(value = {"sites/{id}"}, name = "站点详情")
     public Site findOne(@RequestHeader(name = "sid") Long sid, @PathVariable Long id) {
         return siteRepository.findByIdAndStoreId(id, sid).orElse(null);
     }
@@ -58,7 +58,7 @@ public class SiteController {
      * @param sid 商户ID
      * @return 所有站点
      */
-    @GetMapping(value = {"sitees"})
+    @GetMapping(value = {"sites"}, name = "站点列表")
     public List<Site> findAll(@RequestHeader(name = "sid") Long sid) {
         return siteRepository.findByStoreIdOrderByUpdateTime(sid);
     }
