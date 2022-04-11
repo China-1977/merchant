@@ -14,7 +14,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import work.onss.domain.Application;
-import work.onss.domain.ApplicationMemberRepository;
 import work.onss.domain.ApplicationRepository;
 import work.onss.domain.QApplication;
 

@@ -13,11 +13,12 @@ public class InterceptorConfig implements WebMvcConfigurer {
     private AuthorizationInterceptor authorizationInterceptor;
     @Resource
     private RequestMappingInterceptor requestMappingInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/**")
                 .excludePathPatterns("/login", "/register");
         registry.addInterceptor(requestMappingInterceptor).addPathPatterns("/**")
-                .excludePathPatterns("/login", "/register","/members/*/setPassword");
+                .excludePathPatterns("/login", "/register", "/members/*/setPassword");
     }
 }

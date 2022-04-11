@@ -38,6 +38,8 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 public class ScoreController {
 
+    @Value(value = "${wechat.mp.appId}")
+    String spappId;
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
     @Autowired
@@ -54,8 +56,6 @@ public class ScoreController {
     private ScoreService scoreService;
     @Autowired
     private WxPay wxPay;
-    @Value(value = "${wechat.mp.appId}")
-    String spappId;
 
     /**
      * @param id  主键

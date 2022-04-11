@@ -135,7 +135,7 @@ public class CartController {
                 checkAll = false;
             }
         }
-        return Map.of("store",store,"products", productDetailDtos, "checkAll", checkAll, "sum", sum.toPlainString());
+        return Map.of("store", store, "products", productDetailDtos, "checkAll", checkAll, "sum", sum.toPlainString());
     }
 
     @Transactional

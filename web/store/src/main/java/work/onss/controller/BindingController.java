@@ -95,7 +95,7 @@ public class BindingController {
     @PostMapping(value = {"bindings/insertStore"})
     public Store insert(@RequestHeader(name = "cid") Long cid, @Validated @RequestBody Store store) {
         store.setCustomerId(cid);
-        String businessCode = String.format("%s_%s",wechatMpProperties.getMchId(), store.getLicenseNumber());
+        String businessCode = String.format("%s_%s", wechatMpProperties.getMchId(), store.getLicenseNumber());
         store.setBusinessCode(businessCode);
         store.setSubMchId(businessCode);
         storeRepository.save(store);

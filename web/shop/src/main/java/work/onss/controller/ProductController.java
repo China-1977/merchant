@@ -49,7 +49,7 @@ public class ProductController {
         Prefer prefer = tuple.get(qPrefer);
         Cart cart = tuple.get(qCart);
 
-        Map<String,Object> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
         data.put("product", product);
         data.put("cart", cart);
         data.put("prefer", prefer);
@@ -58,7 +58,7 @@ public class ProductController {
 
     /**
      * @param storeId 商户ID
-     * @param aid 用户ID
+     * @param aid     用户ID
      * @return 商品列表
      */
     @GetMapping(value = {"products"})

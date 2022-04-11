@@ -37,6 +37,8 @@ import java.util.Optional;
 @RestController
 public class ScoreController {
 
+    @Value(value = "${wechat.mp.appId}")
+    String spappId;
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
     @Autowired
@@ -49,8 +51,6 @@ public class ScoreController {
     private WxMa wxMa;
     @Autowired
     private WxPay wxPay;
-    @Value(value = "${wechat.mp.appId}")
-    String spappId;
 
     /**
      * @param id  订单ID

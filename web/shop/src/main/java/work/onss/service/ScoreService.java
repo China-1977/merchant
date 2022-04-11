@@ -13,6 +13,8 @@ import java.util.*;
 @Service
 public class ScoreService {
 
+    @Value(value = "${wechat.mp.appId}")
+    String spappId;
     @Autowired
     private ScoreRepository scoreRepository;
     @Autowired
@@ -23,6 +25,8 @@ public class ScoreService {
     private JPAQueryFactory jpaQueryFactory;
     @Autowired
     private QuerydslService querydslService;
+    @Autowired
+    private WxMa wxMa;
 
     /**
      * @param score 订单表单
@@ -66,11 +70,6 @@ public class ScoreService {
                 .where(qScore.id.eq(score.getId()), qScore.status.eq(score.getStatus()))
                 .execute();
     }
-
-    @Autowired
-    private WxMa wxMa;
-    @Value(value = "${wechat.mp.appId}")
-    String spappId;
 
     public void send(Score score, String first) {
         List<String> applications = Arrays.asList(

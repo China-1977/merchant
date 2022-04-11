@@ -99,8 +99,8 @@ public class CustomerController {
     }
 
     /**
-     * @param id          营业员ID
-     * @param sid         商户ID
+     * @param id             营业员ID
+     * @param sid            商户ID
      * @param applicationIds 待授权资源ID
      */
     @PostMapping(value = {"customers/{id}/authorize"}, name = "营业成员权限设置")

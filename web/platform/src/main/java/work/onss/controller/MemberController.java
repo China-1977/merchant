@@ -58,7 +58,7 @@ public class MemberController {
     }
 
     /**
-     * @param id         管理员ID
+     * @param id             管理员ID
      * @param applicationsId 待授权平台资源ID
      */
     @PostMapping(value = {"members/{id}/authorize"}, name = "管理员权限设置")

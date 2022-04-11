@@ -27,7 +27,7 @@ public class PreferController {
     private ProductRepository productRepository;
 
     /**
-     * @param aid 用户ID
+     * @param aid       用户ID
      * @param productId 商品ID
      * @return 新增收藏
      */
