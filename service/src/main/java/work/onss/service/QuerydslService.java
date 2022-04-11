@@ -78,12 +78,12 @@ public class QuerydslService {
         value.put("offset", pageable.getOffset());
         String sql;
         if (StringUtils.hasLength(keyword)) {
-            sql = "select s.id,s.shortname,s.description,s.trademark,s.location <-> :location\\:\\:point as distance from store s where s.status = 'true' and s.location <@ :circle\\:\\:circle and to_tsvector(s.description) @@ to_tsquery(:keyword) order by distance limit :limit offset :offset ";
+            sql = "select s.*, s.location <-> :location\\:\\:point as distance from site s where s.location <@ :circle\\:\\:circle and to_tsvector(s.name) @@ to_tsquery(:keyword) order by distance limit :limit offset :offset ";
             value.put("keyword", keyword);
         } else {
-            sql = "select s.id,s.shortname,s.description,s.trademark,s.location <-> :location\\:\\:point as distance from store s where s.status = 'true' and s.location <@ :circle\\:\\:circle order by distance limit :limit offset :offset ";
+            sql = "select s.*, s.location <-> :location\\:\\:point as distance from site s where s.location <@ :circle\\:\\:circle order by distance limit :limit offset :offset ";
         }
-        return null;
+        return namedParameterJdbcTemplate.query(sql, value, new Site());
     }
 
     /**

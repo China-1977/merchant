@@ -1,5 +1,6 @@
 package work.onss.domain;
 
+import com.google.gson.FieldNamingPolicy;
 import com.vladmihalcea.hibernate.type.array.IntArrayType;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 import lombok.*;
@@ -12,11 +13,18 @@ import org.postgresql.geometric.PGpoint;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.jdbc.core.RowMapper;
 import work.onss.config.PointType;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -39,7 +47,7 @@ import java.util.Objects;
 })
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Site implements Serializable {
+public class Site implements Serializable, RowMapper<Site> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -77,5 +85,22 @@ public class Site implements Serializable {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+
+    @Override
+    public Site mapRow(ResultSet rs, int rowNum) {
+        Site site = new Site();
+        Field[] fields = site.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            String name = FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES.translateName(field);
+            field.setAccessible(true);
+            try {
+                Object object = rs.getObject(name);
+                field.set(site, object);
+            } catch (SQLException | IllegalAccessException ignored) {
+            }
+        }
+        return site;
     }
 }
