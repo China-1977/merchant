@@ -7,7 +7,7 @@ Page({
   },
   onLoad: function (options) {
     wxRequest({
-      url: `${domain}/shop/sites?storeId=${options.storeId}`,
+      url: `${domain}/shop/sites`,
     }).then((sites) => {
       this.setData({
         sites
