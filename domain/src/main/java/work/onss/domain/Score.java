@@ -44,7 +44,8 @@ public class Score implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Boolean delivery;
+    @Enumerated(value = EnumType.STRING)
+    private Way way;
     @Enumerated(value = EnumType.STRING)
     private Status status = Status.WAIT_PAY;
     @JsonFormat(pattern = "#.00", shape = JsonFormat.Shape.STRING)
@@ -75,17 +76,6 @@ public class Score implements Serializable {
     /* 商户信息 */
     private Long storeId;
     private String storeShortname;
-    private String siteUsername;
-    private String sitePhone;
-    private String siteName;
-    private String siteDetail;
-    @Type(type = "point")
-    private PGpoint siteLocation;
-    private String sitePostcode;
-    @Type(type = "string-array")
-    private String[] siteCode;
-    @Type(type = "string-array")
-    private String[] siteValue;
 
     private String spAppid;
     private String spMchid;
@@ -96,7 +86,7 @@ public class Score implements Serializable {
     private String transactionId;
 
     public Score(ConfirmScore confirmScore, Long accountId, Map<Long, Integer> cart, List<work.onss.domain.Product> products, Store store, String spAppid, String spMchid, String outTradeNo) {
-        this.delivery = confirmScore.getDelivery();
+        this.way = confirmScore.getWay();
         this.products = new ArrayList<>(products.size());
         for (work.onss.domain.Product product : products) {
             Integer num = cart.get(product.getId());
@@ -106,8 +96,8 @@ public class Score implements Serializable {
         }
         this.accountId = accountId;
         Address address = confirmScore.getAddress();
-        this.username = address.getUsername();
-        this.phone = address.getPhone();
+        this.username = confirmScore.getUsername();
+        this.phone = confirmScore.getPhone();
         this.addressName = address.getName();
         this.addressDetail = address.getDetail();
         this.location = address.getLocation();
@@ -116,15 +106,6 @@ public class Score implements Serializable {
         this.addressValue = address.getValue();
         this.storeId = confirmScore.getStoreId();
         this.storeShortname = store.getShortname();
-        Site site = confirmScore.getSite();
-        this.siteUsername = site.getUsername();
-        this.sitePhone = site.getPhone();
-        this.siteName = site.getName();
-        this.siteDetail = site.getDetail();
-        this.siteLocation = site.getLocation();
-        this.sitePostcode = site.getPostcode();
-        this.siteCode = site.getCode();
-        this.siteValue = site.getValue();
         this.subMchid = store.getSubMchId();
         this.spAppid = spAppid;
         this.spMchid = spMchid;
@@ -158,6 +139,15 @@ public class Score implements Serializable {
         REFUND_PROCESSING("退款处理中"),
         REFUND_ABNORMAL("退款异常"),
         FINISH("已完成");
+        private final String message;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public enum Way implements Serializable {
+        MD("门店"),
+        YZ("驿站"),
+        PS("配送");
         private final String message;
     }
 

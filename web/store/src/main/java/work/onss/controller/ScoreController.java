@@ -147,14 +147,17 @@ public class ScoreController {
         Map<String, String> data;
         String keyword3 = String.join("\n", oldScore.getProducts().stream().map(Score.Product::getName).toList());
         String remark = String.join("\n", oldScore.getUsername(), oldScore.getPhone(), oldScore.getAddressDetail());
-        if (oldScore.getDelivery()) {
+
+        if (oldScore.getWay().equals(Score.Way.MD)) {
+            // 门店自取
             querydslService.setScore(id, oldScore.getStatus(), Score.Status.WAIT_SIGN);
             oldScore.setStatus(Score.Status.WAIT_SIGN);
             data = Utils.OPENTM207940503("您的订单已配货完成,请尽快到门店取货,谢谢配合", oldScore.getOutTradeNo(), oldScore.getStatus().getMessage(), keyword3, remark);
         } else {
+            // 配送到家 配送到驿站
             querydslService.setScore(id, oldScore.getStatus(), Score.Status.WAIT_DELIVER);
             oldScore.setStatus(Score.Status.WAIT_DELIVER);
-            data = Utils.OPENTM207940503("您的订单正在配货中，谢谢您的支持", oldScore.getOutTradeNo(), oldScore.getStatus().getMessage(), keyword3, remark);
+            data = Utils.OPENTM207940503("您的订单准备配送中,请保持电话畅通,谢谢配合", oldScore.getOutTradeNo(), oldScore.getStatus().getMessage(), keyword3, remark);
         }
         Optional<Account> accountOptional = accountRepository.findById(oldScore.getAccountId());
         accountOptional.ifPresent(account -> wxMa.sendUniformMsg(spappId, account.getSubAppid(), account.getSubOpenid(), "boyfaz_o7NEzgEsOPOZMSvcqvrfWgHbA0k8NuEMV-b8", data, "pages/score/detail?id=".concat(oldScore.getId().toString())));
@@ -176,7 +179,7 @@ public class ScoreController {
         oldScore.setStatus(Score.Status.WAIT_SIGN);
         String keyword3 = String.join("\n", oldScore.getProducts().stream().map(Score.Product::getName).toList());
         String remark = String.join("\n", oldScore.getUsername(), oldScore.getPhone(), oldScore.getAddressDetail());
-        Map<String, String> data = Utils.OPENTM207940503("您的订单已配货完成,请尽快到门店取货,谢谢配合", oldScore.getOutTradeNo(), oldScore.getStatus().getMessage(), keyword3, remark);
+        Map<String, String> data = Utils.OPENTM207940503("您的订单已配送,谢谢您的支持", oldScore.getOutTradeNo(), oldScore.getStatus().getMessage(), keyword3, remark);
         Optional<Account> accountOptional = accountRepository.findById(oldScore.getAccountId());
         accountOptional.ifPresent(account -> wxMa.sendUniformMsg(spappId, account.getSubAppid(), account.getSubOpenid(), "boyfaz_o7NEzgEsOPOZMSvcqvrfWgHbA0k8NuEMV-b8", data, "pages/score/detail?id=".concat(oldScore.getId().toString())));
         return oldScore;

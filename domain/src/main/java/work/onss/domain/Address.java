@@ -43,11 +43,6 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "请填写姓名")
-    private String username;
-    @NotBlank(message = "请填写手机号")
-    @Pattern(regexp = "^[1][34578][0-9]{9}$", message = "手机号格式错误")
-    private String phone;
     @NotBlank(message = "请填写地址名称")
     private String name;
     @NotBlank(message = "请填写地址详情")
