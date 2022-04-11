@@ -76,6 +76,17 @@ public class Score implements Serializable {
     /* 商户信息 */
     private Long storeId;
     private String storeShortname;
+    private String storeUsername;
+    private String storePhone;
+    private String storeAddressName;
+    private String storeAddressDetail;
+    @Type(type = "point")
+    private PGpoint storeLocation;
+    private String storePostcode;
+    @Type(type = "string-array")
+    private String[] storeAddressCode;
+    @Type(type = "string-array")
+    private String[] storeAddressValue;
 
     private String spAppid;
     private String spMchid;
@@ -106,6 +117,14 @@ public class Score implements Serializable {
         this.addressValue = address.getValue();
         this.storeId = confirmScore.getStoreId();
         this.storeShortname = store.getShortname();
+        this.storeUsername = store.getUsername();
+        this.storePhone = store.getPhone();
+        this.storeAddressName = store.getAddressName();
+        this.storeAddressDetail = store.getAddressDetail();
+        this.storeLocation = store.getLocation();
+        this.storePostcode = store.getPostcode();
+        this.storeAddressCode = store.getAddressCode();
+        this.storeAddressValue = store.getAddressValue();
         this.subMchid = store.getSubMchId();
         this.spAppid = spAppid;
         this.spMchid = spMchid;
