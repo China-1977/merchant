@@ -6,6 +6,13 @@ const domain = 'https://1977.work';
 
 const appid = "wxe78290c2a5313de3";
 
+
+const scoreWay = {
+  MD: "门店自取",
+  YZ: "驿站自取",
+  PS: "等待配送",
+};
+
 const scoreStatus = {
   WAIT_PAY: "待支付",
   WAIT_PACKAGE: "待配货",
@@ -223,5 +230,6 @@ module.exports = {
   windowWidth,
   wxRequest,
   scoreStatus,
-  size
+  size,
+  scoreWay
 }
