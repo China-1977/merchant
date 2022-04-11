@@ -19,7 +19,7 @@
 					<label class='status status-{{score.status}}'>{{scoreStatus[score.status]}}</label>
 				</view>
 				<view class="weui-media-box__title">{{score.username}} {{score.phone}}</view>
-				<view class="weui-media-box__desc">{{score.addressDetail}}</view>
+				<view class="weui-media-box__desc">{{scoreWay[score.way]}}</view>
 				<view class="weui-media-box__desc">{{score.updateTime}}</view>
 			</view>
 		</view>

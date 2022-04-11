@@ -1,6 +1,7 @@
-import { domain, wxLogin, wxRequest, scoreStatus } from '../../utils/util.js';
+import { scoreWay,domain, wxLogin, wxRequest, scoreStatus } from '../../utils/util.js';
 Page({
   data: {
+    scoreWay,
     domain,
     scoreStatus
   },

@@ -1,7 +1,7 @@
-import { domain, wxLogin, wxRequest, scoreStatus, size } from '../../utils/util.js';
+import { domain, wxLogin, wxRequest, scoreStatus, size, scoreWay } from '../../utils/util.js';
 Page({
   data: {
-    domain, scores: [], scoreStatus, number: 0, year: new Date().getFullYear()
+    scoreWay,domain, scores: [], scoreStatus, number: 0, year: new Date().getFullYear()
   },
 
   onLoad: function () {

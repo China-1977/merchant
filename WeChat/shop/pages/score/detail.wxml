@@ -21,7 +21,7 @@
 	</view>
 </view>
 
-<view wx:if="{{store.way === 'YZ'}}" class="weui-cells__title">驿站地址</view>
+<view wx:if="{{store.way === 'YZ'}}" class="weui-cells__title">驿站自取</view>
 <view wx:if="{{store.way === 'PS'}}" class="weui-cells__title">收货地址</view>
 <view wx:if="{{store.way === 'YZ'||store.way === 'PS'}}" class="weui-cells weui-cells_after-title">
 	<view class="weui-cell weui-cell_access">
