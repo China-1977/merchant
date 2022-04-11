@@ -1,5 +1,5 @@
-<view class="weui-cells__title">
-  驿站地址
+<view class="weui-cells__title" bindtap="chooseLocation">
+	<view class="weui-media-box__title weui-cell__ft_in-access">附近驿站:{{name}}</view>
 </view>
 <view class="weui-panel">
   <radio-group class="radio-group" bindchange="changeAddress">

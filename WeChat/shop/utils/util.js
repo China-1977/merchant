@@ -102,6 +102,20 @@ function getStores(longitude, latitude, number = 0, keyword) {
   return wxRequest({ url })
 }
 
+/** 根据经纬度分页获取驿站
+ * @param {Number} longitude 经度
+ * @param {Number} latitude 维度
+ * @param {Number} number 分页数
+ * @param {string} keyword 关键字
+ */
+function getSites(longitude, latitude, number = 0, keyword) {
+  let url = `${domain}/shop/sites/${longitude}-${latitude}/near?page=${number}`;
+  if (keyword) {
+    url = `${url}&keyword=${keyword}`
+  }
+  return wxRequest({ url })
+}
+
 /** 根据商户ID获取商户信息
  * @param {String} id 商户主键
  */
@@ -223,6 +237,7 @@ module.exports = {
   formatTime,
   app,
   getStores,
+  getSites,
   getStore,
   getProducts,
   getCarts,
