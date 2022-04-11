@@ -39,20 +39,15 @@ Page({
     }
   },
 
-  changeAddress: function (e) {
-    this.setData({
-      delivery: e.detail.value
-    })
-  },
-
   createScore: function (e) {
     wxLogin().then(({ authorization, info }) => {
-      const { address, site } = this.data.address;
+      const { address, store } = this.data;
+      console.log(this.data);
       wxRequest({
         url: `${domain}/shop/scores`,
         header: { authorization, aid: info.aid },
         method: "POST",
-        data: { ...e.detail.value, address, site, subAppId: appid },
+        data: { ...e.detail.value, address, subAppId: appid,storeId:store.id },
       }).then((data) => {
         wx.requestPayment(
           {

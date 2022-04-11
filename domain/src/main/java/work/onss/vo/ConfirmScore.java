@@ -4,6 +4,8 @@ import lombok.Data;
 import work.onss.domain.Address;
 import work.onss.domain.Score;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -22,6 +24,7 @@ public class ConfirmScore implements Serializable {
     @NotEmpty(message = "商品不能为空")
     private List<String> cart;
     @NotNull(message = "请选择配送方式")
+    @Enumerated(value = EnumType.STRING)
     private Score.Way way;
     @NotNull(message = "缺少商户ID")
     private Long storeId;
