@@ -1,16 +1,16 @@
 package work.onss.domain;
 
+import org.postgresql.geometric.PGpoint;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 
 public interface SiteRepository extends JpaRepository<Site, Long>, JpaSpecificationExecutor<Site>, QuerydslPredicateExecutor<Site>, QuerydslBinderCustomizer<QSite> {
@@ -33,11 +33,5 @@ public interface SiteRepository extends JpaRepository<Site, Long>, JpaSpecificat
         }));
     }
 
-    Optional<Site> findByIdAndStoreId(Long id, Long accountId);
-
-    @Modifying
-    @Transactional
-    void deleteByIdAndStoreId(Long id, Long accountId);
-
-    List<Site> findByStoreIdOrderByUpdateTime(Long accountId);
+    Page<Site> findAllByLocationNearAndNameContains(PGpoint pGpoint, String name, Pageable pageable);
 }

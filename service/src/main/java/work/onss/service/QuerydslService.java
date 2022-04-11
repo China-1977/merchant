@@ -66,6 +66,32 @@ public class QuerydslService {
      * @param pageable 分页参数
      * @return 区域内商户
      */
+    public List<Site> sites(PGcircle pGcircle, String keyword, Pageable pageable) {
+        Map<String, Object> value = new HashMap<>();
+        PGpoint center = pGcircle.center;
+        if (center == null) {
+            throw new RuntimeException("请选择位置信息");
+        }
+        value.put("location", center.getValue());
+        value.put("circle", pGcircle.getValue());
+        value.put("limit", pageable.getPageSize());
+        value.put("offset", pageable.getOffset());
+        String sql;
+        if (StringUtils.hasLength(keyword)) {
+            sql = "select s.id,s.shortname,s.description,s.trademark,s.location <-> :location\\:\\:point as distance from store s where s.status = 'true' and s.location <@ :circle\\:\\:circle and to_tsvector(s.description) @@ to_tsquery(:keyword) order by distance limit :limit offset :offset ";
+            value.put("keyword", keyword);
+        } else {
+            sql = "select s.id,s.shortname,s.description,s.trademark,s.location <-> :location\\:\\:point as distance from store s where s.status = 'true' and s.location <@ :circle\\:\\:circle order by distance limit :limit offset :offset ";
+        }
+        return null;
+    }
+
+    /**
+     * @param pGcircle 区域
+     * @param keyword  描述全文检索
+     * @param pageable 分页参数
+     * @return 区域内商户
+     */
     public List<StoreDto> stores(PGcircle pGcircle, String keyword, Pageable pageable) {
         Map<String, Object> value = new HashMap<>();
         PGpoint center = pGcircle.center;
