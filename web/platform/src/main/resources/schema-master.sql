@@ -58,41 +58,32 @@ comment on column master.store.videos is '视频ID';
 
 create table if not exists master.score
 (
-    id                   bigserial primary key,
-    address_detail       varchar(255) not null,
-    address_name         varchar(100) not null,
-    account_id           bigint       not null,
-    username             varchar(20)  not null,
-    address_value        text[]       not null,
-    address_code         text[]       not null,
-    delivery             boolean      not null,
-    phone                char(11)     not null,
-    location             point        not null,
-    postcode             char(6)      not null,
-    prepay_id            varchar(70)  not null,
-    products             jsonb        not null,
-    store_id             bigint       not null,
-    sp_appid             varchar(255) not null,
-    sp_mchid             varchar(255) not null,
-    store_address_detail varchar(50)  not null,
-    store_address_name   varchar(50)  not null,
-    store_address_value  text[]       not null,
-    store_address_code   text[]       not null,
-    store_phone          char(11)     not null,
-    store_location       point        not null,
-    store_postcode       char(6)      not null,
-    store_shortname      varchar(20)  not null,
-    store_username       varchar(10)  not null,
-    sub_appid            varchar(50)  not null,
-    sub_mchid            varchar(50)  not null,
-    total                numeric      not null,
-    status               varchar(50)  not null default 'WAIT_PAY',
-    out_trade_no         char(19)     not null
+    id             bigserial primary key,
+    account_id     bigint       not null,
+    username       varchar(20)  not null,
+    phone          char(11)     not null,
+    address_name   varchar(100) not null,
+    address_detail varchar(255) not null,
+    location       point        not null,
+    postcode       char(6)      not null,
+    address_code   text[]       not null,
+    address_value  text[]       not null,
+    way            varchar(50)  not null,
+    prepay_id      varchar(70)  not null,
+    products       jsonb        not null,
+    store_id       bigint       not null,
+    sp_appid       varchar(255) not null,
+    sp_mchid       varchar(255) not null,
+    sub_appid      varchar(50)  not null,
+    sub_mchid      varchar(50)  not null,
+    total          numeric      not null,
+    status         varchar(50)  not null default 'WAIT_PAY',
+    out_trade_no   char(19)     not null
         constraint uk_score_out_trade_no unique,
-    pay_time             timestamp,
-    transaction_id       varchar(50),
-    insert_time          timestamp    not null default current_timestamp,
-    update_time          timestamp    not null default current_timestamp
+    pay_time       timestamp,
+    transaction_id varchar(50),
+    insert_time    timestamp    not null default current_timestamp,
+    update_time    timestamp    not null default current_timestamp
 );
 
 comment on table master.score is '订单';
@@ -102,7 +93,7 @@ comment on column master.score.account_id is '消费者ID';
 comment on column master.score.username is '消费者联系人';
 comment on column master.score.address_value is '省市区';
 comment on column master.score.address_code is '省市区编号';
-comment on column master.score.delivery is '是否配送';
+comment on column master.score.way is '配送方式';
 comment on column master.score.phone is '联系方式';
 comment on column master.score.location is '坐标';
 comment on column master.score.postcode is '邮编';
@@ -111,15 +102,6 @@ comment on column master.score.products is '商品列表';
 comment on column master.score.store_id is '商户ID';
 comment on column master.score.sp_appid is '服务商应用ID';
 comment on column master.score.sp_mchid is '服务商户号';
-comment on column master.score.store_address_detail is '商户地址详情';
-comment on column master.score.store_address_name is '商户地址名称';
-comment on column master.score.store_address_value is '商户省市区';
-comment on column master.score.store_address_code is '商户省市区编号';
-comment on column master.score.store_phone is '商户联系方式';
-comment on column master.score.store_location is '商户坐标';
-comment on column master.score.store_postcode is '商户邮编';
-comment on column master.score.store_shortname is '商户简称';
-comment on column master.score.store_username is '商户联系人';
 comment on column master.score.sub_appid is '子商户应用ID';
 comment on column master.score.sub_mchid is '子商户号';
 comment on column master.score.total is '订单总金额';
@@ -394,10 +376,6 @@ create unique index if not exists vip_store_id_account_id_uindex on master.vip (
 create table if not exists master.site
 (
     id          bigserial primary key,
-    store_id    bigint      not null
-        constraint site_store_id_fk references store on delete cascade,
-    username    varchar(20) not null,
-    phone       char(11)    not null,
     location    point       not null,
     name        varchar(50) not null,
     detail      varchar(50) not null,
@@ -408,9 +386,6 @@ create table if not exists master.site
     update_time timestamp   not null default current_timestamp
 );
 comment on table master.site is '站点';
-comment on column master.site.store_id is '商户ID';
-comment on column master.site.username is '联系人';
-comment on column master.site.phone is '联系方式';
 comment on column master.site.location is '坐标';
 comment on column master.site.name is '地址名称';
 comment on column master.site.detail is '地址详情';
