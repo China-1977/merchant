@@ -40,32 +40,49 @@ Page({
   },
 
   createScore: function (e) {
-    wxLogin().then(({ authorization, info }) => {
-      const { address, store } = this.data;
-      console.log(this.data);
-      wxRequest({
-        url: `${domain}/shop/scores`,
-        header: { authorization, aid: info.aid },
-        method: "POST",
-        data: { ...e.detail.value, address, subAppId: appid,storeId:store.id },
-      }).then((data) => {
-        wx.requestPayment(
-          {
-            ...data.order, package: data.order.packageValue,
-            'success': (res) => {
-              setTimeout(() => {
+
+    if (e.detail.value.way) {
+      wxLogin().then(({ authorization, info }) => {
+        const { address, store } = this.data;
+        console.log(this.data);
+        wxRequest({
+          url: `${domain}/shop/scores`,
+          header: { authorization, aid: info.aid },
+          method: "POST",
+          data: { ...e.detail.value, address, subAppId: appid, storeId: store.id },
+        }).then((data) => {
+          wx.requestPayment(
+            {
+              ...data.order, package: data.order.packageValue,
+              'success': (res) => {
+                setTimeout(() => {
+                  wx.reLaunch({
+                    url: `/pages/score/detail?id=${data.score.id}`,
+                  })
+                }, 300);
+              },
+              'fail': (res) => {
                 wx.reLaunch({
                   url: `/pages/score/detail?id=${data.score.id}`,
                 })
-              }, 300);
-            },
-            'fail': (res) => {
-              wx.reLaunch({
-                url: `/pages/score/detail?id=${data.score.id}`,
-              })
-            }
-          })
+              }
+            })
+        })
       })
-    })
+    } else {
+      wx.showModal({
+        title: '警告',
+        content: "请选择配送方式",
+        confirmColor: '#e64340',
+        showCancel: false,
+        success: () => {
+          wx.reLaunch({
+            url: '/pages/store/merchant'
+          });
+        }
+      })
+    }
+
+
   },
 })

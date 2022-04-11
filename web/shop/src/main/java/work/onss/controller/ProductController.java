@@ -64,14 +64,18 @@ public class ProductController {
     @GetMapping(value = {"products"})
     public Map<String, Object> products(@RequestParam Long storeId, @RequestHeader(required = false) Long aid) {
         QStore qStore = QStore.store;
-        StoreDto store = jpaQueryFactory.select(Projections.fields(
-                        StoreDto.class,
+        Store store = jpaQueryFactory.select(Projections.fields(
+                        Store.class,
                         qStore.id,
                         qStore.shortname,
                         qStore.username,
                         qStore.phone,
                         qStore.addressName,
-                        qStore.addressDetail
+                        qStore.addressDetail,
+                        qStore.location,
+                        qStore.postcode,
+                        qStore.addressCode,
+                        qStore.addressValue
                 ))
                 .from(qStore).where(qStore.id.eq(storeId)).fetchFirst();
         QProduct qProduct = QProduct.product;
