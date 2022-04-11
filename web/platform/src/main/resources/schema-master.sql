@@ -348,8 +348,6 @@ create table if not exists master.address
     id          bigserial primary key,
     account_id  bigint      not null
         constraint address_account_id_fk references account on delete cascade,
-    username    varchar(20) not null,
-    phone       char(11)    not null,
     location    point       not null,
     name        varchar(50) not null,
     detail      varchar(50) not null,
@@ -361,8 +359,6 @@ create table if not exists master.address
 );
 comment on table master.address is '收货地址';
 comment on column master.address.account_id is '消费者ID';
-comment on column master.address.username is '联系人';
-comment on column master.address.phone is '联系方式';
 comment on column master.address.location is '坐标';
 comment on column master.address.name is '地址名称';
 comment on column master.address.detail is '地址详情';
