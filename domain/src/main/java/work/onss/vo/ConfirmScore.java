@@ -2,6 +2,7 @@ package work.onss.vo;
 
 import lombok.Data;
 import work.onss.domain.Address;
+import work.onss.domain.Site;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -23,4 +24,7 @@ public class ConfirmScore implements Serializable {
     @Valid
     @NotNull(message = "请选择联系方式")
     private Address address;
+    @Valid
+    @NotNull(message = "请选附近驿站")
+    private Site site;
 }

@@ -74,10 +74,10 @@ create table if not exists develop.score
     store_id             bigint       not null,
     sp_appid             varchar(255) not null,
     sp_mchid             varchar(255) not null,
-    store_address_detail varchar(50)  not null,
-    store_address_name   varchar(50)  not null,
-    store_address_value  text[]       not null,
-    store_address_code   text[]       not null,
+    site_detail varchar(50)  not null,
+    site_name   varchar(50)  not null,
+    site_value  text[]       not null,
+    site_code   text[]       not null,
     store_phone          char(11)     not null,
     store_location       point        not null,
     store_postcode       char(6)      not null,
@@ -111,10 +111,10 @@ comment on column develop.score.products is '商品列表';
 comment on column develop.score.store_id is '商户ID';
 comment on column develop.score.sp_appid is '服务商应用ID';
 comment on column develop.score.sp_mchid is '服务商户号';
-comment on column develop.score.store_address_detail is '商户地址详情';
-comment on column develop.score.store_address_name is '商户地址名称';
-comment on column develop.score.store_address_value is '商户省市区';
-comment on column develop.score.store_address_code is '商户省市区编号';
+comment on column develop.score.site_detail is '商户地址详情';
+comment on column develop.score.site_name is '商户地址名称';
+comment on column develop.score.site_value is '商户省市区';
+comment on column develop.score.site_code is '商户省市区编号';
 comment on column develop.score.store_phone is '商户联系方式';
 comment on column develop.score.store_location is '商户坐标';
 comment on column develop.score.store_postcode is '商户邮编';

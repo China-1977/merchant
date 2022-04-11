@@ -75,17 +75,17 @@ public class Score implements Serializable {
     /* 商户信息 */
     private Long storeId;
     private String storeShortname;
-    private String storeUsername;
-    private String storePhone;
-    private String storeAddressName;
-    private String storeAddressDetail;
+    private String siteUsername;
+    private String sitePhone;
+    private String siteName;
+    private String siteDetail;
     @Type(type = "point")
-    private PGpoint storeLocation;
-    private String storePostcode;
+    private PGpoint siteLocation;
+    private String sitePostcode;
     @Type(type = "string-array")
-    private String[] storeAddressCode;
+    private String[] siteCode;
     @Type(type = "string-array")
-    private String[] storeAddressValue;
+    private String[] siteValue;
 
     private String spAppid;
     private String spMchid;
@@ -116,14 +116,15 @@ public class Score implements Serializable {
         this.addressValue = address.getValue();
         this.storeId = confirmScore.getStoreId();
         this.storeShortname = store.getShortname();
-        this.storeUsername = store.getUsername();
-        this.storePhone = store.getPhone();
-        this.storeAddressName = store.getAddressName();
-        this.storeAddressDetail = store.getAddressDetail();
-        this.storeLocation = store.getLocation();
-        this.storePostcode = store.getPostcode();
-        this.storeAddressCode = store.getAddressCode();
-        this.storeAddressValue = store.getAddressValue();
+        Site site = confirmScore.getSite();
+        this.siteUsername = site.getUsername();
+        this.sitePhone = site.getPhone();
+        this.siteName = site.getName();
+        this.siteDetail = site.getDetail();
+        this.siteLocation = site.getLocation();
+        this.sitePostcode = site.getPostcode();
+        this.siteCode = site.getCode();
+        this.siteValue = site.getValue();
         this.subMchid = store.getSubMchId();
         this.spAppid = spAppid;
         this.spMchid = spMchid;

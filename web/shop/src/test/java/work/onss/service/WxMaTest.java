@@ -70,7 +70,7 @@ public class WxMaTest extends ShopApplication {
             data.put("keyword1", oldScore.getOutTradeNo());
             data.put("keyword2", oldScore.getStatus().getMessage());
             data.put("keyword3", String.join("\n", oldScore.getProducts().stream().map(Score.Product::getName).toList()));
-            data.put("remark", String.join("\n", oldScore.getStoreShortname(), oldScore.getStoreUsername(), oldScore.getStorePhone(), oldScore.getStoreAddressDetail()));
+            data.put("remark", String.join("\n", oldScore.getStoreShortname(), oldScore.getSiteUsername(), oldScore.getSitePhone(), oldScore.getSiteDetail()));
             wxMa.sendUniformMsg(appId, accountOptional.get().getSubAppid(), accountOptional.get().getSubOpenid(), "boyfaz_o7NEzgEsOPOZMSvcqvrfWgHbA0k8NuEMV-b8", data, "pages/score/detail?id=2151615");
         }
     }
