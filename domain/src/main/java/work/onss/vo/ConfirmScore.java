@@ -1,6 +1,8 @@
 package work.onss.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import work.onss.domain.Address;
 import work.onss.domain.Score;
 
@@ -14,6 +16,8 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ConfirmScore implements Serializable {
     @NotBlank(message = "请输入姓名")
     private String username;
