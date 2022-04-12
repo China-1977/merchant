@@ -54,15 +54,12 @@ public class Address implements Serializable {
     @Type(type = "point")
     @NotNull(message = "请重新定位收货地址")
     private PGpoint location;
-    @NotBlank(message = "请选择地区")
     private String postcode;
     @Type(type = "string-array")
     @NotEmpty(message = "请选择地区")
     @Size(min = 3, max = 3, message = "请选择地区")
     private String[] code;
     @Type(type = "string-array")
-    @NotEmpty(message = "请选择地区")
-    @Size(min = 3, max = 3, message = "请选择地区")
     private String[] value;
     private Long accountId;
     @CreatedDate
