@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import work.onss.domain.Site;
-import work.onss.domain.SiteRepository;
-import work.onss.dto.StoreDto;
 import work.onss.service.QuerydslService;
 
 import java.util.List;

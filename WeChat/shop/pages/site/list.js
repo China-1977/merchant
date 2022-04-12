@@ -226,5 +226,16 @@ Page({
     this.setData({
       keyword: detail.value
     })
+  },
+  changeSite: function (e) {
+    let pages = getCurrentPages();//当前页面栈
+    let prevPage = pages[pages.length - 2];//上一页面
+    const site = this.data.sites[e.detail.value]
+    prevPage.setData({
+      address:site
+    });
+    wx.navigateBack({
+      delta: 1
+    })
   }
 });

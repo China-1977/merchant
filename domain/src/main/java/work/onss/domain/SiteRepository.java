@@ -1,8 +1,5 @@
 package work.onss.domain;
 
-import org.postgresql.geometric.PGpoint;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
@@ -32,6 +29,4 @@ public interface SiteRepository extends JpaRepository<Site, Long>, JpaSpecificat
             return Optional.ofNullable(path.between(iterator.next(), iterator.next()));
         }));
     }
-
-    Page<Site> findAllByLocationNearAndNameContains(PGpoint pGpoint, String name, Pageable pageable);
 }

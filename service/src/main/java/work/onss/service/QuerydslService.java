@@ -78,7 +78,7 @@ public class QuerydslService {
         value.put("offset", pageable.getOffset());
         String sql;
         if (StringUtils.hasLength(keyword)) {
-            sql = "select s.*, s.location <-> :location\\:\\:point as distance from site s where s.location <@ :circle\\:\\:circle and to_tsvector(s.name) @@ to_tsquery(:keyword) order by distance limit :limit offset :offset ";
+            sql = "select s.*, s.location <-> :location\\:\\:point as distance from site s where s.location <@ :circle\\:\\:circle and s.name like CONCAT('%',:keyword,'%') order by distance limit :limit offset :offset ";
             value.put("keyword", keyword);
         } else {
             sql = "select s.*, s.location <-> :location\\:\\:point as distance from site s where s.location <@ :circle\\:\\:circle order by distance limit :limit offset :offset ";

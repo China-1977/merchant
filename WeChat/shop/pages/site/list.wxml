@@ -1,21 +1,19 @@
 <view class=" weui-search-bar">
-	<form class="weui-search-bar__form" bindsubmit="search">
-		<view class="weui-search-bar__box weui-media-box__title">
-			<input class=weui-search-bar__input" name="keyword" value="{{keyword}}" bindinput="inputChange"  confirm-type="search" style="width: 40vh;" placeholder="搜索地址关键字" />
-			<button class="weui-icon-clear" type="primary" form-type="submit" size="mini" style="font-size: 0.rem;">搜索</button>
-		</view>
-	</form>
+  <form class="weui-search-bar__form" bindsubmit="search">
+    <view class="weui-search-bar__box weui-media-box__title">
+      <input class=weui-search-bar__input" name="keyword" value="{{keyword}}" bindinput="inputChange" confirm-type="search" style="width: 40vh;" placeholder="搜索地址关键字" />
+      <button class="weui-icon-clear" type="primary" form-type="submit" size="mini" style="font-size: 0.rem;">搜索</button>
+    </view>
+  </form>
 </view>
 <view class="weui-cells__title" bindtap="chooseLocation">
-	<view class="weui-media-box__title weui-cell__ft_in-access">附近驿站:{{name}}</view>
+  <view class="weui-media-box__title weui-cell__ft_in-access">附近驿站:{{name}}</view>
 </view>
 <view class="weui-panel">
-  <radio-group class="radio-group" bindchange="changeAddress">
+  <radio-group class="radio-group" bindchange="changeSite">
     <view wx:for="{{sites}}" wx:for-item='site' wx:key="index" class="weui-media-box weui-media-box_appmsg">
-      <view class="weui-media-box__hd_in-appmsg">
-        <radio value="{{index}}" />
-      </view>
-      <view  class="weui-media-box__bd">
+      <radio value="{{index}}" style="padding-right: 10rpx;" />
+      <view class="weui-media-box__bd">
         <view class="weui-media-box__title">{{site.name}}</view>
         <view class="weui-media-box__desc">{{site.detail}}</view>
       </view>

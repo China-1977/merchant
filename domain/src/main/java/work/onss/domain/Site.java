@@ -10,6 +10,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 import org.postgresql.geometric.PGpoint;
+import org.postgresql.jdbc.PgArray;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -97,6 +98,9 @@ public class Site implements Serializable, RowMapper<Site> {
             field.setAccessible(true);
             try {
                 Object object = rs.getObject(name);
+                if (object instanceof PgArray pgArray) {
+                    object = pgArray.getArray();
+                }
                 field.set(site, object);
             } catch (SQLException | IllegalAccessException ignored) {
             }

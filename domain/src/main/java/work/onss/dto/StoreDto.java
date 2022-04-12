@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.postgresql.geometric.PGpoint;
+import org.postgresql.jdbc.PgArray;
 import org.springframework.jdbc.core.RowMapper;
 import work.onss.domain.Vip;
 
@@ -41,6 +42,9 @@ public class StoreDto implements Serializable, RowMapper<StoreDto> {
             field.setAccessible(true);
             try {
                 Object object = rs.getObject(name);
+                if (object instanceof PgArray pgArray) {
+                    object = pgArray.getArray();
+                }
                 field.set(storeDto, object);
             } catch (SQLException | IllegalAccessException ignored) {
             }
