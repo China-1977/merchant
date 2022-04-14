@@ -6,10 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import work.onss.heroman.ui.screens.MainFrame
 import work.onss.heroman.ui.theme.HeroManTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    MainFrame()
                 }
             }
         }
@@ -31,13 +31,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+    MainFrame()
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HeroManTheme {
-        Greeting("Android")
+        MainFrame()
     }
 }
