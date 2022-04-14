@@ -16,7 +16,7 @@ fun MineScreen() {
     TopAppBar(
         title = {
             Text(
-                text = "我的",
+                text = "一九七七",
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentSize(Alignment.Center)

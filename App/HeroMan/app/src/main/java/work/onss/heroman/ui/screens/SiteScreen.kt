@@ -16,7 +16,7 @@ fun SiteScreen() {
     TopAppBar(
         title = {
             Text(
-                text = "驿站",
+                text = "一九七七",
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentSize(Alignment.Center)

@@ -16,7 +16,7 @@ fun ScoreScreen() {
     TopAppBar(
         title = {
             Text(
-                text = "订单",
+                text = "一九七七",
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentSize(Alignment.Center)
