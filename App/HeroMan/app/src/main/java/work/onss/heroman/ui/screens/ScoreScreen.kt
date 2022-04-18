@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ScoreScreen() {
-
     LazyColumn(){
         items(20){
             Card() {
@@ -28,10 +27,10 @@ fun ScoreScreen() {
                         text = "商户名称：一九七七",
                     )
                     Text(
-                        text = "取货地址：月球",
+                        text = "取货地址：马沙窝村",
                     )
                     Text(
-                        text = "配送地址：地球",
+                        text = "配送地址：星美城市广场二期",
                     )
                 }
             }
