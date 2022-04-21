@@ -23,11 +23,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    MainFrame()
-}
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {

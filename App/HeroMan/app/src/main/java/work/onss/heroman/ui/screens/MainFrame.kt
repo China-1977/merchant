@@ -54,7 +54,7 @@ fun MainFrame() {
             BottomNavigation(backgroundColor = MaterialTheme.colors.surface) {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
-                screens.forEachIndexed { index, screen ->
+                screens.forEachIndexed { _, screen ->
                     BottomNavigationItem(
                         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                         onClick = {
