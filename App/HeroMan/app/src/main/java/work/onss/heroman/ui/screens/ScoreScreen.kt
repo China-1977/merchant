@@ -1,6 +1,7 @@
 package work.onss.heroman.ui.screens
 
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,8 +16,10 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ScoreScreen() {
-    LazyColumn(){
-        items(20){
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(1.dp),
+    ) {
+        items(20) {
             Card() {
                 Column(
                     Modifier
