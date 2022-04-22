@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 data class Score(
     @PrimaryKey
     val id: Int,
-    val shortname: String,
+    val storeShortname: String,
     val storeAddressName: String,
     val addressName: String
 )

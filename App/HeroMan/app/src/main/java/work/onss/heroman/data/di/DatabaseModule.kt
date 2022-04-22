@@ -17,11 +17,9 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): Database {
-        return Room.databaseBuilder(
-            context,
-            Database::class.java,
-            "develop"
-        ).build()
+      return  Room.inMemoryDatabaseBuilder( context,
+            Database::class.java).build()
+
     }
 
 }

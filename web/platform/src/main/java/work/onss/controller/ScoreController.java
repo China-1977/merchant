@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import work.onss.domain.Score;
 import work.onss.domain.ScoreRepository;
 
+import java.util.List;
+
 /**
  * 订单管理
  *
@@ -30,8 +32,8 @@ public class ScoreController {
      * @return 资源分页
      */
     @GetMapping(value = {"scores"})
-    public Page<Score> scores(@QuerydslPredicate(bindings = ScoreRepository.class) Predicate predicate, @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
-        return scoreRepository.findAll(predicate, pageable);
+    public Iterable<Score> scores(@QuerydslPredicate(bindings = ScoreRepository.class) Predicate predicate, @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+        return scoreRepository.findAll(predicate);
     }
 
 }

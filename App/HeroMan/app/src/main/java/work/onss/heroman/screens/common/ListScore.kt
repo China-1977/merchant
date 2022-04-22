@@ -24,7 +24,7 @@ fun ScoreItem(item: Score) {
                 .padding(10.dp),
         ) {
             Text(
-                text = "商户名称：${item.shortname}",
+                text = "商户名称：${item.storeShortname}",
             )
             Text(
                 text = "取货地址：${item.storeAddressName}",

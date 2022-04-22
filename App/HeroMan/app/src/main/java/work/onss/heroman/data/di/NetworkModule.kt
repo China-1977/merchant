@@ -38,7 +38,7 @@ object NetworkModule {
         }
 
         return Retrofit.Builder()
-            .baseUrl("http://192.168.0.4:8030/platform/")
+            .baseUrl("http://192.168.0.4:9030/platform/")
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
