@@ -6,8 +6,7 @@ import retrofit2.http.Query
 
 
 interface SiteApi {
-    @Headers("Authorization: Client-ID ")
-    @GET("/photos")
+    @GET("sites")
     suspend fun getAll(
         @Query("page") page: Int,
         @Query("per_page") perPage: Int
