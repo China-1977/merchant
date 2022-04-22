@@ -10,7 +10,6 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
@@ -48,9 +47,4 @@ fun ScoreList(items: LazyPagingItems<Score>) {
     }
 }
 
-@Composable
-@Preview
-fun TaskScreenPreview() {
-    ScoreItem(item = Score("1", "一九七七", "马沙窝村", "星美城市广场二期"))
-}
 

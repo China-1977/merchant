@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface ScoreApi {
     @Headers("Authorization: Client-ID ")
     @GET("/photos")
-    suspend fun getAllScores(
+    suspend fun getAll(
         @Query("page") page: Int,
         @Query("per_page") perPage: Int
     ): List<Score>

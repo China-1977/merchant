@@ -13,8 +13,8 @@ import work.onss.heroman.screens.SiteScreen
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.Score.route) {
-        composable(Screen.Score.route) { ScoreScreen(navController) }
-        composable(Screen.Site.route) { SiteScreen(navController) }
-        composable(Screen.Mine.route) { MineScreen(navController) }
+        composable(Screen.Score.route) { ScoreScreen() }
+        composable(Screen.Site.route) { SiteScreen() }
+        composable(Screen.Mine.route) { MineScreen() }
     }
 }

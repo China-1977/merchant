@@ -20,6 +20,20 @@ class ScoreRepository @Inject constructor(
     }
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Score>): MediatorResult {
-        TODO("Not yet implemented")
+        return try {
+            val currentPage = when (loadType) {
+                LoadType.REFRESH -> 1
+                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+                LoadType.APPEND -> {
+                    val lastItemOrNull = state.lastItemOrNull()
+                    lastItemOrNull?.id
+                        ?: return MediatorResult.Success(endOfPaginationReached = true)
+                }
+            }
+            val data = scoreApi.getAll(currentPage, 10)
+            MediatorResult.Success(endOfPaginationReached = data.isEmpty())
+        } catch (e: Exception) {
+            return MediatorResult.Error(e)
+        }
     }
 }

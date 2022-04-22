@@ -11,6 +11,7 @@ import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import work.onss.heroman.data.repository.score.ScoreApi
+import work.onss.heroman.data.repository.site.SiteApi
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -45,8 +46,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideUnsplashApi(retrofit: Retrofit): ScoreApi {
+    fun provideScoreApi(retrofit: Retrofit): ScoreApi {
         return retrofit.create(ScoreApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSiteApi(retrofit: Retrofit): SiteApi {
+        return retrofit.create(SiteApi::class.java)
     }
 
 }
