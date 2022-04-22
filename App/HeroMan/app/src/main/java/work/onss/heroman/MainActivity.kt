@@ -3,30 +3,22 @@ package work.onss.heroman
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import work.onss.heroman.ui.screens.MainFrame
+import androidx.navigation.compose.rememberNavController
+import androidx.paging.ExperimentalPagingApi
+import work.onss.heroman.navigation.SetupNavGraph
+import dagger.hilt.android.AndroidEntryPoint
 import work.onss.heroman.ui.theme.HeroManTheme
 
+@ExperimentalPagingApi
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             HeroManTheme {
-                Surface(
-                ) {
-                    MainFrame()
-                }
+                val navController = rememberNavController()
+                SetupNavGraph(navController = navController)
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    HeroManTheme {
-        MainFrame()
     }
 }

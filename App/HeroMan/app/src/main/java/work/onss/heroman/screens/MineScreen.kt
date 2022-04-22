@@ -1,4 +1,4 @@
-package work.onss.heroman.ui.screens
+package work.onss.heroman.screens
 
 
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,11 +7,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.paging.ExperimentalPagingApi
 
 
+@ExperimentalPagingApi
 @Composable
-fun MineScreen() {
+fun MineScreen(navController: NavHostController, scoreViewModel: ScoreViewModel = hiltViewModel()) {
     Text(
         text = "我的",
         modifier = Modifier
@@ -19,10 +22,3 @@ fun MineScreen() {
             .wrapContentSize(Alignment.Center)
     )
 }
-
-@Preview
-@Composable
-fun MineScreenPreview() {
-    MineScreen()
-}
-
