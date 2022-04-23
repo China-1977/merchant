@@ -1,4 +1,4 @@
-package work.onss.heroman.screens
+package work.onss.heroman.screens.common
 
 
 import androidx.compose.runtime.Composable
@@ -6,6 +6,6 @@ import androidx.paging.ExperimentalPagingApi
 
 @ExperimentalPagingApi
 @Composable
-fun MineScreen() {
+fun Mine() {
 
 }

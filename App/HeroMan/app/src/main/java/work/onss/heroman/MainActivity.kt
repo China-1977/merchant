@@ -3,19 +3,11 @@ package work.onss.heroman
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.ExperimentalPagingApi
 import dagger.hilt.android.AndroidEntryPoint
-import work.onss.heroman.navigation.SetupNavGraph
-import work.onss.heroman.screens.common.BottomBar
-import work.onss.heroman.screens.common.TopBar
+import work.onss.heroman.screens.MainScreen
 import work.onss.heroman.ui.theme.HeroManTheme
-import work.onss.heroman.util.Constants
 
 @ExperimentalPagingApi
 @AndroidEntryPoint
@@ -25,16 +17,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             HeroManTheme {
                 val navController = rememberNavController()
-                Scaffold(
-                    topBar = { TopBar() },
-                    content = {
-                        SetupNavGraph(navController = navController)
-                    },
-                    bottomBar = {
-                        BottomBar(screens = Constants.screens, navController = navController)
-                    }
-                )
-
+                MainScreen(navController = navController)
             }
         }
     }
