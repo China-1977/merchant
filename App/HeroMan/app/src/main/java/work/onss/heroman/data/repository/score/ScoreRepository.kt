@@ -31,8 +31,8 @@ class ScoreRepository @Inject constructor(
                 }
             }
             val data = scoreApi.getAll(currentPage, 10)
-            database.ScoreDao().insert(data)
-            MediatorResult.Success(endOfPaginationReached = data.isEmpty())
+            database.ScoreDao().insert(data.content)
+            MediatorResult.Success(endOfPaginationReached = data.empty)
         } catch (e: Exception) {
             e.printStackTrace()
             return MediatorResult.Error(e)

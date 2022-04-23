@@ -8,7 +8,7 @@ interface ScoreApi {
     @GET("scores")
     suspend fun getAll(
         @Query("page") page: Int,
-        @Query("per_page") perPage: Int
-    ): List<Score>
+        @Query("size") size: Int
+    ): Page<Score>
 
 }
