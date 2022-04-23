@@ -20,19 +20,26 @@ class ScoreRepository @Inject constructor(
     }
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Score>): MediatorResult {
+        val scoreDao = database.ScoreDao();
         return try {
-            val currentPage = when (loadType) {
-                LoadType.REFRESH -> 1
-                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+            when (loadType) {
+                LoadType.REFRESH -> {
+                    scoreDao.deleteAll();
+                    val data = scoreApi.getAll(0, 10)
+                    scoreDao.insert(data.content)
+                }
+                LoadType.PREPEND -> {
+                    val firstItemOrNull = state.firstItemOrNull();
+                    firstItemOrNull?.id
+                        ?: return MediatorResult.Success(endOfPaginationReached = true)
+                }
                 LoadType.APPEND -> {
                     val lastItemOrNull = state.lastItemOrNull()
                     lastItemOrNull?.id
                         ?: return MediatorResult.Success(endOfPaginationReached = true)
                 }
             }
-            val data = scoreApi.getAll(currentPage, 10)
-            database.ScoreDao().insert(data.content)
-            MediatorResult.Success(endOfPaginationReached = data.empty)
+            MediatorResult.Success(endOfPaginationReached = true)
         } catch (e: Exception) {
             e.printStackTrace()
             return MediatorResult.Error(e)

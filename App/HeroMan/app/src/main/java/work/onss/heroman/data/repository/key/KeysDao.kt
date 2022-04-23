@@ -6,6 +6,6 @@ import androidx.room.Query
 @Dao
 interface KeysDao {
 
-    @Query("SELECT * FROM `Key` WHERE id =:id")
+    @Query("SELECT * FROM `key` WHERE id =:id")
     suspend fun getAll(id: String): Key
 }

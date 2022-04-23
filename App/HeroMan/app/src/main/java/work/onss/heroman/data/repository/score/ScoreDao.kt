@@ -15,4 +15,6 @@ interface ScoreDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(scores: List<Score>)
 
+    @Query("DELETE FROM score")
+    suspend fun deleteAll()
 }
