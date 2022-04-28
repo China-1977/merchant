@@ -13,33 +13,36 @@ class ScoreRepository @Inject constructor(
     fun getAll(): Flow<PagingData<Score>> {
         val pagingSourceFactory = { database.ScoreDao().getAll() }
         return Pager(
-            config = PagingConfig(pageSize = 10),
+            config = PagingConfig(pageSize = 10, prefetchDistance = 9),
             remoteMediator = this,
-            pagingSourceFactory = pagingSourceFactory
+            pagingSourceFactory = pagingSourceFactory,
         ).flow
     }
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Score>): MediatorResult {
         val scoreDao = database.ScoreDao();
-        return try {
+        try {
             when (loadType) {
                 LoadType.REFRESH -> {
                     scoreDao.deleteAll();
-                    val data = scoreApi.getAll(0, 10)
+                    val data = scoreApi.getAll(0, 0, 10);
                     scoreDao.insert(data.content)
+                    return MediatorResult.Success(endOfPaginationReached = true)
                 }
-                LoadType.PREPEND -> {
-                    val firstItemOrNull = state.firstItemOrNull();
-                    firstItemOrNull?.id
-                        ?: return MediatorResult.Success(endOfPaginationReached = true)
-                }
+                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
                     val lastItemOrNull = state.lastItemOrNull()
-                    lastItemOrNull?.id
-                        ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    return if (lastItemOrNull == null) {
+                        MediatorResult.Success(endOfPaginationReached = true)
+                    } else {
+                        val data = scoreApi.getAll(lastItemOrNull.id, 0, 10);
+                        if (!data.empty) {
+                            scoreDao.insert(data.content)
+                        }
+                        return MediatorResult.Success(endOfPaginationReached = data.empty)
+                    }
                 }
             }
-            MediatorResult.Success(endOfPaginationReached = true)
         } catch (e: Exception) {
             e.printStackTrace()
             return MediatorResult.Error(e)

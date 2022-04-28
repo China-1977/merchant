@@ -1,11 +1,13 @@
 package work.onss.heroman.screens.common
 
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,9 +16,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import work.onss.heroman.data.repository.score.Score
 import work.onss.heroman.data.repository.score.ScoreRepository
@@ -30,6 +33,7 @@ fun ScoreItem(item: Score) {
                 .fillMaxWidth()
                 .padding(10.dp)
         ) {
+            Text("id：${item.id}")
             Text("商户名称：${item.storeShortname}")
             Text("取货地址：${item.storeAddressName}")
             Text("配送地址：${item.addressName}")
@@ -40,17 +44,16 @@ fun ScoreItem(item: Score) {
 @ExperimentalPagingApi
 @Composable
 fun ScoreList(scoreViewModel: ScoreViewModel = hiltViewModel()) {
+    val refreshState = rememberSwipeRefreshState(isRefreshing = false)
     val items = scoreViewModel.scores.collectAsLazyPagingItems()
-    if (items.loadState.refresh == LoadState.Loading) {
-        DataLoading(message = "加载中。。。")
-    }
-    LazyColumn(verticalArrangement = Arrangement.spacedBy(1.dp)) {
-        items(items = items, key = { item -> item.id }) { item ->
-            item?.let { ScoreItem(item = it) }
+    val scrollState = rememberLazyListState()
+    SwipeRefresh(state = refreshState, onRefresh = { items.refresh() }) {
+        Log.d("Error", items.loadState.toString())
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(1.dp), state = scrollState) {
+            items(items = items, key = { item -> item.id }) { item ->
+                item?.let { ScoreItem(item = it) }
+            }
         }
-    }
-    if (items.loadState.append == LoadState.Loading) {
-        DataLoading(message = "加载中。。。")
     }
 }
 

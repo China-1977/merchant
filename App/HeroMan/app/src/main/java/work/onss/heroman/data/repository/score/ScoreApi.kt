@@ -7,6 +7,7 @@ import retrofit2.http.Query
 interface ScoreApi {
     @GET("scores")
     suspend fun getAll(
+        @Query("id") id: Int,
         @Query("page") page: Int,
         @Query("size") size: Int
     ): Page<Score>

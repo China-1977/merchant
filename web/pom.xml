@@ -18,6 +18,7 @@
         <module>shop</module>
         <module>store</module>
         <module>platform</module>
+        <module>hero</module>
     </modules>
 
     <dependencies>
