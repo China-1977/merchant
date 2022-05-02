@@ -1,7 +1,6 @@
 package work.onss.hero.data.repository.site
 
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
 
