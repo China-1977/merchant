@@ -12,7 +12,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.paging.ExperimentalPagingApi
-import work.onss.hero.navigation.Screen
+import work.onss.hero.util.Screen
 
 @ExperimentalPagingApi
 object Constants {

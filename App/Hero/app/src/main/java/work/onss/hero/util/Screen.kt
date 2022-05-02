@@ -1,4 +1,4 @@
-package work.onss.hero.navigation
+package work.onss.hero.util
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange

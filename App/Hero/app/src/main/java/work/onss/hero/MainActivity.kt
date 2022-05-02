@@ -7,7 +7,7 @@ import androidx.compose.material.Scaffold
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.ExperimentalPagingApi
 import dagger.hilt.android.AndroidEntryPoint
-import work.onss.hero.navigation.Screen
+import work.onss.hero.util.Screen
 import work.onss.hero.ui.theme.HeroTheme
 import work.onss.hero.util.Constants
 
