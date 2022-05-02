@@ -18,7 +18,7 @@ import androidx.paging.compose.items
 import dagger.hilt.android.lifecycle.HiltViewModel
 import work.onss.hero.data.repository.site.Site
 import work.onss.hero.data.repository.site.SiteRepository
-import work.onss.hero.screens.common.dataLoading
+import work.onss.hero.util.Constants
 import javax.inject.Inject
 
 @ExperimentalPagingApi
@@ -44,7 +44,7 @@ class SiteViewModel @Inject constructor(private val siteRepository: SiteReposito
     fun list() {
         val items = siteRepository.getAll().collectAsLazyPagingItems()
         if (items.loadState.refresh == LoadState.Loading) {
-            dataLoading(message = "加载中。。。")
+            Constants.dataLoading(message = "加载中。。。")
         }
         LazyColumn(verticalArrangement = Arrangement.spacedBy(1.dp)) {
             items(items = items, key = { item -> item.id }) { item ->
@@ -52,7 +52,7 @@ class SiteViewModel @Inject constructor(private val siteRepository: SiteReposito
             }
         }
         if (items.loadState.append == LoadState.Loading) {
-            dataLoading(message = "加载中。。。")
+            Constants.dataLoading(message = "加载中。。。")
         }
     }
 }
