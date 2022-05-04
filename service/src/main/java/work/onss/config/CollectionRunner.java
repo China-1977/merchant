@@ -41,7 +41,6 @@ public class CollectionRunner implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-
         ServletContext servletContext = webApplicationContext.getServletContext();
         assert servletContext != null;
         String contextPath = servletContext.getContextPath();
@@ -102,7 +101,7 @@ public class CollectionRunner implements CommandLineRunner {
                 applications.add(application);
             }
         }
-        applicationRepository.saveAll(applications);
+        applicationRepository.saveAllAndFlush(applications);
         QApplication qApplication = QApplication.application;
         List<Long> applicationsId = jpaQueryFactory.select(qApplication.id).from(qApplication).where(qApplication.updateTime.before(now), qApplication.contextPath.eq(contextPath)).fetch();
         if (!applicationsId.isEmpty()) {
