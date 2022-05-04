@@ -49,7 +49,6 @@ spring:
       schema-locations: classpath:schema-develop.sql
 system:
   secret: '123456a?'
-
 ---
 spring:
   config:
