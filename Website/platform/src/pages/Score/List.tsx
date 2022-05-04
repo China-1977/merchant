@@ -5,7 +5,7 @@ import React, {useRef, useState} from 'react';
 import ProTable, {ActionType} from '@ant-design/pro-table';
 import {request, useRequest} from "@@/plugin-request/request";
 import {DatePicker, Select} from "antd";
-import {scoreStatusEnum, scoreWayEnum} from "@/app";
+import {scoreStatusEnum, scoreWayEnum} from "@/global";
 
 const ScoreList = () => {
   const ref = useRef<ActionType>();
