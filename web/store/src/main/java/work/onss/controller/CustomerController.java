@@ -134,7 +134,7 @@ public class CustomerController {
                         qApplicationCustomer.applicationId.eq(qApplication.id),
                         qApplicationCustomer.storeId.eq(sid),
                         qApplicationCustomer.customerId.eq(id)
-                ).fetch();
+                ).where(qApplication.contextPath.in("/store")).fetch();
     }
 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import work.onss.domain.Application;
 import work.onss.domain.ApplicationRepository;
+import work.onss.domain.QApplication;
 
 
 /**
@@ -32,7 +33,8 @@ public class ApplicationController {
      */
     @GetMapping(value = {"applications"}, name = "资源列表")
     public Page<Application> applications(@QuerydslPredicate(bindings = ApplicationRepository.class) Predicate predicate, @PageableDefault Pageable pageable) {
-        return applicationRepository.findAll(predicate, pageable);
+        QApplication qApplication = QApplication.application;
+        return applicationRepository.findAll(qApplication.contextPath.in("/platform").and(predicate), pageable);
     }
 
 }

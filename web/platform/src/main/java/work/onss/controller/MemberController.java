@@ -90,7 +90,8 @@ public class MemberController {
                 .leftJoin(qApplicationMember).on(
                         qApplicationMember.applicationId.eq(qApplication.id),
                         qApplicationMember.memberId.eq(id)
-                ).fetch();
+                ).where(qApplication.contextPath.in("/platform"))
+                .fetch();
     }
 
     /**
