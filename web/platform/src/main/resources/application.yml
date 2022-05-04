@@ -1,3 +1,68 @@
+server:
+  port: 8030
+  servlet:
+    context-path: /platform
+    encoding:
+      force-response: true
+  shutdown: immediate
 spring:
   profiles:
     active: developer
+  main:
+    lazy-initialization: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+  data:
+    web:
+      pageable:
+        page-parameter: current
+        size-parameter: pageSize
+        one-indexed-parameters: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+  jpa:
+    show-sql: true
+  sql:
+    init:
+      mode: always
+system:
+  logo: 'picture/logo.png'
+  file-path: home/picture
+logging:
+  level:
+    root: INFO
+---
+spring:
+  config:
+    activate:
+      on-profile: developer
+  datasource:
+    url: 'jdbc:postgresql://49.232.165.242:5432/merchant'
+    username: 'postgres'
+    password: 'postgres'
+    hikari:
+      schema: develop
+  sql:
+    init:
+      schema-locations: classpath:schema-develop.sql
+system:
+  secret: '123456a?'
+
+---
+spring:
+  config:
+    activate:
+      on-profile: formal
+  datasource:
+    url: 'jdbc:postgresql://49.232.165.242:5432/merchant'
+    username: 'postgres'
+    password: 'postgres'
+    hikari:
+      schema: master
+  sql:
+    init:
+      schema-locations: classpath:schema-master.sql
+system:
+  secret: '123456a?'
