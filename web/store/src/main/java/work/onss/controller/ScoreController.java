@@ -106,7 +106,7 @@ public class ScoreController {
      */
     @PostMapping(value = {"scores/{id}-{outTradeNo}/refund"}, name = "确定退货")
     public Score refund(@PathVariable Long id, @PathVariable String outTradeNo, @RequestHeader(name = "sid") Long sid) throws WxPayException {
-        Score oldScore = scoreRepository.findByIdAndStoreId(id, sid).orElseThrow(() -> new ServiceException("FAIL", "订单不存在，请联系客服", MessageFormat.format("订单ID:{0},状态:{1}", id, Score.Status.REFUND_SCCESS)));
+        Score oldScore = scoreRepository.findByIdAndStoreId(id, sid).orElseThrow(() -> new ServiceException("FAIL", "订单不存在，请联系客服", MessageFormat.format("订单ID:{0},状态:{1}", id, Score.Status.REFUND_SUCCESS)));
         if (!oldScore.getOutTradeNo().equals(outTradeNo)) {
             throw new RuntimeException("请确认订单编号是否正确");
         }
@@ -114,8 +114,8 @@ public class ScoreController {
             WXRefundResult wxRefundResult = wxPay.refund(oldScore);
             WXRefundResult.Status status = wxRefundResult.getStatus();
             if (status.equals(WXRefundResult.Status.SUCCESS)) {
-                querydslService.setScore(id, oldScore.getStatus(), Score.Status.REFUND_SCCESS);
-                oldScore.setStatus(Score.Status.REFUND_SCCESS);
+                querydslService.setScore(id, oldScore.getStatus(), Score.Status.REFUND_SUCCESS);
+                oldScore.setStatus(Score.Status.REFUND_SUCCESS);
             } else if (status.equals(WXRefundResult.Status.PROCESSING)) {
                 querydslService.setScore(id, oldScore.getStatus(), Score.Status.REFUND_PROCESSING);
                 oldScore.setStatus(Score.Status.REFUND_PROCESSING);

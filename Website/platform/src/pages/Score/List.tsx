@@ -5,27 +5,10 @@ import React, {useRef, useState} from 'react';
 import ProTable, {ActionType} from '@ant-design/pro-table';
 import {request, useRequest} from "@@/plugin-request/request";
 import {DatePicker, Select} from "antd";
+import {scoreStatusEnum, scoreWayEnum} from "@/app";
 
 const ScoreList = () => {
   const ref = useRef<ActionType>();
-
-  const scoreStatusEnum = {
-    WAIT_PAY: {text: '待支付', status: 'Default'},
-    REFUND_PROCESSING: {text: '退款处理中', status: 'Default'},
-    WAIT_PACKAGE: {text: '待配货', status: 'Error'},
-    WAIT_SIGN: {text: '待签收', status: 'Warning'},
-    WAIT_DELIVER: {text: '待配送', status: 'Warning'},
-    REFUND_SCCESS: {text: '退款成功', status: 'Success'},
-    REFUND_CLOSED: {text: '退款关闭', status: 'Success'},
-    REFUND_ABNORMAL: {text: '退款异常', status: 'Success'},
-    FINISH: {text: '已完成', status: 'Success'},
-  };
-
-  const scoreDeliveryEnum = {
-    true: {text: '是', status: 'Processing'},
-    false: {text: '否', status: 'Default'},
-  };
-
 
   const [accountOptions, setAccountOptions] = useState<any>([]);
   const {run: accounts} = useRequest((params: any) => {
@@ -64,7 +47,6 @@ const ScoreList = () => {
       title: '用户手机号',
       dataIndex: 'accountId',
       align: 'center',
-      copyable: true,
       fieldProps: {mode: 'multiple'},
       renderFormItem: () => {
         return <Select
@@ -98,10 +80,10 @@ const ScoreList = () => {
     },
     {
       title: '是否配送',
-      dataIndex: 'delivery',
+      dataIndex: 'way',
       align: 'center',
       fieldProps: {mode: 'multiple'},
-      valueEnum: scoreDeliveryEnum,
+      valueEnum: scoreWayEnum,
       order: 96,
     },
     {
@@ -187,8 +169,9 @@ const ScoreList = () => {
         headerTitle="查询表格"
         actionRef={ref}
         columns={columns}
+        defaultSize={'small'}
         search={{defaultCollapsed: false,}}
-        columnsStateMap={{'accountId': {show: false}, 'storeId': {show: false}}}
+        columnsState={{value: {'accountId': {show: false},'storeId': {show: false}}}}
         request={(params => request("/platform/scores", {params}).then((res: any) => {
           return {data: res.content, total: res.totalElements}
         }))}

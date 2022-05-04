@@ -173,8 +173,8 @@ public class ScoreController {
         WXRefundResult wxRefundResult = wxPay.refund(score);
         WXRefundResult.Status status = wxRefundResult.getStatus();
         if (status.equals(WXRefundResult.Status.SUCCESS)) {
-            scoreService.refundScore(score, Score.Status.REFUND_SCCESS);
-            score.setStatus(Score.Status.REFUND_SCCESS);
+            scoreService.refundScore(score, Score.Status.REFUND_SUCCESS);
+            score.setStatus(Score.Status.REFUND_SUCCESS);
         } else if (status.equals(WXRefundResult.Status.PROCESSING)) {
             scoreService.refundScore(score, Score.Status.REFUND_PROCESSING);
             score.setStatus(Score.Status.REFUND_PROCESSING);
@@ -194,8 +194,8 @@ public class ScoreController {
         WXNotify.WXRefund.Status refundStatus = wxRefund.getRefundStatus();
         Score score = scoreRepository.findById(id).orElseThrow(() -> new ServiceException("FAIL", "订单丢失", wxRefund));
         if (refundStatus.equals(WXNotify.WXRefund.Status.SUCCESS) || score.getStatus() == Score.Status.REFUND_PROCESSING) {
-            querydslService.setScore(score.getId(), score.getStatus(), Score.Status.REFUND_SCCESS);
-            score.setStatus(Score.Status.REFUND_SCCESS);
+            querydslService.setScore(score.getId(), score.getStatus(), Score.Status.REFUND_SUCCESS);
+            score.setStatus(Score.Status.REFUND_SUCCESS);
         } else if (refundStatus.equals(WXNotify.WXRefund.Status.CLOSE)) {
             querydslService.setScore(score.getId(), score.getStatus(), Score.Status.REFUND_CLOSED);
             score.setStatus(Score.Status.REFUND_CLOSED);

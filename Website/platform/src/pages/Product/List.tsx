@@ -5,14 +5,10 @@ import React, {useRef, useState} from 'react';
 import ProTable, {ActionType} from '@ant-design/pro-table';
 import {request, useRequest} from "@@/plugin-request/request";
 import {DatePicker, Select} from 'antd';
+import {productStatusEnum} from "@/app";
 
 const ProductList = () => {
   const ref = useRef<ActionType>();
-
-  const productStatusEnum = {
-    true: {text: '是', status: 'Processing'},
-    false: {text: '否', status: 'Default'},
-  };
 
   const [options, setOptions] = useState<any>([]);
 
@@ -119,7 +115,7 @@ const ProductList = () => {
         actionRef={ref}
         columns={columns}
         search={{defaultCollapsed: false,}}
-        columnsStateMap={{'storeId': {show: false}}}
+        columnsState={{value: {'storeId': {show: false}}}}
         request={(params => request("/platform/products", {params}).then((res: any) => {
           return {data: res.content, total: res.totalElements}
         }))}

@@ -44,7 +44,7 @@
 			<view class="weui-cell__bd">已完成</view>
 			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
 		</navigator>
-		<navigator class="weui-cell" url='/pages/score/list?status=REFUND_SCCESS'>
+		<navigator class="weui-cell" url='/pages/score/list?status=REFUND_SUCCESS'>
 			<view class="weui-cell__hd">
 				<image mode="aspectFit" src="/images/finish.png" style="height:1em;width:1em;margin-right: 16px;" />
 			</view>
@@ -66,7 +66,7 @@
 			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
 		</navigator>
 
-		<navigator class="weui-cell" url='/pages/score/list?status=WAIT_PAY,WAIT_PACKAGE,WAIT_DELIVER,WAIT_SIGN,FINISH,REFUND_SCCESS,REFUND_CLOSED,REFUND_PROCESSING,REFUND_ABNORMAL'>
+		<navigator class="weui-cell" url='/pages/score/list?status=WAIT_PAY,WAIT_PACKAGE,WAIT_DELIVER,WAIT_SIGN,FINISH,REFUND_SUCCESS,REFUND_CLOSED,REFUND_PROCESSING,REFUND_ABNORMAL'>
 			<view class="weui-cell__hd">
 				<image mode="aspectFit" src="/images/finish.png" style="height:1em;width:1em;margin-right: 16px;" />
 			</view>

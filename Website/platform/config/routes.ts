@@ -57,6 +57,12 @@ export default [
     value: '/setting',
     routes: [
       {
+        path: '/setting/sites',
+        name: '驿站列表',
+        icon: 'dashboard',
+        component: '@/pages/Site/List',
+      },
+      {
         path: '/setting/members',
         name: '用户列表',
         icon: 'dashboard',

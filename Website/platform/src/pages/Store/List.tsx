@@ -5,13 +5,10 @@ import React, {useRef} from 'react';
 import ProTable, {ActionType} from '@ant-design/pro-table';
 import {request} from "@@/plugin-request/request";
 import {DatePicker} from "antd";
+import {storeStatusEnum} from "@/app";
 
 const StoreList = () => {
   const ref = useRef<ActionType>();
-  const storeStatusEnum = {
-    true: {text: '是', status: 'Processing'},
-    false: {text: '否', status: 'Default'},
-  };
 
   const columns: any = [
     {

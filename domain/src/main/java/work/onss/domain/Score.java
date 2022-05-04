@@ -152,7 +152,7 @@ public class Score implements Serializable {
         WAIT_PACKAGE("待配货"),
         WAIT_DELIVER("待配送"),
         WAIT_SIGN("待签收"),
-        REFUND_SCCESS("退款成功"),
+        REFUND_SUCCESS("退款成功"),
         REFUND_CLOSED("退款关闭"),
         REFUND_PROCESSING("退款处理中"),
         REFUND_ABNORMAL("退款异常"),
