@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,9 +54,12 @@ public class BindingController {
      * @return 商户分页
      */
     @GetMapping(value = {"bindings/getStores"})
-    public List<Store> stores(@RequestHeader(name = "cid") Long cid, @PageableDefault Pageable pageable) {
+    public Page<Store> stores(@RequestHeader(name = "cid") Long cid, @PageableDefault Pageable pageable) {
         QStore qStore = QStore.store;
-        return querydslService.get(cid, pageable.getPageSize(), pageable.getOffset(), qStore, qStore.id, qStore.shortname, qStore.trademark, qStore.status);
+        QStoreCustomer qStoreCustomer = QStoreCustomer.storeCustomer;
+        long count = storeCustomerRepository.count(qStoreCustomer.customerId.eq(cid));
+        List<Store> stores = querydslService.get(cid, pageable.getPageSize(), pageable.getOffset(), qStore, qStore.id, qStore.shortname, qStore.trademark, qStore.status);
+        return new PageImpl<>(stores,pageable,count);
     }
 
     /**

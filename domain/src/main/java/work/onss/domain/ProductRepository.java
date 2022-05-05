@@ -1,5 +1,7 @@
 package work.onss.domain;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
@@ -26,6 +28,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Queryds
     List<Product> findByIdInAndStoreId(Collection<Long> ids, Long sid);
 
     List<Product> findByStoreId(Long sid);
+    Page<Product> findByStoreId(Long sid, Pageable pageable);
 
     Optional<Product> findByIdAndStoreId(Long id, Long sid);
 

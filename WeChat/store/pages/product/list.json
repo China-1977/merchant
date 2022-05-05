@@ -1,5 +1,6 @@
 {
-  "usingComponents": {
-    "mp-slideview": "/components/slideview/slideview"
+    "enablePullDownRefresh":true,
+    "usingComponents": {
+      "mp-slideview": "/components/slideview/slideview"
+    }
   }
-}

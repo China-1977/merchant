@@ -15,12 +15,6 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: Asia/Shanghai
-  data:
-    web:
-      pageable:
-        page-parameter: current
-        size-parameter: pageSize
-        one-indexed-parameters: true
   datasource:
     driver-class-name: org.postgresql.Driver
     type: com.zaxxer.hikari.HikariDataSource

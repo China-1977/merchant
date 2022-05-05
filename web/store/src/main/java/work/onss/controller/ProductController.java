@@ -4,6 +4,9 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -54,8 +57,8 @@ public class ProductController {
      * @return 商品列表
      */
     @GetMapping(value = {"products"}, name = "商品列表")
-    public List<Product> products(@RequestHeader(name = "sid") Long sid) {
-        return productRepository.findByStoreId(sid);
+    public Page<Product> products(@RequestHeader(name = "sid") Long sid, @PageableDefault Pageable pageable) {
+        return productRepository.findByStoreId(sid, pageable);
     }
 
 
