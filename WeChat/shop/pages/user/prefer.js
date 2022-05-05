@@ -1,4 +1,4 @@
-import { domain, wxLogin, wxRequest, size } from '../../utils/util.js';
+import { domain, wxLogin, wxRequest, size, number } from '../../utils/util.js';
 Page({
 
   data: {
@@ -8,7 +8,7 @@ Page({
   onLoad: function (options) {
     wxLogin().then(({ authorization, info }) => {
       wxRequest({
-        url: `${domain}/shop/prefers?page=0&size=${size}`,
+        url: `${domain}/shop/prefers?page=${number}&size=${size}`,
         header: { authorization, aid: info.aid },
       }).then(({ content, last, number }) => {
         this.setData({
@@ -25,15 +25,29 @@ Page({
   onPullDownRefresh: function () {
     wxLogin().then(({ authorization, info }) => {
       wxRequest({
-        url: `${domain}/shop/prefers?page=0&size=${size}`,
+        url: `${domain}/shop/prefers?page=${number}&size=${size}`,
         header: { authorization, aid: info.aid },
-      }).then(({ content, last, number }) => {
+      }).then(({ content, number }) => {
         this.setData({
-          prefers: content, last, number
+          prefers: content, number
         });
         wx.stopPullDownRefresh()
       })
     })
+  },
+
+  onReachBottom: function () {
+    wxLogin().then(({ authorization, info }) => {
+      wxRequest({
+        url: `${domain}/shop/prefers?page=${this.data.number + 1}&size=${size}`,
+        header: { authorization, aid: info.aid },
+      }).then(({ content, number }) => {
+        if (content.length > 0)
+          this.setData({
+            scores: [...this.data.scores, ...content], number
+          });
+      });
+    });
   },
 
   addCount: function (e) {
