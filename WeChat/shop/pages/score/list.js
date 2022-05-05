@@ -1,13 +1,13 @@
-import { domain, wxLogin, wxRequest, scoreStatus, size, scoreWay } from '../../utils/util.js';
+import { domain, wxLogin, wxRequest, scoreStatus, size, scoreWay, number } from '../../utils/util.js';
 Page({
   data: {
-    scoreWay,domain, scores: [], scoreStatus, number: 0, year: new Date().getFullYear()
+    scoreWay, domain, scores: [], scoreStatus, number, year: new Date().getFullYear()
   },
 
   onLoad: function () {
     wxLogin().then(({ authorization, info }) => {
       wxRequest({
-        url: `${domain}/shop/scores?page=0&size=${size}&year=${this.data.year}`,
+        url: `${domain}/shop/scores?page=${number}&size=${size}&year=${this.data.year}`,
         header: { authorization, aid: info.aid },
       }).then((scores) => {
         this.setData({
@@ -20,11 +20,11 @@ Page({
   onPullDownRefresh: function () {
     wxLogin().then(({ authorization, info }) => {
       wxRequest({
-        url: `${domain}/shop/scores?page=0&size=${size}&year=${this.data.year}`,
+        url: `${domain}/shop/scores?page=${number}&size=${size}&year=${this.data.year}`,
         header: { authorization, aid: info.aid },
       }).then((scores) => {
         this.setData({
-          scores, number: 0
+          scores, number
         });
         wx.stopPullDownRefresh()
       });
@@ -33,13 +33,14 @@ Page({
 
   onReachBottom: function () {
     wxLogin().then(({ authorization, info }) => {
+      const nextNumber = this.data.number + 1;
       wxRequest({
-        url: `${domain}/shop/scores?page=${this.data.number + 1}&size=${size}&year=${this.data.year}`,
+        url: `${domain}/shop/scores?page=${nextNumber}&size=${size}&year=${this.data.year}`,
         header: { authorization, aid: info.aid },
       }).then((content) => {
         if (content.length > 0)
           this.setData({
-            scores: [...this.data.scores, ...content], number: this.data.number + 1
+            scores: [...this.data.scores, ...content], number: nextNumber
           });
       });
     });
@@ -49,11 +50,11 @@ Page({
     const year = e.detail.value;
     wxLogin().then(({ authorization, info }) => {
       wxRequest({
-        url: `${domain}/shop/scores?page=0&size=${size}&year=${year}`,
+        url: `${domain}/shop/scores?page=${number}&size=${size}&year=${year}`,
         header: { authorization, aid: info.aid },
       }).then((scores) => {
         this.setData({
-          scores, number: 0, year
+          scores, number, year
         });
       });
     });

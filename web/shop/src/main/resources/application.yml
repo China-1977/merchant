@@ -1,3 +1,81 @@
+server:
+  port: 8010
+  servlet:
+    context-path: /shop
+    encoding:
+      force-response: true
+  shutdown: immediate
 spring:
   profiles:
     active: developer
+  application:
+    name: shop
+  main:
+    lazy-initialization: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+  data:
+    web:
+      pageable:
+        page-parameter: current
+        size-parameter: pageSize
+        one-indexed-parameters: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+system:
+  logo: 'picture/logo.png'
+  file-path: home/picture
+wechat:
+  mp:
+    appId: wxb7dc92a3570afc3e
+    mchId: 1573972751
+    mchKey: 78a64d9313cc7e93fcddc3de90139d39
+    apiv3Key: 78a64d9313cc7e93fcddc3de90139d39
+    keyPath: classpath:1573972751.p12
+    certSerialNo: 155B5E15AF0B644879126A37A8E2C878A1A048FC
+    privateKeyPath: classpath:1573972751_key.pem
+    privateCertPath: classpath:1573972751_cert.pem
+    useSandboxEnv: false
+    appConfigs:
+      - subAppid: wx095ba1a3f9396476
+        secret: 7692f5acd04248d1ac84c55799c4bc9b
+      - subAppid: wx950ae546eec14733
+        secret: 5a606f06b6ebe2715bd598db26c2d55a
+      - subAppid: wxe78290c2a5313de3
+        secret: c0874a7afed78170601218d82d9dc1b3
+---
+spring:
+  config:
+    activate:
+      on-profile: developer
+  datasource:
+    url: 'jdbc:postgresql://49.232.165.242:5432/merchant'
+    username: 'postgres'
+    password: 'postgres'
+    hikari:
+      schema: develop
+system:
+  secret: '123456a?'
+wechat:
+  mp:
+    notifyUrl: http://u18141i766.iask.in/shop/scores/notify
+    refundNotifyUrl: http://u18141i766.iask.in/shop/scores/%s/refund/notify
+---
+spring:
+  config:
+    activate:
+      on-profile: formal
+  datasource:
+    url: 'jdbc:postgresql://49.232.165.242:5432/merchant'
+    username: 'postgres'
+    password: 'postgres'
+    hikari:
+      schema: master
+wechat:
+  mp:
+    notifyUrl: https://1977.work/shop/scores/notify
+    refundNotifyUrl: https://1977.work/shop/scores/%s/refund/notify
+system:
+  secret: '123456a?'

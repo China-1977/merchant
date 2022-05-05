@@ -22,11 +22,6 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
   jpa:
     show-sql: true
-logging:
-  file:
-    path: log/store
-  level:
-    root: info
 wechat:
   mp:
     appId: 公众号开发者ID
@@ -41,7 +36,7 @@ wechat:
     refundNotifyUrl: 退款回调地址
     useSandboxEnv: false
     appConfigs:
-      - subAppId: 小程序APPID(特约商户端)
+      - subAppid: 小程序APPID(特约商户端)
         secret: 小程序密钥
 
 system:

@@ -1,6 +1,7 @@
 const app = getApp();
 const { windowWidth } = app.globalData;
 const size = 15;
+const number= 1;
 const domain = 'https://1977.work';
 // const domain = 'http://127.0.0.1:5010';
 
@@ -246,5 +247,6 @@ module.exports = {
   wxRequest,
   scoreStatus,
   size,
+  number,
   scoreWay
 }
