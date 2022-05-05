@@ -385,7 +385,7 @@ comment on column develop.vip.balance is '余额';
 comment on column develop.vip.discount is '折扣';
 comment on column develop.vip.insert_time is '创建时间';
 comment on column develop.vip.update_time is '更新时间';
-create unique index if not exists vip_store_id_account_id_uindex on develop.vip (store_id, account_id);
+create unique index if not exists ui_vip_store_id_account_id on develop.vip (store_id, account_id);
 
 create table if not exists develop.site
 (
