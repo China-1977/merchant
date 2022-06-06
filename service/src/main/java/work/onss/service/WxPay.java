@@ -14,8 +14,6 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.stereotype.Service;
 import work.onss.config.WechatMpProperties;
-import work.onss.domain.Account;
-import work.onss.domain.Product;
 import work.onss.domain.Score;
 import work.onss.domain.Store;
 import work.onss.vo.*;
@@ -25,7 +23,6 @@ import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Map;
 
 @Log4j2
@@ -41,17 +38,17 @@ public class WxPay {
     }
 
 
-    public Score jsapi(ConfirmScore confirmScore, Store store, List<Product> products, Map<Long, Integer> cart, Account account) throws WxPayException {
+    public Map<String, String> jsapi(Store store) throws WxPayException {
 
         LocalDateTime localDateTime = LocalDateTime.now();
         String nowStr = localDateTime.format(DateTimeFormatter.ofPattern("yyMMddHHmmssSSS"));
         int i = RandomUtils.nextInt(0, 9999);
         String code = String.format("%s%04d", nowStr, i);
-        Score score = new Score(confirmScore, account.getId(), cart, products, store, wechatMpProperties.getAppId(), wechatMpProperties.getMchId(), code);
+//        Score score = new Score(confirmScore, account.getId(), cart, products, store, wechatMpProperties.getAppId(), wechatMpProperties.getMchId(), code);
 
 
         WXScore.Amount amount = WXScore.Amount.builder().currency("CNY").total(1).build();
-        WXScore.Payer payer = WXScore.Payer.builder().subOpenid(account.getSubOpenid()).build();
+//        WXScore.Payer payer = WXScore.Payer.builder().subOpenid(account.getSubOpenid()).build();
 //        WXScore.SettleInfo settleInfo = WXScore.SettleInfo.builder().profitSharing(true).build();
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -60,10 +57,10 @@ public class WxPay {
         WXScore wxScore = WXScore.builder()
 //                .settleInfo(settleInfo)
                 .amount(amount)
-                .payer(payer)
+//                .payer(payer)
                 .spAppid(wechatMpProperties.getAppId())
                 .spMchid(wechatMpProperties.getMchId())
-                .subAppid(confirmScore.getSubAppId())
+//                .subAppid(store.getSubAppId())
                 .subMchid(store.getSubMchId())
                 .timeExpire(timeExpire)
                 .notifyUrl(wechatMpProperties.getNotifyUrl())
@@ -77,8 +74,7 @@ public class WxPay {
         String transactionStr = wxPayService.postV3("https://api.mch.weixin.qq.com/v3/pay/partner/transactions/jsapi", wxScoreStr);
         Map<String, String> prepayMap = gson.fromJson(transactionStr, new TypeToken<Map<String, String>>() {
         }.getType());
-        score.setPrepayId(prepayMap.get("prepay_id"));
-        return score;
+        return prepayMap;
     }
 
     public WxPayMpOrderResult continuePay(Score score) {
@@ -137,9 +133,9 @@ public class WxPay {
         }
     }
 
-    public Refund queryOrderV3(String outRefundNo, String subMchId) throws WxPayException {
+    public Merchant.Refund queryOrderV3(String outRefundNo, String subMchId) throws WxPayException {
         String url = String.format("https://api.mch.weixin.qq.com/v3/refund/domestic/refunds/%s?sub_mchid=%s", outRefundNo, subMchId);
         String result = wxPayService.getV3(url);
-        return new Gson().fromJson(result, Refund.class);
+        return new Gson().fromJson(result, Merchant.Refund.class);
     }
 }

@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import work.onss.domain.QStore;
 import work.onss.domain.QVip;
-import work.onss.domain.Vip;
-import work.onss.domain.VipRepository;
-import work.onss.dto.VipDto;
 import work.onss.exception.ServiceException;
 
 import java.math.BigDecimal;

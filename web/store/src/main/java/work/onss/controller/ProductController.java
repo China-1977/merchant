@@ -14,15 +14,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import work.onss.config.SystemConfig;
-import work.onss.domain.Product;
-import work.onss.domain.ProductRepository;
 import work.onss.domain.QProduct;
 import work.onss.service.QuerydslService;
 import work.onss.utils.Utils;
 
 import java.nio.file.Path;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 
 /**

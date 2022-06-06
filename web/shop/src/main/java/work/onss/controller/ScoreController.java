@@ -20,7 +20,6 @@ import work.onss.exception.ServiceException;
 import work.onss.service.QuerydslService;
 import work.onss.service.ScoreService;
 import work.onss.service.WxPay;
-import work.onss.vo.ConfirmScore;
 import work.onss.vo.WXNotify;
 import work.onss.vo.WXRefundResult;
 import work.onss.vo.Work;

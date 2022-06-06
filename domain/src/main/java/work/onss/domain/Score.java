@@ -14,8 +14,6 @@ import org.postgresql.geometric.PGpoint;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import work.onss.config.PointType;
-import work.onss.vo.ConfirmScore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -95,42 +93,6 @@ public class Score implements Serializable {
     private String outTradeNo;
     private String prepayId;
     private String transactionId;
-
-    public Score(ConfirmScore confirmScore, Long accountId, Map<Long, Integer> cart, List<work.onss.domain.Product> products, Store store, String spAppid, String spMchid, String outTradeNo) {
-        this.way = confirmScore.getWay();
-        this.products = new ArrayList<>(products.size());
-        for (work.onss.domain.Product product : products) {
-            Integer num = cart.get(product.getId());
-            BigDecimal total = product.getAverage().multiply(BigDecimal.valueOf(num));
-            this.products.add(new Product(product.getId(), product.getName(), product.getPictures()[0], num, product.getAverage(), product.getAverageUnit(), total));
-            this.total = this.total.add(total);
-        }
-        this.accountId = accountId;
-        Address address = confirmScore.getAddress();
-        this.username = confirmScore.getUsername();
-        this.phone = confirmScore.getPhone();
-        this.addressName = address.getName();
-        this.addressDetail = address.getDetail();
-        this.location = address.getLocation();
-        this.postcode = address.getPostcode();
-        this.addressCode = address.getCode();
-        this.addressValue = address.getValue();
-        this.storeId = confirmScore.getStoreId();
-        this.storeShortname = store.getShortname();
-        this.storeUsername = store.getUsername();
-        this.storePhone = store.getPhone();
-        this.storeAddressName = store.getAddressName();
-        this.storeAddressDetail = store.getAddressDetail();
-        this.storeLocation = store.getLocation();
-        this.storePostcode = store.getPostcode();
-        this.storeAddressCode = store.getAddressCode();
-        this.storeAddressValue = store.getAddressValue();
-        this.subMchid = store.getSubMchId();
-        this.spAppid = spAppid;
-        this.spMchid = spMchid;
-        this.subAppid = confirmScore.getSubAppId();
-        this.outTradeNo = outTradeNo;
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -9,8 +9,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-import work.onss.domain.*;
-import work.onss.dto.ProductDetailDto;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package work.onss.config;
+package work.onss.domain;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

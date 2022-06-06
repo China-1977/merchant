@@ -15,7 +15,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.jdbc.core.RowMapper;
-import work.onss.config.PointType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

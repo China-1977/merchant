@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import work.onss.domain.QStore;
 import work.onss.domain.QVip;
-import work.onss.domain.Vip;
-import work.onss.domain.VipRepository;
 import work.onss.dto.StoreDto;
 import work.onss.service.QuerydslService;
 

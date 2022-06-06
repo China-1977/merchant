@@ -184,34 +184,7 @@ public class QuerydslService {
                 .fetch();
     }
 
-    /**
-     * 商品编辑
-     *
-     * @param id      商品ID
-     * @param sid     商户ID
-     * @param product 商品
-     * @return 更新数量
-     */
-    @Transactional
-    public Long setProduct(Long id, Long sid, Product product) {
-        QProduct qProduct = QProduct.product;
-        return jpaQueryFactory.update(qProduct)
-                .set(qProduct.name, product.getName())
-                .set(qProduct.label, product.getLabel())
-                .set(qProduct.price, product.getPrice())
-                .set(qProduct.priceUnit, product.getPriceUnit())
-                .set(qProduct.average, product.getAverage())
-                .set(qProduct.averageUnit, product.getAverageUnit())
-                .set(qProduct.stock, product.getStock())
-                .set(qProduct.min, product.getMin())
-                .set(qProduct.max, product.getMax())
-                .set(qProduct.vid, product.getVid())
-                .set(qProduct.status, product.getStatus())
-                .set(qProduct.description, product.getDescription())
-                .set(qProduct.pictures, product.getPictures())
-                .where(qProduct.id.eq(id), qProduct.storeId.eq(sid))
-                .execute();
-    }
+
 
     /**
      * @param id    商户ID
